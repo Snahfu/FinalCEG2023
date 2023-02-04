@@ -19,7 +19,7 @@
             padding: 0 10px;
         }
 
-        .dashboard{
+        .dashboard {
             width: 60%;
         }
     </style>

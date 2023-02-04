@@ -29,9 +29,8 @@ Route::get("/penjualDowngrade", function () {
     return view("Penjual.downgrade");
 })->name("penjualDowngrade");
 
-Route::get("/tinkerer", function () {
-    return view("CraftnDismantle.tinkerer");
-})->name("tinkerer");
+Route::get("/tinkerer", "TinkererController@tinkerer")->name("tinkerer");
+Route::post("/tinkerer", "TinkererController@changeAlat")->name("change.alat");
 
 Route::get("/listDowngrade", function () {
     return view("listDowngrade");
