@@ -27,7 +27,8 @@ class DashboardController extends Controller
 
                 break;
             case "downgrade":
-                $data = DB::table("downgrade")->groupBy("nama_downgrade")->get();
+                $data = DB::table("downgrade")->groupBy("nama_downgrade")->orderBy("iddowngrade", "asc")->get();
+                // dd($data);
                 break;
         }
         // dd($alat);
