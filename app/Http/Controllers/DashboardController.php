@@ -27,8 +27,13 @@ class DashboardController extends Controller
 
                 break;
             case "downgrade":
-                $data = DB::table("downgrade")->groupBy("nama_downgrade")->orderBy("iddowngrade", "asc")->get();
-                // dd($data);
+                $data = [
+                    "Motor", "Pump", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
+                    "Kaca", "Katup", "Kolom", "Kondensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
+                    "Stirrer", "Bowl", "Beater", "Handle", "Tray", "Heater", "Blower", "Roller", "Chamber",
+                    "Exhaust System", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet"
+                ];
+                
                 break;
         }
         // dd($alat);

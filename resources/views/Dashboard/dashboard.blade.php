@@ -124,7 +124,7 @@
                                         ${num}
                                     </td>
                                     <td>
-                                        ${value.nama_downgrade}
+                                        ${value}
                                     </td>
                                     <td>
 

@@ -27,4 +27,19 @@ class TinkererController extends Controller
 
         return response()->json(["data" => $downgrade]);
     }
+
+    public function changeDowngrade(Request $request)
+    {
+        $downgrade_1 = $request->get("downgrade_1");
+        $downgrade_2 = $request->get("downgrade_2");
+        $downgrade_3 = $request->get("downgrade_3");
+
+        $guess = $downgrade_1 . ";" . $downgrade_2 . ";" . $downgrade_3;
+        // echo $guess;
+        $alat = DB::table("alat")->where("downgrade", "=", $guess)->get();
+
+        $count = $alat->count();
+
+        return response()->json(["data" => $alat, "count" => $count]);
+    }
 }

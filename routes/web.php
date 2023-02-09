@@ -30,7 +30,8 @@ Route::get("/penjualDowngrade", function () {
 })->name("penjualDowngrade");
 
 Route::get("/tinkerer", "TinkererController@tinkerer")->name("tinkerer");
-Route::post("/tinkerer", "TinkererController@changeAlat")->name("change.alat");
+Route::post("/tinkerer/alat", "TinkererController@changeAlat")->name("change.alat");
+Route::post("/tinkerer/downgrade", "TinkererController@changeDowngrade")->name("change.downgrade");
 
 Route::get("/listDowngrade", function () {
     return view("listDowngrade");

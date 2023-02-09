@@ -42,7 +42,7 @@
                                 @endforeach
                             </select>
                         </td>
-                        <td rowspan="3" style="text-align: center;">
+                        <td id="hasil_alat" rowspan="3" style="text-align: center;">
                             None
                         </td>
                     </tr>
@@ -110,6 +110,37 @@
     <script>
         // Crafting
         $(".selectDowngrade").change(function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('change.downgrade') }}",
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'downgrade_1': $("#downgrade_1").val(),
+                    'downgrade_2': $("#downgrade_2").val(),
+                    'downgrade_3': $("#downgrade_3").val(),
+                },
+                success: function(data) {
+                    let result = data.data
+                    let count = data.count
+
+                    // console.log(result)
+                    $("#hasil_alat").html("None")
+
+                    if (count > 1) {
+                        $("#hasil_alat").html(`
+                            <select name="select_hasil_alat" id="select_hasil_alat">
+                                <option>${result[0].nama_alat}</option>
+                                <option>${result[1].nama_alat}</option>
+                            </select>
+                        `)
+                    } else if (count > 0) {
+                        $("#hasil_alat").html(result[0].nama_alat)
+                    }
+                },
+                error: function() {
+                    alert("error")
+                }
+            })
         })
 
         // Dismantle
