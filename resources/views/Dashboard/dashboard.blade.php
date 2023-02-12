@@ -29,7 +29,7 @@
     <main class="d-block mx-auto">
         <div class="container dashboard d-flex flex-column">
             <div class="koin">
-                0
+                {{ $team[0]->koin }} Koin
             </div>
             <div class="d-flex">
                 <button id="btnAlat" class="btn btn-primary btnItems">Alat</button>
@@ -55,7 +55,7 @@
                         <tr>
                             <td style="text-align: center;">{{ $a->idalat }}</td>
                             <td>{{ $a->nama_alat }}</td>
-                            <td></td>
+                            <td style="text-align: center;">0</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -101,8 +101,8 @@
                                     <td>
                                         ${value.nama_alat}
                                     </td>
-                                    <td>
-
+                                    <td style="text-align: center;">
+                                        0
                                     </td>
                                 </tr>`)
                                 break;
@@ -115,8 +115,8 @@
                                     <td>
                                         ${value.nama_bahan}
                                     </td>
-                                    <td>
-
+                                    <td style="text-align: center;">
+                                        0
                                     </td>
                                 </tr>`)
                                 break;
@@ -129,8 +129,8 @@
                                     <td>
                                         ${value}
                                     </td>
-                                    <td>
-
+                                    <td style="text-align: center;">
+                                        0
                                     </td>
                                 </tr>`)
                                 break;

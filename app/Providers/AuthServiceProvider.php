@@ -11,7 +11,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * The policy mappings for the application.
      *
-     * @var array<class-string, class-string>
+     * @var array
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->role == "Player") {
                 return Response::allow();
             } else {
-                return Response::deny("hanya untuk Player");
+                return Response::deny("Hanya untuk Player");
             }
         });
 
@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->role == "AdminDowngrade") {
                 return Response::allow();
             } else {
-                return Response::deny("hanya untuk Penjual Downgrade");
+                return Response::deny("Hanya untuk Penjual Downgrade");
             }
         });
 
@@ -47,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->role == "AdminBahan") {
                 return Response::allow();
             } else {
-                return Response::deny("hanya untuk Penjual Bahan");
+                return Response::deny("Hanya untuk Penjual Bahan");
             }
         });
 
@@ -55,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->role == "Tinkerer") {
                 return Response::allow();
             } else {
-                return Response::deny("hanya untuk Tinkerer");
+                return Response::deny("Hanya untuk Tinkerer");
             }
         });
     }

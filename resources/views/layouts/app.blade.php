@@ -32,7 +32,7 @@
             height: 100px;
         }
     </style>
-    @yield('css');
+    @yield('css')
 </head>
 
 <body>

@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Auth;
 
 class DashboardController extends Controller
 {
     public function dashboard()
     {
+        $user = Auth::user();
+        $team = DB::table("teams")->where("idteams", "=", $user->teams_idteams)->get();
+
+        $inventory = DB::table("inventory")->where("idteams", "=", $user->teams_idteams)->get();
+
         $alat = DB::table("alat as a")->join("jenisAlat as j", "a.jenis_idjenis", "=", "j.idjenis")->get();
-        // dd($alat);
-        return view("Dashboard.dashboard", compact("alat"));
+
+        return view("Dashboard.dashboard", compact("alat", "team"));
     }
 
     public function getItems(Request $request)
@@ -34,10 +40,10 @@ class DashboardController extends Controller
                     "Stirrer", "Bowl", "Beater", "Handle", "Tray", "Heater", "Blower", "Roller", "Chamber",
                     "Exhaust System", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet"
                 ];
-                
+
                 break;
         }
-        // dd($alat);
+
         return response()->json(["data" => $data]);
     }
 }

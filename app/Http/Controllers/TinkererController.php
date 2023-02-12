@@ -9,14 +9,18 @@ class TinkererController extends Controller
 {
     public function tinkerer()
     {
+        $teams = DB::table("teams")->get();
+
         $alat = DB::table("alat")->get();
+
         $downgrade = [
             "Motor", "Pump", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
             "Kaca", "Katup", "Kolom", "Kondensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
             "Stirrer", "Bowl", "Beater", "Handle", "Tray", "Heater", "Blower", "Roller", "Chamber",
             "Exhaust System", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet"
         ];
-        return view("CraftnDismantle.tinkerer", compact("alat", "downgrade"));
+
+        return view("CraftnDismantle.tinkerer", compact("alat", "downgrade", "teams"));
     }
 
     public function changeAlat(Request $request)
@@ -35,11 +39,23 @@ class TinkererController extends Controller
         $downgrade_3 = $request->get("downgrade_3");
 
         $guess = ($downgrade_3 == "-") ? $downgrade_1 . ";" . $downgrade_2 : $downgrade_1 . ";" . $downgrade_2 . ";" . $downgrade_3;
-        
+
         $alat = DB::table("alat")->where("downgrade", "=", $guess)->get();
 
         $count = $alat->count();
 
         return response()->json(["data" => $alat, "count" => $count]);
+    }
+
+    public function crafting(Request $request)
+    {
+        $alat = $request->get("alat");
+        return response()->json(["status" => "success"]);
+    }
+
+    public function dismantle(Request $request)
+    {
+        $alat = $request->get("alat");
+        return response()->json(["status" => "success"]);
     }
 }
