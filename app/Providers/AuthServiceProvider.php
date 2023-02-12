@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\Response;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,36 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define("isPlayer", function ($user) {
+            if ($user->role == "Player") {
+                return Response::allow();
+            } else {
+                return Response::deny("hanya untuk Player");
+            }
+        });
+
+        Gate::define("isAdminDowngrade", function ($user) {
+            if ($user->role == "AdminDowngrade") {
+                return Response::allow();
+            } else {
+                return Response::deny("hanya untuk Penjual Downgrade");
+            }
+        });
+
+        Gate::define("isAdminBahan", function ($user) {
+            if ($user->role == "AdminBahan") {
+                return Response::allow();
+            } else {
+                return Response::deny("hanya untuk Penjual Bahan");
+            }
+        });
+
+        Gate::define("isTinkerer", function ($user) {
+            if ($user->role == "Tinkerer") {
+                return Response::allow();
+            } else {
+                return Response::deny("hanya untuk Tinkerer");
+            }
+        });
     }
 }

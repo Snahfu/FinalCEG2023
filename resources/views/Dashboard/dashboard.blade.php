@@ -28,6 +28,9 @@
 @section('content')
     <main class="d-block mx-auto">
         <div class="container dashboard d-flex flex-column">
+            <div class="koin">
+                0
+            </div>
             <div class="d-flex">
                 <button id="btnAlat" class="btn btn-primary btnItems">Alat</button>
                 <button id="btnBahan" class="btn btn-primary btnItems">Bahan</button>

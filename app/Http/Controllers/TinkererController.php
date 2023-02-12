@@ -34,8 +34,8 @@ class TinkererController extends Controller
         $downgrade_2 = $request->get("downgrade_2");
         $downgrade_3 = $request->get("downgrade_3");
 
-        $guess = $downgrade_1 . ";" . $downgrade_2 . ";" . $downgrade_3;
-        // echo $guess;
+        $guess = ($downgrade_3 == "-") ? $downgrade_1 . ";" . $downgrade_2 : $downgrade_1 . ";" . $downgrade_2 . ";" . $downgrade_3;
+        
         $alat = DB::table("alat")->where("downgrade", "=", $guess)->get();
 
         $count = $alat->count();

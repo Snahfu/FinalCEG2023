@@ -26,6 +26,7 @@
     <main>
         <div class="container tinkerer">
             {{-- Crafting --}}
+            <h2>Crafting</h2>
             <table>
                 <thead>
                     <tr>
@@ -37,18 +38,20 @@
                     <tr>
                         <td>
                             <select name="downgrade_1" id="downgrade_1" class="selectDowngrade">
+                                <option value="-">-</option>
                                 @foreach ($downgrade as $dg)
                                     <option value="{{ $dg }}">{{ $dg }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td id="hasil_alat" rowspan="3" style="text-align: center;">
-                            None
+                            <h3>None</h3>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <select name="downgrade_2" id="downgrade_2" class="selectDowngrade">
+                                <option value="-">-</option>
                                 @foreach ($downgrade as $dg)
                                     <option value="{{ $dg }}">{{ $dg }}</option>
                                 @endforeach
@@ -58,6 +61,7 @@
                     <tr>
                         <td>
                             <select name="downgrade_3" id="downgrade_3" class="selectDowngrade">
+                                <option value="-">-</option>
                                 @foreach ($downgrade as $dg)
                                     <option value="{{ $dg }}">{{ $dg }}</option>
                                 @endforeach
@@ -71,6 +75,7 @@
             <div class="spacing"></div>
 
             {{-- Dismantling --}}
+            <h2>Dismantle</h2>
             <table>
                 <thead>
                     <tr>
@@ -88,7 +93,7 @@
                             </select>
                         </td>
                         <td id="dismantle_1">
-                            Mesin
+                            Motor
                         </td>
                     </tr>
                     <tr>
@@ -124,7 +129,7 @@
                     let count = data.count
 
                     // console.log(result)
-                    $("#hasil_alat").html("None")
+                    $("#hasil_alat").html("<h3>None</h3>")
 
                     if (count > 1) {
                         $("#hasil_alat").html(`
@@ -134,7 +139,7 @@
                             </select>
                         `)
                     } else if (count > 0) {
-                        $("#hasil_alat").html(result[0].nama_alat)
+                        $("#hasil_alat").html(`<h3>${result[0].nama_alat}</h3>`)
                     }
                 },
                 error: function() {
@@ -156,6 +161,10 @@
                     let result = data.data
                     for (let x = 1; x <= 3; x++) {
                         $(`#dismantle_${x}`).html(result[x - 1])
+                    }
+
+                    if (result.length == 2) {
+                        $(`#dismantle_3`).html("-")
                     }
                 },
                 error: function() {

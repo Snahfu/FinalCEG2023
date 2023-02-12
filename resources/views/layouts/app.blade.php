@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Final CEG 2023') }}</title>
 
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -50,12 +51,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('listDowngrade') }}" class="nav-link">List Downgrade</a>
-                        </li>
+                        @can('isPlayer')
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('listDowngrade') }}" class="nav-link">List Downgrade</a>
+                            </li>
+                        @elsecan("isAdminDowngrade")
+                            <li class="nav-item">
+                                <a href="{{ route('penjualDowngrade') }}" class="nav-link">Dashboard</a>
+                            </li>
+                        @elsecan("isAdminBahan")
+                            <li class="nav-item">
+                                <a href="{{ route('penjualBahan') }}" class="nav-link">Dashboard</a>
+                            </li>
+                        @elsecan("isTinkerer")
+                            <li class="nav-item">
+                                <a href="{{ route('tinkerer') }}" class="nav-link">Dashboard</a>
+                            </li>
+                        @endcan
+
                         <li class="nav-item">
                             <a href="" class="nav-link"></a>
                         </li>
