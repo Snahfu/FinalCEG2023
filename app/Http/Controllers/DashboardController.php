@@ -14,11 +14,11 @@ class DashboardController extends Controller
         $user = Auth::user();
         $team = DB::table("teams")->where("idteams", "=", $user->teams_idteams)->get();
 
-        $inventory = DB::table("inventory")->where("idteams", "=", $user->teams_idteams)->get();
+        $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
 
         $alat = DB::table("alat as a")->join("jenisAlat as j", "a.jenis_idjenis", "=", "j.idjenis")->get();
 
-        return view("Dashboard.dashboard", compact("alat", "team"));
+        return view("Dashboard.dashboard", compact("alat", "team", "inventory"));
     }
 
     public function getItems(Request $request)

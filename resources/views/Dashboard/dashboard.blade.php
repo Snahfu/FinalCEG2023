@@ -52,10 +52,19 @@
                 </thead>
                 <tbody id="items">
                     @foreach ($alat as $a)
+                        <?php $helper = false; ?>
                         <tr>
                             <td style="text-align: center;">{{ $a->idalat }}</td>
                             <td>{{ $a->nama_alat }}</td>
-                            <td style="text-align: center;">0</td>
+                            @foreach ($inventory as $i)
+                                @if ($a->nama_alat == $i->nama_barang)
+                                    <td style="text-align: center;">{{ $i->stock_barang }}</td>
+                                    <?php $helper = true; ?>
+                                @endif
+                            @endforeach
+                            @if ($helper == false)
+                                <td style="text-align: center;">0</td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
