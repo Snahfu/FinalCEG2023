@@ -102,18 +102,39 @@
                     $.each(result, function(key, value) {
                         switch (itemType) {
                             case "alat":
-                                $("#items").append(`
-                                <tr>
-                                    <td style="text-align: center;">
-                                        ${num}
-                                    </td>
-                                    <td>
-                                        ${value.nama_alat}
-                                    </td>
-                                    <td style="text-align: center;">
-                                        0
-                                    </td>
-                                </tr>`)
+                                let helperAlat = false
+                                $.each(data.inventory, function(key1, value1) {
+                                    if (value.nama_alat == value1.nama_barang) {
+                                        $("#items").append(`
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                ${num}
+                                            </td>
+                                            <td>
+                                                ${value.nama_alat}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                ${value1.stock_barang}
+                                            </td>
+                                        </tr>`)
+                                        helperAlat = true
+                                        return false
+                                    }
+                                })
+                                if (helperAlat == false) {
+                                    $("#items").append(`
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                ${num}
+                                            </td>
+                                            <td>
+                                                ${value.nama_alat}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                0
+                                            </td>
+                                        </tr>`)
+                                }
                                 break;
                             case "bahan":
                                 $("#items").append(`
@@ -130,18 +151,39 @@
                                 </tr>`)
                                 break;
                             case "downgrade":
-                                $("#items").append(`
-                                <tr>
-                                    <td style="text-align: center;">
-                                        ${num}
-                                    </td>
-                                    <td>
-                                        ${value}
-                                    </td>
-                                    <td style="text-align: center;">
-                                        0
-                                    </td>
-                                </tr>`)
+                                let helperDowngrade = false
+                                $.each(data.inventory, function(key1, value1) {
+                                    if (value == value1.nama_barang) {
+                                        $("#items").append(`
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                ${num}
+                                            </td>
+                                            <td>
+                                                ${value}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                ${value1.stock_barang}
+                                            </td>
+                                        </tr>`)
+                                        helperDowngrade = true
+                                        return false
+                                    }
+                                })
+                                if (helperDowngrade == false) {
+                                    $("#items").append(`
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                ${num}
+                                            </td>
+                                            <td>
+                                                ${value}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                0
+                                            </td>
+                                        </tr>`)
+                                }
                                 break;
                         }
                         num++

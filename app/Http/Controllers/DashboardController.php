@@ -23,7 +23,12 @@ class DashboardController extends Controller
 
     public function getItems(Request $request)
     {
+        $user = Auth::user();
+
         $itemType = $request->get("tipe");
+
+        $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
+
         $data = "";
         switch ($itemType) {
             case "alat":
@@ -31,19 +36,17 @@ class DashboardController extends Controller
                 break;
             case "bahan":
                 $data = DB::table("bahan")->get();
-
                 break;
             case "downgrade":
                 $data = [
-                    "Motor", "Pump", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
+                    "Motor", "Pipe", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
                     "Kaca", "Katup", "Kolom", "Kondensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
-                    "Stirrer", "Bowl", "Beater", "Handle", "Tray", "Heater", "Blower", "Roller", "Chamber",
+                    "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Heater", "Blower", "Roller", "Chamber",
                     "Exhaust System", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet"
                 ];
-
                 break;
         }
 
-        return response()->json(["data" => $data]);
+        return response()->json(["data" => $data, "inventory" => $inventory]);
     }
 }

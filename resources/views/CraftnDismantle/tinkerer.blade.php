@@ -281,9 +281,15 @@
                     url: "{{ route('tinkerer.crafting') }}",
                     data: {
                         '_token': '<?php echo csrf_token(); ?>',
+                        'team': $("#teamCraft").val(),
                         'alat': $("#hasil_alat").html(),
+                        'downgrade_1': $("#downgrade_1").val(),
+                        'downgrade_2': $("#downgrade_2").val(),
+                        'downgrade_3': $("#downgrade_3").val()
                     },
                     success: function(data) {
+                        let msg = data.msg
+                        alert(msg)
                     },
                     error: function() {
                         alert("error")
@@ -295,10 +301,12 @@
                     url: "{{ route('tinkerer.dismantle') }}",
                     data: {
                         '_token': '<?php echo csrf_token(); ?>',
+                        'team': $("#teamDismantle").val(),
                         'alat': $("#alat option:selected").html(),
                     },
                     success: function(data) {
-
+                        let msg = data.msg
+                        alert(msg)
                     },
                     error: function() {
                         alert("error")

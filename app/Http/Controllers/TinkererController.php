@@ -14,9 +14,9 @@ class TinkererController extends Controller
         $alat = DB::table("alat")->get();
 
         $downgrade = [
-            "Motor", "Pump", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
+            "Motor", "Pipe", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
             "Kaca", "Katup", "Kolom", "Kondensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
-            "Stirrer", "Bowl", "Beater", "Handle", "Tray", "Heater", "Blower", "Roller", "Chamber",
+            "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Heater", "Blower", "Roller", "Chamber",
             "Exhaust System", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet"
         ];
 
@@ -49,13 +49,100 @@ class TinkererController extends Controller
 
     public function crafting(Request $request)
     {
+        $idteam = $request->get("team");
         $alat = $request->get("alat");
-        return response()->json(["status" => "success"]);
+
+        $team = DB::table("teams")->select("namaTeam")->where("idteams", "=", $idteam)->get();
+
+        $downgrade_1 = $request->get("downgrade_1");
+        $downgrade_2 = $request->get("downgrade_2");
+        $downgrade_3 = ($request->get("downgrade_3") == "-") ? "" : $request->get("downgrade_3");
+
+        $downgrade = [$downgrade_1, $downgrade_2, $downgrade_3];
+
+        $msg = "";
+        // kalau semua downgrade ada
+        if (
+            DB::table("inventory")->where("nama_barang", "=", $downgrade_1)->where("teams_idteams", "=", $idteam)->exists() &&
+            DB::table("inventory")->where("nama_barang", "=", $downgrade_2)->where("teams_idteams", "=", $idteam)->exists() &&
+            DB::table("inventory")->where("nama_barang", "=", $downgrade_3)->where("teams_idteams", "=", $idteam)->exists()
+        ) {
+            // kurangi stock downgrade
+            foreach ($downgrade as $dg) {
+                DB::table("inventory")
+                    ->where("nama_barang", "=", $dg)
+                    ->where("teams_idteams", "=", $idteam)
+                    ->update(["stock_barang" => DB::raw("`stock_barang`- 1")]);
+            }
+
+            if (DB::table("inventory")->where("nama_barang", "=", $alat)->where("teams_idteams", "=", $idteam)->exists()) {
+                DB::table("inventory")
+                    ->where("nama_barang", "=", $alat)
+                    ->where("teams_idteams", "=", $idteam)
+                    ->update(["stock_barang" => DB::raw("`stock_barang` + 1")]);
+            } else {
+                DB::table("inventory")->insert([
+                    "nama_barang" => $alat,
+                    "stock_barang" => 1,
+                    "teams_idteams" => $idteam
+                ]);
+            }
+
+            // delete semua barang yang stock-nya 0
+            DB::table("inventory")->where("stock_barang", "=", 0)->delete();
+
+            $msg = "Alat (" . $alat . ") berhasil di Crafting untuk team " . $team[0]->namaTeam;
+        } else {
+            $msg = "Downgrade tidak mencukupi untuk Crafting";
+        }
+
+        return response()->json(["status" => "success", "msg" => $msg]);
     }
 
     public function dismantle(Request $request)
     {
+        $idteam = $request->get("team");
         $alat = $request->get("alat");
-        return response()->json(["status" => "success"]);
+
+        $team = DB::table("teams")->select("namaTeam")->where("idteams", "=", $idteam)->get();
+
+        $msg = "";
+        // kalau alatnya ada
+        if (DB::table("inventory")->where("nama_barang", "=", $alat)->where("teams_idteams", "=", $idteam)->exists()) {
+            // kurangi stock alat
+            DB::table("inventory")
+                ->where("nama_barang", "=", $alat)
+                ->where("teams_idteams", "=", $idteam)
+                ->update(["stock_barang" => DB::raw("`stock_barang`- 1")]);
+
+            $downgrade = DB::table("alat")->select("downgrade")->where("nama_alat", "=", $alat)->get();
+            $downgrade = explode(";", $downgrade[0]->downgrade);
+
+            // tambah downgrade ke inventory
+            foreach ($downgrade as $dg) {
+                if (DB::table("inventory")->where("nama_barang", "=", $dg)->where("teams_idteams", "=", $idteam)->exists()) {
+                    DB::table("inventory")
+                        ->where("nama_barang", "=", $dg)
+                        ->where("teams_idteams", "=", $idteam)
+                        ->update(["stock_barang" => DB::raw("`stock_barang` + 1")]);
+                } else {
+                    DB::table("inventory")->insert([
+                        "nama_barang" => $dg,
+                        "stock_barang" => 1,
+                        "teams_idteams" => $idteam
+                    ]);
+                }
+            }
+
+            // delete semua barang yang stock-nya 0
+            DB::table("inventory")->where("stock_barang", "=", 0)->delete();
+
+            $msg = "Alat (" . $alat . ") berhasil di Dismantle menjadi Downgrade (" . $downgrade[0] . ", " . $downgrade[1] . ", " . $downgrade[2] . ") untuk team " . $team[0]->namaTeam;
+        } else {
+            $msg = "Alat tidak mencukupi untuk Dismantle";
+        }
+
+
+        return response()->json(["status" => "success", "msg" => $msg]);
     }
 }

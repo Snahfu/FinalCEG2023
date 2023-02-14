@@ -18,27 +18,35 @@ Route::get('/', function () {
     return view('auth.login');
 })->name("welcome");
 
+// Player
 Route::get("/dashboard", "DashboardController@dashboard")->name("dashboard");
 Route::post("/dashboard/inventory", "DashboardController@getItems")->name("inventory");
 
+Route::get("/listDowngrade", "ListDowngradeController@listDowngrade")->name("listDowngrade");
+Route::post("/listDowngrade/alat", "ListDowngradeController@changeAlat")->name("listDowngrade.alat");
+
+Route::get("/hint", function(){
+    return view("hint");
+})->name("hint");
+
+// Admin Bahan
 Route::get("/penjualBahan", function () {
     return view("Penjual.bahan");
 })->name("penjualBahan");
 
+// Admin Downgrade
 Route::get("/penjualDowngrade", function () {
     return view("Penjual.downgrade");
 })->name("penjualDowngrade");
 
+// Admin Tinkerer
 Route::get("/tinkerer", "TinkererController@tinkerer")->name("tinkerer");
 Route::post("/tinkerer/alat", "TinkererController@changeAlat")->name("change.alat");
 Route::post("/tinkerer/downgrade", "TinkererController@changeDowngrade")->name("change.downgrade");
 Route::post("/tinkerer/crafting", "TinkererController@crafting")->name("tinkerer.crafting");
 Route::post("/tinkerer/dismantle", "TinkererController@dismantle")->name("tinkerer.dismantle");
 
-Route::get("/listDowngrade", function () {
-    return view("listDowngrade");
-})->name("listDowngrade");
-
+// Middleware
 Auth::routes();
 
 Route::get('/home', "HomeController@index")->name('home');

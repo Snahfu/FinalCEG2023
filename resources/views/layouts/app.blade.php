@@ -58,6 +58,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('listDowngrade') }}" class="nav-link">List Downgrade</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('hint') }}" class="nav-link">Hint</a>
+                            </li>
                         @elsecan("isAdminDowngrade")
                             <li class="nav-item">
                                 <a href="{{ route('penjualDowngrade') }}" class="nav-link">Dashboard</a>
