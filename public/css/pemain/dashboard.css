@@ -59,6 +59,7 @@ td {
     height: 35px;
     text-align: center;
     color: #000;
+    opacity: 50%;
 }
 .tab a{
     color: #000;
@@ -68,6 +69,7 @@ td {
 .tab:hover{
     background-color: rgba(33,37,41,0.2);
     border-radius: 5px 5px 0 0;
+    opacity: 75%;
     transition: all 0.2s ease-in-out;
 }
 
@@ -75,10 +77,12 @@ td {
     background-color: #212529;
     border-radius: 5px 5px 0 0;
     color: #fff;
+    opacity: 100%;
 }
 .activeTab:hover{
     background-color: rgba(33,37,41,1) !important;
     border-radius: 5px 5px 0 0;
+    opacity: 100%;
 }
 
 .activeTab a{
