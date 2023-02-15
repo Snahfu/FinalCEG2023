@@ -49,35 +49,41 @@ td {
 }
 
 .btnItems{
-    padding:10px 10px 3px 0px;
+    /* padding:10px 10px 3px 0px; */
     text-decoration: none;
     color: #000;
     font-size: 16px;
 }
-
-.btnItems:hover{
-    color: #0d6efd;
+.tab{
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    color: #000;
+}
+.tab a{
+    color: #000;
+    text-decoration: none;
 }
 
-.btnItems::after{
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #0d6efd;
-    transition: width .3s;
+.tab:hover{
+    background-color: rgba(33,37,41,0.2);
+    border-radius: 5px 5px 0 0;
+    transition: all 0.2s ease-in-out;
 }
 
-.btnItems:hover::after{
-    width: 100%;
-
+.activeTab{
+    background-color: #212529;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+}
+.activeTab:hover{
+    background-color: rgba(33,37,41,1) !important;
+    border-radius: 5px 5px 0 0;
 }
 
-
-.active::after{
-    width: 100%;
-    background: #000;
-    z-index: -1;
+.activeTab a{
+    
+    color: #fff;
 }
 /* End of Card */
 
@@ -130,5 +136,15 @@ td {
         display: flex;
         
         justify-content: center;
+    }
+    .tab{
+        width: 75px;
+        height: 25px;
+        text-align: center;
+        color: #000;
+        font-size: 10px;
+    }
+    table{
+        font-size: 12px;
     }
 }

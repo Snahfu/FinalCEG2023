@@ -52,17 +52,32 @@
             <div class="card" id="card-inv">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-2 d-flex flex-column">
+                        {{-- <div class="col-2 d-flex flex-column">
                             <a id="btnAlat" class="btnItems w-100 active" href="#">Alat</a>
                             <a id="btnBahan" class="btnItems w-100" href="#">Bahan</a>
                             <a id="btnDowngrade" class="btnItems w-100" href="#">Downgrade</a>
 
-                            {{-- <button id="btnAlat" class="btn btn-primary btnItems">Alat</button>
+                            <button id="btnAlat" class="btn btn-primary btnItems">Alat</button>
                             <button id="btnBahan" class="btn btn-primary btnItems">Bahan</button>
-                            <button id="btnDowngrade" class="btn btn-primary btnItems">Downgrade</button> --}}
-                        </div>
+                            <button id="btnDowngrade" class="btn btn-primary btnItems">Downgrade</button>
+                        </div> --}}
 
-                        <div class="col-10">
+                        <div class="col">
+                            <div class="d-flex flex-row " style="margin-bottom: 0px">
+                                <div class="btnItems tab d-flex align-items-center justify-content-center activeTab" id="btnAlat">
+                                    <a href="#">Alat</a>
+                                </div>
+                                <div class="btnItems tab d-flex align-items-center  justify-content-center" id="btnBahan">
+                                    <a href="#">Bahan</a>
+                                </div>
+                                <div class="btnItems tab d-flex align-items-center  justify-content-center" id="btnDowngrade" >
+                                    <a href="#">Downgrade</a>
+                                </div>
+                                
+                            </div>
+                                
+                            
+                            
                             <div class="table-responsive">
                                 <table class="table ">
                                     <thead class="table-dark">
@@ -114,24 +129,24 @@
             switch (this.id) {
                 case "btnAlat":
                     itemType = "alat"
-                    $("#btnBahan").removeClass("active")
-                    $("#btnDowngrade").removeClass("active")
-
-                    $("#btnAlat").addClass("active")
+                    $("#btnBahan").removeClass("activeTab")
+                    $("#btnDowngrade").removeClass("activeTab")
+  
+                    $("#btnAlat").addClass("activeTab")
                     break;
                 case "btnBahan":
                     itemType = "bahan"
-                    $("#btnAlat").removeClass("active")
-                    $("#btnDowngrade").removeClass("active")
-                    
-                    $("#btnBahan").addClass("active")
+                    $("#btnAlat").removeClass("activeTab")
+                    $("#btnDowngrade").removeClass("activeTab")
+
+                    $("#btnBahan").addClass("activeTab")
                     break;
                 case "btnDowngrade":
                     itemType = "downgrade"
-                    $("#btnAlat").removeClass("active")
-                    $("#btnBahan").removeClass("active")
-                    
-                    $("#btnDowngrade").addClass("active")
+                    $("#btnAlat").removeClass("activeTab")
+                    $("#btnBahan").removeClass("activeTab")
+
+                    $("#btnDowngrade").addClass("activeTab")
                     break;
             }
 
