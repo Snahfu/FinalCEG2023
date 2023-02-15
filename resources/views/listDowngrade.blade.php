@@ -19,12 +19,16 @@
         td {
             padding: 10px 15px;
         }
+
+        .listDowngrade{
+            width: 60%;
+        }
     </style>
 @endsection
 
 @section('content')
-    <main>
-        <div class="container listDowngrade">
+    <main class="d-block mx-4">
+        <div class="container listDowngrade d-flex flex-column">
             <table>
                 <thead>
                     <tr>

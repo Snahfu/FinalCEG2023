@@ -1,0 +1,125 @@
+table,
+thead,
+tbody,
+tr,
+th,
+td {
+    /* border: 1px solid black; */
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    padding: 0 10px;
+}
+
+.dashboard {
+    width: 60%;
+}
+/* header */
+#header{   
+    border-radius: 20px;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+    border: 0 solid;
+}
+.img-container{
+    clip-path: circle(50% at 50% 50%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    height: auto;
+    display: flex;
+    align-content: center;
+}
+.userPic{
+    max-width: 100px;
+    height: auto;
+}
+#icon-coin{
+    font-size: 24px;
+}
+/* End of header */
+
+/* Card */
+#card-inv{
+    border: 0px solid black;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btnItems{
+    padding:10px 10px 3px 0px;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+.btnItems:hover{
+    color: #000;
+}
+
+.btnItems::after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #000;
+    transition: width .3s;
+}
+
+.btnItems:hover::after{
+    width: 100%;
+}
+/* End of Card */
+
+
+@media screen and (max-width:1000px){
+    .userPic{
+        width: 75px;
+        height: auto;
+    }
+    .img-container{
+        clip-path: circle(50% at 50% 50%);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        width: 75px;
+        height: 75px;
+        display: flex;
+        align-content: center;
+    }
+    .dashboard{
+        width: 95%;
+    }
+}
+
+@media screen and (max-width:768px){
+    .userPic{
+        width: 75px;
+        height: auto;
+    }
+    .dashboard{
+        width: 95%;
+    }
+}
+
+@media screen and (max-width:575px){
+    .userPic{
+        width: 75px;
+    }
+    .dashboard{
+        width: 90%;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+    }
+    #header .col-12{
+        text-align: center;
+        
+    }
+
+    #koinResponsive{
+        display: flex;
+        
+        justify-content: center;
+    }
+}
