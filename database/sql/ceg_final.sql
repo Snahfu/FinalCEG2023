@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2023 at 01:35 PM
+-- Generation Time: Feb 15, 2023 at 09:30 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alat` (
   `idalat` int(11) NOT NULL,
-  `nama` varchar(45) NOT NULL,
+  `nama_alat` varchar(45) NOT NULL,
+  `downgrade` varchar(45) NOT NULL,
   `jenis_idjenis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -38,30 +39,32 @@ CREATE TABLE `alat` (
 -- Dumping data for table `alat`
 --
 
-INSERT INTO `alat` (`idalat`, `nama`, `jenis_idjenis`) VALUES
-(1, 'Washer', 1),
-(2, 'Mesin Pemarut', 2),
-(3, 'Hydraulic Press Machine', 3),
-(4, 'H Frame', 3),
-(5, 'Bingkai Roll', 3),
-(6, 'Bench Frame', 3),
-(7, 'Corong Pemisah', 4),
-(8, 'Kolom Distilasi', 4),
-(9, 'Kolom Ekstraktor', 4),
-(10, 'Rotary Drum Filter', 4),
-(11, 'Ribbon Blenders', 5),
-(12, 'High Shear Mixers', 5),
-(13, 'High Viscosity Batch Mixing', 5),
-(14, 'Double Planetary Mixing', 5),
-(15, 'Tray Dryer', 6),
-(16, 'Spray Dryer', 6),
-(17, 'Rotary Dryer', 6),
-(18, 'Flash Dryer', 6),
-(19, 'Fluidized Bed Dryer', 6),
-(20, 'Pump', 7),
-(21, 'Belt Conveyor', 7),
-(22, 'Screw Conveyor', 7),
-(23, 'Bucket Elevator', 7);
+INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
+(1, 'Washer', 'Motor;Pipe;Tub', 1),
+(2, 'Grater', 'Motor;Pisau;Gear', 2),
+(3, 'Coconut Hydraulic Press Machine', 'Pump;Gauge;Piston', 3),
+(4, 'H Frame', 'Cylinder;Pipe;Frame', 3),
+(5, 'Bingkai Roll', 'Frame;Gear;Screw', 3),
+(6, 'Bench Frame', 'Frame;Gear;Screw', 3),
+(7, 'Corong Pemisah', 'Kaca;Katup', 4),
+(8, 'Kolom Distilasi', 'Kolom;Kondensor;Reboiler', 4),
+(9, 'Kolom Ekstraktor', 'Klem;Kondensor;Selang', 4),
+(10, 'Rotary Drum Filter', 'Pump;Pisau;Drum', 4),
+(11, 'Ribbon Blenders', 'Motor;Gear;Cover', 5),
+(12, 'High Shear Mixers', 'Motor;Nozzle;Gear', 5),
+(13, 'High Viscosity Batch Mixing', 'Screw;Stirrer;Motor', 5),
+(14, 'Double Planetary Mixing', 'Bowl;Beater;Handle', 5),
+(15, 'Tray Dryer', 'Tray Plate;Heater;Roller', 6),
+(16, 'Tray Dryer', 'Tray Plate;Blower;Roller', 6),
+(24, 'Spray Dryer', 'Chamber;Heater;Pump', 6),
+(25, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
+(26, 'Rotary Dryer', 'Blower;Gear;Exhaust System', 6),
+(27, 'Flash Dryer', 'Pisau;Cyllinder;Tower Cap', 6),
+(28, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
+(29, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
+(30, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
+(31, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
+(32, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7);
 
 -- --------------------------------------------------------
 
@@ -71,94 +74,8 @@ INSERT INTO `alat` (`idalat`, `nama`, `jenis_idjenis`) VALUES
 
 CREATE TABLE `bahan` (
   `idbahan` int(11) NOT NULL,
-  `nama` varchar(45) NOT NULL
+  `nama_bahan` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `downgrade`
---
-
-CREATE TABLE `downgrade` (
-  `iddowngrade` int(11) NOT NULL,
-  `nama` varchar(45) NOT NULL,
-  `alat_idalat` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `downgrade`
---
-
-INSERT INTO `downgrade` (`iddowngrade`, `nama`, `alat_idalat`) VALUES
-(1, 'Mesin', 1),
-(2, 'Water Pump', 1),
-(3, 'Tub', 1),
-(4, 'Motor', 2),
-(5, 'Pisau', 2),
-(6, 'Gear', 2),
-(7, 'Pump', 3),
-(8, 'Gauge', 3),
-(9, 'Piston', 3),
-(10, 'Cylinder', 4),
-(11, 'Pump', 4),
-(12, 'Frame', 4),
-(13, 'Frame', 5),
-(14, 'Gear', 5),
-(15, 'Screw', 5),
-(16, 'Frame', 6),
-(17, 'Gear', 6),
-(18, 'Screw', 6),
-(19, 'Kaca', 7),
-(20, 'Katup', 7),
-(21, 'Kolom', 8),
-(22, 'Kondensor', 8),
-(23, 'Reboiler', 8),
-(24, 'Klem', 9),
-(25, 'Kondensor', 9),
-(26, 'Selang', 9),
-(27, 'Pump', 10),
-(28, 'Pisau', 10),
-(29, 'Drum', 10),
-(30, 'Motor', 11),
-(31, 'Gear', 11),
-(32, 'Cover', 11),
-(33, 'Motor', 12),
-(34, 'Nozzle', 12),
-(35, 'Gear', 12),
-(36, 'Screw', 13),
-(37, 'Stirrer', 13),
-(38, 'Motor', 13),
-(39, 'Bowl', 14),
-(40, 'Beater', 14),
-(41, 'Handle', 14),
-(42, 'Tray', 15),
-(43, 'Heater/Blower', 15),
-(44, 'Controller', 15),
-(45, 'Chamber', 16),
-(46, 'Heater', 16),
-(47, 'Pump', 16),
-(48, 'Heater/Blower', 17),
-(49, 'Gear', 17),
-(50, 'Exhaust System', 17),
-(51, 'Cutter', 18),
-(52, 'Cylinder', 18),
-(53, 'Tower Cap', 18),
-(54, 'Blower', 19),
-(55, 'Chamber', 19),
-(56, 'Cyclone', 19),
-(57, 'Cylinder', 20),
-(58, 'Nozzle', 20),
-(59, 'Impeller', 20),
-(60, 'Roller', 21),
-(61, 'Motor', 21),
-(62, 'Skirtboard', 21),
-(63, 'Screw', 22),
-(64, 'Cover', 22),
-(65, 'Motor', 22),
-(66, 'Bucket', 23),
-(67, 'Inlet', 23),
-(68, 'Motor', 23);
 
 -- --------------------------------------------------------
 
@@ -182,26 +99,39 @@ CREATE TABLE `history` (
 CREATE TABLE `inventory` (
   `idinventory` int(11) NOT NULL,
   `nama_barang` varchar(45) NOT NULL,
-  `stock` int(11) NOT NULL,
+  `stock_barang` int(11) NOT NULL,
   `teams_idteams` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`idinventory`, `nama_barang`, `stock_barang`, `teams_idteams`) VALUES
+(1, 'Washer', 3, 1),
+(2, 'Corong Pemisah', 10, 1),
+(3, 'Screw Conveyor', 5, 1),
+(4, 'Double Planetary Mixing', 7, 1),
+(5, 'Motor', 1, 1),
+(6, 'Pipe', 1, 1),
+(7, 'Tub', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis`
+-- Table structure for table `jenisalat`
 --
 
-CREATE TABLE `jenis` (
+CREATE TABLE `jenisalat` (
   `idjenis` int(11) NOT NULL,
-  `nama` varchar(45) NOT NULL
+  `nama_jenis` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `jenis`
+-- Dumping data for table `jenisalat`
 --
 
-INSERT INTO `jenis` (`idjenis`, `nama`) VALUES
+INSERT INTO `jenisalat` (`idjenis`, `nama_jenis`) VALUES
 (1, 'Pencucian'),
 (2, 'Pemarutan'),
 (3, 'Pengepresan'),
@@ -213,50 +143,51 @@ INSERT INTO `jenis` (`idjenis`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `market`
---
-
-CREATE TABLE `market` (
-  `idmarket` int(11) NOT NULL,
-  `jenis_market` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `market_alat`
---
-
-CREATE TABLE `market_alat` (
-  `alat_idalat` int(11) NOT NULL,
-  `market_idmarket` int(11) NOT NULL,
-  `stock` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `market_bahan`
 --
 
 CREATE TABLE `market_bahan` (
-  `bahan_idbahan` int(11) NOT NULL,
-  `market_idmarket` int(11) NOT NULL,
-  `stock` int(11) NOT NULL DEFAULT 0
+  `idmarket_bahan` int(11) NOT NULL,
+  `bahan` varchar(45) NOT NULL,
+  `stok` int(11) NOT NULL DEFAULT 0,
+  `harga beli` int(11) NOT NULL DEFAULT 0,
+  `harga jual` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `market_invoice`
+-- Table structure for table `market_bahan_has_teams`
 --
 
-CREATE TABLE `market_invoice` (
-  `teams_idteams` int(11) NOT NULL,
-  `market_idmarket` int(11) NOT NULL,
-  `jumlah_barang` int(11) NOT NULL,
-  `total_harga` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+CREATE TABLE `market_bahan_has_teams` (
+  `market_bahan_idmarket_bahan` int(11) NOT NULL,
+  `teams_idteams` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `market_downgrade`
+--
+
+CREATE TABLE `market_downgrade` (
+  `idmarket_downgrade` int(11) NOT NULL,
+  `downgrade` varchar(45) NOT NULL,
+  `stok` int(11) NOT NULL DEFAULT 0,
+  `harga beli` int(11) NOT NULL DEFAULT 0,
+  `harga jual` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `market_downgrade_has_teams`
+--
+
+CREATE TABLE `market_downgrade_has_teams` (
+  `market_downgrade_idmarket_downgrade` int(11) NOT NULL,
+  `teams_idteams` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -271,13 +202,6 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -286,9 +210,18 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `teams` (
   `idteams` int(11) NOT NULL,
-  `nama` varchar(45) NOT NULL,
+  `namaTeam` varchar(45) NOT NULL,
   `koin` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `teams`
+--
+
+INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
+(1, 'team 1', '10000'),
+(2, 'team 2', '5000'),
+(3, 'team 3', '700');
 
 -- --------------------------------------------------------
 
@@ -305,10 +238,24 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `inventory_idinventory` int(11) NOT NULL,
   `teams_idteams` int(11) DEFAULT NULL,
   `role` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `teams_idteams`, `role`) VALUES
+(1, 'Player 1', 'player1@gmail.com', NULL, '$2y$10$jr.nKsakwUXKq9b/cOgmwu0JcsMusXxEqSeYbdk0D.wzsCA2xa.k.', NULL, '2023-02-11 20:57:07', '2023-02-11 20:57:07', 1, 'Player'),
+(2, 'Player 2', 'player2@gmail.com', NULL, '$2y$10$DRPLFt2dP97FyigNeUegLe4t95aguEideCnZBcvApy3pjVtiA3RBa', NULL, '2023-02-12 02:09:22', '2023-02-12 02:09:22', 2, 'Player'),
+(3, 'Player 3', 'player3@gmail.com', NULL, '$2y$10$ezOLJR7T6DY21UIbFEb67etw6u7l8adRlmzZZmsVdoVizJ6FYfX5G', NULL, '2023-02-12 02:09:40', '2023-02-12 02:09:40', 3, 'Player'),
+(4, 'AdminD1', 'admind1@gmail.com', NULL, '$2y$10$NowElmKAydLPPqeYAmc2c.Oin6Uip6WRojuUTtA2q5Dzam5kac0mG', NULL, '2023-02-12 02:10:24', '2023-02-12 02:10:24', NULL, 'AdminDowngrade'),
+(5, 'AdminD2', 'admind2@gmail.com', NULL, '$2y$10$4349QuFRmP8/808Qm2GZFet1yA3EiaeevoPrTsyCr7Dzy6V5vr552', NULL, '2023-02-12 02:10:53', '2023-02-12 02:10:53', NULL, 'AdminDowngrade'),
+(6, 'AdminB1', 'adminb1@gmail.com', NULL, '$2y$10$uX1GSspEx5rVhnLp1gtn.umv11dPHx7VLdRtV0mzygVqletfGaP0O', NULL, '2023-02-12 02:11:11', '2023-02-12 02:11:11', NULL, 'AdminBahan'),
+(7, 'AdminB2', 'adminb2@gmail.com', NULL, '$2y$10$WxqDBsKgPBLhi1hQIRoPdOQ27nbqEb4CzGuwW/lM6sS5KpNgA89wa', NULL, '2023-02-12 02:11:36', '2023-02-12 02:11:36', NULL, 'AdminBahan'),
+(8, 'Tinkerer 1', 'tinkerer1@gmail.com', NULL, '$2y$10$Dl/Qomv1sWSdc3YuMBUHreY1VoHlGVFta202iJOrOkynXX0GRpWt6', NULL, '2023-02-12 02:12:24', '2023-02-12 02:12:24', NULL, 'Tinkerer'),
+(9, 'Tinkerer 2', 'tinkerer2@gmail.com', NULL, '$2y$10$LXzTLCMXoz2hbxgg6iLLV.lxXxYe82azqaVU5P8L39NFetvGaWkWi', NULL, '2023-02-12 02:12:43', '2023-02-12 02:12:43', NULL, 'Tinkerer');
 
 --
 -- Indexes for dumped tables
@@ -328,13 +275,6 @@ ALTER TABLE `bahan`
   ADD PRIMARY KEY (`idbahan`);
 
 --
--- Indexes for table `downgrade`
---
-ALTER TABLE `downgrade`
-  ADD PRIMARY KEY (`iddowngrade`),
-  ADD KEY `fk_downgrade_alat_idx` (`alat_idalat`);
-
---
 -- Indexes for table `history`
 --
 ALTER TABLE `history`
@@ -349,40 +289,38 @@ ALTER TABLE `inventory`
   ADD KEY `fk_inventory_teams1_idx` (`teams_idteams`);
 
 --
--- Indexes for table `jenis`
+-- Indexes for table `jenisalat`
 --
-ALTER TABLE `jenis`
+ALTER TABLE `jenisalat`
   ADD PRIMARY KEY (`idjenis`);
-
---
--- Indexes for table `market`
---
-ALTER TABLE `market`
-  ADD PRIMARY KEY (`idmarket`);
-
---
--- Indexes for table `market_alat`
---
-ALTER TABLE `market_alat`
-  ADD PRIMARY KEY (`alat_idalat`,`market_idmarket`),
-  ADD KEY `fk_alat_has_market_market1_idx` (`market_idmarket`),
-  ADD KEY `fk_alat_has_market_alat1_idx` (`alat_idalat`);
 
 --
 -- Indexes for table `market_bahan`
 --
 ALTER TABLE `market_bahan`
-  ADD PRIMARY KEY (`bahan_idbahan`,`market_idmarket`),
-  ADD KEY `fk_bahan_has_market_market1_idx` (`market_idmarket`),
-  ADD KEY `fk_bahan_has_market_bahan1_idx` (`bahan_idbahan`);
+  ADD PRIMARY KEY (`idmarket_bahan`);
 
 --
--- Indexes for table `market_invoice`
+-- Indexes for table `market_bahan_has_teams`
 --
-ALTER TABLE `market_invoice`
-  ADD PRIMARY KEY (`teams_idteams`,`market_idmarket`),
-  ADD KEY `fk_teams_has_market_market1_idx` (`market_idmarket`),
-  ADD KEY `fk_teams_has_market_teams1_idx` (`teams_idteams`);
+ALTER TABLE `market_bahan_has_teams`
+  ADD PRIMARY KEY (`market_bahan_idmarket_bahan`,`teams_idteams`),
+  ADD KEY `fk_market_bahan_has_teams_teams1_idx` (`teams_idteams`),
+  ADD KEY `fk_market_bahan_has_teams_market_bahan1_idx` (`market_bahan_idmarket_bahan`);
+
+--
+-- Indexes for table `market_downgrade`
+--
+ALTER TABLE `market_downgrade`
+  ADD PRIMARY KEY (`idmarket_downgrade`);
+
+--
+-- Indexes for table `market_downgrade_has_teams`
+--
+ALTER TABLE `market_downgrade_has_teams`
+  ADD PRIMARY KEY (`market_downgrade_idmarket_downgrade`,`teams_idteams`),
+  ADD KEY `fk_market_downgrade_has_teams_teams1_idx` (`teams_idteams`),
+  ADD KEY `fk_market_downgrade_has_teams_market_downgrade1_idx` (`market_downgrade_idmarket_downgrade`);
 
 --
 -- Indexes for table `migrations`
@@ -412,19 +350,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alat`
 --
 ALTER TABLE `alat`
-  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `bahan`
 --
 ALTER TABLE `bahan`
   MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `downgrade`
---
-ALTER TABLE `downgrade`
-  MODIFY `iddowngrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `history`
@@ -436,19 +368,25 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `jenis`
+-- AUTO_INCREMENT for table `jenisalat`
 --
-ALTER TABLE `jenis`
+ALTER TABLE `jenisalat`
   MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `market`
+-- AUTO_INCREMENT for table `market_bahan`
 --
-ALTER TABLE `market`
-  MODIFY `idmarket` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `market_bahan`
+  MODIFY `idmarket_bahan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `market_downgrade`
+--
+ALTER TABLE `market_downgrade`
+  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -460,13 +398,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -476,13 +414,7 @@ ALTER TABLE `users`
 -- Constraints for table `alat`
 --
 ALTER TABLE `alat`
-  ADD CONSTRAINT `fk_alat_jenis1` FOREIGN KEY (`jenis_idjenis`) REFERENCES `jenis` (`idjenis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `downgrade`
---
-ALTER TABLE `downgrade`
-  ADD CONSTRAINT `fk_downgrade_alat` FOREIGN KEY (`alat_idalat`) REFERENCES `alat` (`idalat`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_alat_jenis1` FOREIGN KEY (`jenis_idjenis`) REFERENCES `jenisalat` (`idjenis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `history`
@@ -497,25 +429,18 @@ ALTER TABLE `inventory`
   ADD CONSTRAINT `fk_inventory_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `market_alat`
+-- Constraints for table `market_bahan_has_teams`
 --
-ALTER TABLE `market_alat`
-  ADD CONSTRAINT `fk_alat_has_market_alat1` FOREIGN KEY (`alat_idalat`) REFERENCES `alat` (`idalat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_alat_has_market_market1` FOREIGN KEY (`market_idmarket`) REFERENCES `market` (`idmarket`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `market_bahan_has_teams`
+  ADD CONSTRAINT `fk_market_bahan_has_teams_market_bahan1` FOREIGN KEY (`market_bahan_idmarket_bahan`) REFERENCES `market_bahan` (`idmarket_bahan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_market_bahan_has_teams_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `market_bahan`
+-- Constraints for table `market_downgrade_has_teams`
 --
-ALTER TABLE `market_bahan`
-  ADD CONSTRAINT `fk_bahan_has_market_bahan1` FOREIGN KEY (`bahan_idbahan`) REFERENCES `bahan` (`idbahan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_bahan_has_market_market1` FOREIGN KEY (`market_idmarket`) REFERENCES `market` (`idmarket`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `market_invoice`
---
-ALTER TABLE `market_invoice`
-  ADD CONSTRAINT `fk_teams_has_market_market1` FOREIGN KEY (`market_idmarket`) REFERENCES `market` (`idmarket`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_teams_has_market_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `market_downgrade_has_teams`
+  ADD CONSTRAINT `fk_market_downgrade_has_teams_market_downgrade1` FOREIGN KEY (`market_downgrade_idmarket_downgrade`) REFERENCES `market_downgrade` (`idmarket_downgrade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_market_downgrade_has_teams_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `users`

@@ -1,51 +1,50 @@
 @extends('layouts.app')
 
 @section('css')
-<!-- Styles -->
-<link href="{{ asset('css/pemain/dashboard.css') }}" rel="stylesheet">
-
+    <!-- Styles -->
+    <link href="{{ asset('css/pemain/dashboard.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
     <main class="d-block mx-4">
         <div class="container dashboard d-flex flex-column">
 
-            <div class="card py-2 mb-4"  id="header">
+            <div class="card py-2 mb-4" id="header">
                 <div class="row d-flex justify-content-center">
                     <div class="col-4 col-sm-3 d-flex justify-content-center p-0">
                         <div class="img-container">
                             <img src="{{ asset('assets/users/dummy_pic2.jpg') }}" id="user_Picture" class="userPic">
                         </div>
-                        
+
                     </div>
                     <div class="col-12 col-sm py-2">
                         <div class="row">
                             <div class="col p-0">
-                                <h3 id="username" style="font-weight:bold;">Ini Nama Kelompok </h3>
+                                <h3 id="username" style="font-weight:bold;">{{ $team[0]->namaTeam }}</h3>
                             </div>
-                            
+
                         </div>
                         {{-- <div class="col colDashboard">
                             <h3 id="username" style="font-weight:bold;">Ini Nama Kelompok </h3>
                         </div> --}}
                         <div class="row">
-                            <div class="col p-0"  id="koinResponsive">
+                            <div class="col p-0" id="koinResponsive">
                                 <div class="d-flex" style="">
-                                    <i class="fa-solid fa-coins" id="icon-coin"></i> 
+                                    <i class="fa-solid fa-coins" id="icon-coin"></i>
                                     <div class="koin px-3" style="font-size: 18px;">
                                         {{ $team[0]->koin }} Koin
                                     </div>
-                                </div>     
-                            </div> 
+                                </div>
+                            </div>
                         </div>
-    
+
                         {{-- <div class="col colDashboard" style="">
                             <i class="fa-solid fa-coins" id="icon-coin"></i> 
                             <div class="koin px-3" style="font-size: 18px;">
                                 {{ $team[0]->koin }} Koin
                             </div>
                         </div> --}}
-                        
+
                     </div>
                 </div>
             </div>
@@ -54,10 +53,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 d-flex flex-column">
-                            <a id="btnAlat" class="btnItems w-100" href="#">Alat</a>
+                            <a id="btnAlat" class="btnItems w-100 active" href="#">Alat</a>
                             <a id="btnBahan" class="btnItems w-100" href="#">Bahan</a>
                             <a id="btnDowngrade" class="btnItems w-100" href="#">Downgrade</a>
-                            
+
                             {{-- <button id="btnAlat" class="btn btn-primary btnItems">Alat</button>
                             <button id="btnBahan" class="btn btn-primary btnItems">Bahan</button>
                             <button id="btnDowngrade" class="btn btn-primary btnItems">Downgrade</button> --}}
@@ -73,7 +72,7 @@
                                             </th>
                                             <th scope="col" width="60%">
                                                 Nama
-                                            </th >
+                                            </th>
                                             <th scope="col" width="25%">
                                                 Tersedia
                                             </th>
@@ -87,7 +86,8 @@
                                                 <td scope="row">{{ $a->nama_alat }}</td>
                                                 @foreach ($inventory as $i)
                                                     @if ($a->nama_alat == $i->nama_barang)
-                                                        <td style="text-align: center;" scope="row">{{ $i->stock_barang }}</td>
+                                                        <td style="text-align: center;" scope="row">
+                                                            {{ $i->stock_barang }}</td>
                                                         <?php $helper = true; ?>
                                                     @endif
                                                 @endforeach
@@ -101,10 +101,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
     </main>
 
@@ -114,12 +114,24 @@
             switch (this.id) {
                 case "btnAlat":
                     itemType = "alat"
+                    $("#btnBahan").removeClass("active")
+                    $("#btnDowngrade").removeClass("active")
+
+                    $("#btnAlat").addClass("active")
                     break;
                 case "btnBahan":
                     itemType = "bahan"
+                    $("#btnAlat").removeClass("active")
+                    $("#btnDowngrade").removeClass("active")
+                    
+                    $("#btnBahan").addClass("active")
                     break;
                 case "btnDowngrade":
                     itemType = "downgrade"
+                    $("#btnAlat").removeClass("active")
+                    $("#btnBahan").removeClass("active")
+                    
+                    $("#btnDowngrade").addClass("active")
                     break;
             }
 
