@@ -39,6 +39,25 @@
         .spacing {
             height: 100px;
         }
+        .nav-link,
+        .nav-link:focus {
+            font-weight: bold;
+            font-size: 16px;
+            color: #515940 !important;
+            padding: 5px 0px;
+            border-radius: 5px;
+            margin-left: 15px;
+            padding-left: 5px;
+        }
+
+        .nav-link:hover {
+            color: #ffff !important;
+            background-color: #515940;
+            border-radius: 5px;
+            padding: 5px 0px;
+            padding-left: 5px;
+        }
+
     </style>
     @yield('css')
 </head>

@@ -49,18 +49,16 @@
                 </div>
             </div>
 
-            <div class="card" id="card-inv">
+            <div class="row my-3">
+                <div class="col">
+                    <h1 class="p-0 m-0">Dashboard</h1>
+                </div>
+                
+            </div>
+
+            <div class="card my-4" id="card-inv">
                 <div class="card-body">
                     <div class="row">
-                        {{-- <div class="col-2 d-flex flex-column">
-                            <a id="btnAlat" class="btnItems w-100 active" href="#">Alat</a>
-                            <a id="btnBahan" class="btnItems w-100" href="#">Bahan</a>
-                            <a id="btnDowngrade" class="btnItems w-100" href="#">Downgrade</a>
-
-                            <button id="btnAlat" class="btn btn-primary btnItems">Alat</button>
-                            <button id="btnBahan" class="btn btn-primary btnItems">Bahan</button>
-                            <button id="btnDowngrade" class="btn btn-primary btnItems">Downgrade</button>
-                        </div> --}}
 
                         <div class="col">
                             <div class="d-flex flex-row " style="margin-bottom: 0px">
@@ -85,7 +83,7 @@
                                             <th scope="col" width="15%">
                                                 No.
                                             </th>
-                                            <th scope="col" width="60%">
+                                            <th scope="col" width="60%" style="text-align: left;">
                                                 Nama
                                             </th>
                                             <th scope="col" width="25%">
