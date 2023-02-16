@@ -9,7 +9,7 @@
     <main class="d-block mx-4">
         <div class="container dashboard d-flex flex-column">
 
-            <div class="card py-2 mb-4" id="header">
+            <div class="card py-2 mb-4 mt-3" id="header">
                 <div class="row d-flex justify-content-center">
                     <div class="col-4 col-sm-3 d-flex justify-content-center p-0">
                         <div class="img-container">
@@ -49,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="row my-3">
+            <div class="row my-2 my-md-3">
                 <div class="col">
                     <h1 class="p-0 m-0">Dashboard</h1>
                 </div>

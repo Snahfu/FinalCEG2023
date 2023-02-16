@@ -16,22 +16,21 @@ h1 {
   }
   
 
-  h1:after {
-    background-color: #000;
-    content: "";
-    display: inline-block;
-    height: 1px;
-    position: relative;
-    vertical-align: middle;
-    width: 100%;
-  }
+h1:after {
+background-color: #000;
+content: "";
+display: inline-block;
+height: 1px;
+position: relative;
+vertical-align: middle;
+width: 100%;
+}
   
+h1:after {
+left: 0.5em;
+margin-right: -50%;
+}
 
-  
-  h1:after {
-    left: 0.5em;
-    margin-right: -50%;
-  }
 .dashboard {
     width: 60%;
 }
@@ -138,6 +137,16 @@ h1 {
 }
 
 @media screen and (max-width:575px){
+    h1:after {
+        background-color: #000;
+        content: "";
+        display: inline-block;
+        height: 1px;
+        position: relative;
+        vertical-align: middle;
+        width: 40%;
+    }
+    
     .userPic{
         width: 75px;
     }
