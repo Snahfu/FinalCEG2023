@@ -2,15 +2,9 @@
 
 @section('css')
     <style>
-        table,
-        thead,
-        tbody,
-        tr,
-        th,
-        td {
-            border: 1px solid black;
+        table{
+            font-size: 16px;
         }
-
         th {
             text-align: center;
             padding: 0 15px;
@@ -23,28 +17,42 @@
         .listDowngrade{
             width: 60%;
         }
+
+        @media screen and (max-width:768px){
+            .listDowngrade{
+                width: 100%;
+            }
+            table{
+                font-size: 12px
+            }
+        }
     </style>
+    
 @endsection
 
 @section('content')
-    <main class="d-block mx-4">
-        <div class="container listDowngrade d-flex flex-column">
-            <table>
-                <thead>
+    <main class="d-block mx-md-4 my-5">
+        <div class="container listDowngrade d-flex flex-column sm-p-0">
+            <div class="">
+                <table class="table">
+                <thead class="table-dark">
                     <tr>
-                        <th>Alat</th>
+                        <th style="text-align: start">Pilih Alat :</th>
                         <th>Downgrade</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td rowspan="3">
-                            <select name="alat" id="alat">
-                                <option value="-">-</option>
+                        <td rowspan="3" style="vertical-align: middle">
+                            <div class="div">
+                                <select name="alat" id="alat" class="form-control selectpicker" data-live-search="true" tabindex="-1" aria-label="alat" style="max-width: 200px">
+                                <option value="-" data-tokens="-">-- Pilih mesin --</option>
                                 @foreach ($alat as $a)
-                                    <option value="{{ $a->idalat }}">{{ $a->nama_alat }}</option>
+                                    <option value="{{ $a->idalat }}" data-tokens="{{ $a->nama_alat }}">{{ $a->nama_alat }}</option>
                                 @endforeach
                             </select>
+                            </div>
+                            
                         </td>
                         <td id="downgrade_1">
                             -
@@ -62,6 +70,8 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
+            
         </div>
     </main>
 
