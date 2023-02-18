@@ -50,11 +50,20 @@ class PenjualController extends Controller
             ]);
 
             // tambah ke inventory
-            DB::table("inventory")->insert([
-                "nama_barang" => $bahan[0],
-                "stock_barang" => $bahan[1],
-                "teams_idteams" => $idteams,
-            ]);
+            if (DB::table("inventory")->where("stock_barang", "=", $bahan[1])->where("teams_idteams", "=", $idteams)->exist()) {
+                DB::table("inventory")
+                    ->where("nama_barang", "=", $bahan[0])
+                    ->where("teams_idteams", "=", $idteams)
+                    ->update([
+                        "stock_barang" => DB::raw("`stock_barang` + " . $bahan[1]),
+                    ]);
+            } else {
+                DB::table("inventory")->insert([
+                    "nama_barang" => $bahan[0],
+                    "stock_barang" => $bahan[1],
+                    "teams_idteams" => $idteams,
+                ]);
+            }
         }
 
         return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
@@ -102,11 +111,20 @@ class PenjualController extends Controller
             ]);
 
             // tambah ke inventory
-            DB::table("inventory")->insert([
-                "nama_barang" => $downgrade[0],
-                "stock_barang" => $downgrade[1],
-                "teams_idteams" => $idteams,
-            ]);
+            if (DB::table("inventory")->where("stock_barang", "=", $downgrade[1])->where("teams_idteams", "=", $idteams)->exist()) {
+                DB::table("inventory")
+                    ->where("nama_barang", "=", $downgrade[0])
+                    ->where("teams_idteams", "=", $idteams)
+                    ->update([
+                        "stock_barang" => DB::raw("`stock_barang` + " . $downgrade[1]),
+                    ]);
+            } else {
+                DB::table("inventory")->insert([
+                    "nama_barang" => $downgrade[0],
+                    "stock_barang" => $downgrade[1],
+                    "teams_idteams" => $idteams,
+                ]);
+            }
         }
 
         return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
