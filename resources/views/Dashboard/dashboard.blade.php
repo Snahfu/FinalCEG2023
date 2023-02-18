@@ -62,20 +62,22 @@
 
                         <div class="col">
                             <div class="d-flex flex-row " style="margin-bottom: 0px">
-                                <div class="btnItems tab d-flex align-items-center justify-content-center activeTab" id="btnAlat">
+                                <div class="btnItems tab d-flex align-items-center justify-content-center activeTab"
+                                    id="btnAlat">
                                     <a href="#">Alat</a>
                                 </div>
                                 <div class="btnItems tab d-flex align-items-center  justify-content-center" id="btnBahan">
                                     <a href="#">Bahan</a>
                                 </div>
-                                <div class="btnItems tab d-flex align-items-center  justify-content-center" id="btnDowngrade" >
+                                <div class="btnItems tab d-flex align-items-center  justify-content-center"
+                                    id="btnDowngrade">
                                     <a href="#">Downgrade</a>
                                 </div>
-                                
+
                             </div>
-                                
-                            
-                            
+
+
+
                             <div class="table-responsive">
                                 <table class="table ">
                                     <thead class="table-dark">
@@ -129,7 +131,7 @@
                     itemType = "alat"
                     $("#btnBahan").removeClass("activeTab")
                     $("#btnDowngrade").removeClass("activeTab")
-  
+
                     $("#btnAlat").addClass("activeTab")
                     break;
                 case "btnBahan":
@@ -198,23 +200,44 @@
                                 }
                                 break;
                             case "bahan":
-                                $("#items").append(`
-                                <tr>
-                                    <td style="text-align: center;">
-                                        ${num}
-                                    </td>
-                                    <td>
-                                        ${value.nama_bahan}
-                                    </td>
-                                    <td style="text-align: center;">
-                                        0
-                                    </td>
-                                </tr>`)
+                                let helperBahan = false;
+                                $.each(data.inventory, function(key1, value1) {
+                                    if (value.nama_bahan == value1.nama_barang) {
+                                        $("#items").append(`
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                ${num}
+                                            </td>
+                                            <td>
+                                                ${value.nama_bahan}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                ${value1.stock_barang}
+                                            </td>
+                                        </tr>`)
+                                        helperBahan = true
+                                        return false
+                                    }
+                                })
+                                if (helperBahan == false) {
+                                    $("#items").append(`
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            ${num}
+                                        </td>
+                                        <td>
+                                            ${value.nama_bahan}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            0
+                                        </td>
+                                    </tr>`)
+                                }
                                 break;
                             case "downgrade":
                                 let helperDowngrade = false
-                                $.each(data.inventory, function(key1, value1) {
-                                    if (value == value1.nama_barang) {
+                                $.each(data.inventory, function(key2, value2) {
+                                    if (value == value2.nama_barang) {
                                         $("#items").append(`
                                         <tr>
                                             <td style="text-align: center;">
@@ -224,7 +247,7 @@
                                                 ${value}
                                             </td>
                                             <td style="text-align: center;">
-                                                ${value1.stock_barang}
+                                                ${value2.stock_barang}
                                             </td>
                                         </tr>`)
                                         helperDowngrade = true

@@ -30,9 +30,8 @@ Route::get("/hint", function(){
 })->name("hint");
 
 // Admin Bahan
-Route::get("/penjualBahan", function () {
-    return view("Penjual.bahan");
-})->name("penjualBahan");
+Route::get("/penjualBahan", "PenjualController@penjualBahan")->name("penjualBahan");
+Route::post("/penjualBahan/jual", "PenjualController@jualBahan")->name("jualBahan");
 
 // Admin Downgrade
 Route::get("/penjualDowngrade", function () {
