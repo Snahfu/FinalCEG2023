@@ -22,6 +22,30 @@
         .dashboard {
             width: 60%;
         }
+        .HeartAnimation {
+            padding-top: 2em;
+            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/66955/web_heart_animation.png');
+            background-repeat: no-repeat;
+            background-size: 2900%;
+            background-position: left;
+            height: 50px;
+            width: 50px;
+            
+            cursor: pointer;
+        }
+
+        .animate {
+            animation: heart-burst .8s steps(28) forwards;
+        }
+
+        @keyframes heart-burst {
+            0% {
+                background-position: left
+            }
+            100% {
+                background-position: right
+            }
+        }
     </style>
 @endsection
 
@@ -70,6 +94,9 @@
             <div>
                 <button id="btnConfirm" class="btn btn-primary" style="float: right;">Confirm</button>
             </div>
+            <div class="row d-flex justify-content-end">
+                <div class="HeartAnimation d-flex justify-content-end"></div>
+            </div>
         </div>
     </main>
 
@@ -117,6 +144,12 @@
     </div>
 
     <script>
+        $(function() {
+            $(".HeartAnimation").click(function() {
+                $(this).toggleClass("animate");
+            });
+        });
+
         $("#btnConfirm").click(function() {
             if ($("#teams").val() != "-") {
                 if ($("h1#tipe").html() == "Sell") {
