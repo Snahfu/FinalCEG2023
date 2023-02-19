@@ -25,18 +25,30 @@ Route::post("/dashboard/inventory", "DashboardController@getItems")->name("inven
 Route::get("/listDowngrade", "ListDowngradeController@listDowngrade")->name("listDowngrade");
 Route::post("/listDowngrade/alat", "ListDowngradeController@changeAlat")->name("listDowngrade.alat");
 
-Route::get("/hint", function(){
+Route::get("/hint", function () {
     return view("hint");
 })->name("hint");
 
+
 // Admin Bahan
-Route::get("/penjualBahan", "PenjualController@penjualBahan")->name("penjualBahan");
-Route::post("/penjualBahan/jual", "PenjualController@jualBahan")->name("jualBahan");
+// Admin Jual, Pemain Beli
+Route::get("/penjualBahanSell", "PenjualController@penjualBahanSell")->name("penjualBahanSell");
+Route::post("/penjualBahan/jual", "PenjualController@jualBahan")->name("adminBahanSell");
+
+// Admin Beli, Pemain Jual
+Route::get("/penjualBahanBuy", "PenjualController@penjualBahanBuy")->name("penjualBahanBuy");
+Route::post("/penjualBahan/beli", "PenjualController@beliBahan")->name("adminBahanBuy");
+
 
 // Admin Downgrade
-Route::get("/penjualDowngrade", function () {
-    return view("Penjual.downgrade");
-})->name("penjualDowngrade");
+// Admin Jual, Pemain Beli
+Route::get("/penjualDowngradeSell", "PenjualController@penjualDowngradeSell")->name("penjualDowngradeSell");
+Route::post("/penjualDowngrade/jual", "PenjualController@jualDowngrade")->name("adminDowngradeSell");
+
+// Admin beli, Pemain Jual
+Route::get("/penjualDowngradeBuy", "PenjualController@penjualDowngradeBuy")->name("penjualDowngradeBuy");
+Route::post("/penjualDowngrade/beli", "PenjualController@beliDowngrade")->name("adminDowngradeBuy");
+
 
 // Admin Tinkerer
 Route::get("/tinkerer", "TinkererController@tinkerer")->name("tinkerer");
@@ -44,6 +56,7 @@ Route::post("/tinkerer/alat", "TinkererController@changeAlat")->name("change.ala
 Route::post("/tinkerer/downgrade", "TinkererController@changeDowngrade")->name("change.downgrade");
 Route::post("/tinkerer/crafting", "TinkererController@crafting")->name("tinkerer.crafting");
 Route::post("/tinkerer/dismantle", "TinkererController@dismantle")->name("tinkerer.dismantle");
+
 
 // Middleware
 Auth::routes();

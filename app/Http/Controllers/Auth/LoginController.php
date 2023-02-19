@@ -43,10 +43,10 @@ class LoginController extends Controller
     {
         if (Auth::user()->role == "Player") {
             return "/dashboard";
-        } else if (Auth::user()->role == "AdminDowngrade") {
-            return "/penjualDowngrade";
         } else if (Auth::user()->role == "AdminBahan") {
-            return "/penjualBahan";
+            return "/penjualBahanSell";
+        } else if (Auth::user()->role == "AdminDowngrade") {
+            return "/penjualDowngradeSell";
         } else if (Auth::user()->role == "Tinkerer") {
             return "/tinkerer";
         }

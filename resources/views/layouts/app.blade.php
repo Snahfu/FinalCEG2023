@@ -32,22 +32,25 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!---- Bootstrap Select ---->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" 
-        integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" 
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+        integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 
-    
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        *{
+        * {
             font-family: 'Poppins', sans-serif;
         }
+
         .spacing {
             height: 100px;
         }
+
         .nav-link,
         .nav-link:focus {
             font-weight: bold;
@@ -66,7 +69,6 @@
             padding: 5px 0px;
             padding-left: 5px;
         }
-
     </style>
     @yield('css')
 </head>
@@ -97,13 +99,19 @@
                             <li class="nav-item">
                                 <a href="{{ route('hint') }}" class="nav-link">Hint</a>
                             </li>
-                        @elsecan("isAdminDowngrade")
-                            <li class="nav-item">
-                                <a href="{{ route('penjualDowngrade') }}" class="nav-link">Dashboard</a>
-                            </li>
                         @elsecan("isAdminBahan")
                             <li class="nav-item">
-                                <a href="{{ route('penjualBahan') }}" class="nav-link">Dashboard</a>
+                                <a href="{{ route('penjualBahanSell') }}" class="nav-link">Sell</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('penjualBahanBuy') }}" class="nav-link">Buy</a>
+                            </li>
+                        @elsecan("isAdminDowngrade")
+                            <li class="nav-item">
+                                <a href="{{ route('penjualDowngradeSell') }}" class="nav-link">Sell</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('penjualDowngradeBuy') }}" class="nav-link">Buy</a>
                             </li>
                         @elsecan("isTinkerer")
                             <li class="nav-item">

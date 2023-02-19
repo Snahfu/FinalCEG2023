@@ -28,6 +28,7 @@
 @section('content')
     <main class="d-block mx-auto">
         <div class="container dashboard d-flex flex-column">
+            <h1 id="tipe">{{ $tipe }}</h1>
             <div>
                 <select name="teams" id="teams">
                     <option value="-">-- Pilih Team --</option>
@@ -61,7 +62,7 @@
                             <td>{{ $bahan->bahan }}</td>
                             <td style="text-align: center;">{{ $bahan->stok }}</td>
                             <td style="text-align: center;"><input id="{{ $bahan->bahan }}" class="jumlah" type="number"
-                                    min="0" max="{{ $bahan->stok }}" value="0">
+                                    min="0" max="{{ $bahan->stok }}" value="0" style="max-width: 50px;">
                             </td>
                         </tr>
                         <?php $id++; ?>
@@ -83,7 +84,7 @@
                     <h5 class="modal-title" id="ModalAlertLabel">Notification</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body flex">
+                <div id="alert-body" class="modal-body flex">
                     <b id="alert-warning"></b>
                 </div>
                 <div class="modal-footer">
@@ -120,7 +121,11 @@
     <script>
         $("#btnConfirm").click(function() {
             if ($("#teams").val() != "-") {
-                $("#confirmation").html("Apakah anda yakin ingin membeli:")
+                if ($("h1#tipe").html() == "Sell") {
+                    $("#confirmation").html("Apakah Peserta yakin ingin membeli:")
+                } else if ($("h1#tipe").html() == "Buy") {
+                    $("#confirmation").html("Apakah Peserta yakin ingin menjual:")
+                }
                 $("#listBahan").html("")
                 $(".jumlah").each(function() {
                     // console.log($(this).val())
@@ -139,29 +144,57 @@
         })
 
         $("#confirmSubmit").click(function() {
-            let beliBahan = []
+            let arrayBahan = []
             $("#listBahan>li").each(function() {
                 let bahan = [$(this).attr("name"), $(this).attr("value")]
-                beliBahan.push(bahan)
+                arrayBahan.push(bahan)
             })
 
-            $.ajax({
-                type: "POST",
-                url: "{{ route('jualBahan') }}",
-                data: {
-                    '_token': '<?php echo csrf_token(); ?>',
-                    'team': $("#teams").val(),
-                    'beliBahan': beliBahan
-                },
-                success: function(data) {
-                    let msg = data.msg
-                    $("#alert-warning").html(msg)
-                    $("#ModalAlert").modal("show")
-                },
-                error: function() {
-                    alert("error")
-                }
-            })
+            if ($("h1#tipe").html() == "Sell") {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('adminBahanSell') }}",
+                    data: {
+                        '_token': '<?php echo csrf_token(); ?>',
+                        'team': $("#teams").val(),
+                        'arrayBahan': arrayBahan
+                    },
+                    success: function(data) {
+                        let msg = data.msg
+                        $("#alert-warning").html(msg)
+                        $("#ModalAlert").modal("show")
+                    },
+                    error: function() {
+                        alert("error")
+                    }
+                })
+            } else if ($("h1#tipe").html() == "Buy") {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('adminBahanBuy') }}",
+                    data: {
+                        '_token': '<?php echo csrf_token(); ?>',
+                        'team': $("#teams").val(),
+                        'arrayBahan': arrayBahan
+                    },
+                    success: function(data) {
+                        if (data.status == "kurang") {
+                            $("#alert-warning").html(data.msg)
+                            $("#alert-body").append(`<ul></ul>`)
+                            $.each(data.bahanLebih, function(key, value) {
+                                $("#alert-body>ul").html(`<li>${value}</li>`)
+                            })
+                            $("#ModalAlert").modal("show")
+                        } else {
+                            $("#alert-warning").html(data.msg)
+                            $("#ModalAlert").modal("show")
+                        }
+                    },
+                    error: function() {
+                        alert("error")
+                    }
+                })
+            }
         })
     </script>
 @endsection
