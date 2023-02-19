@@ -56,6 +56,7 @@ class PenjualController extends Controller
             "koin" => DB::raw("`koin` - " . $totHarga)
         ]);
 
+        $detail = "";
         foreach ($pemainBeliBahan as $bahan) {
             // kurangi stok penjual
             DB::table("market_bahan")->where("bahan", "=", $bahan[0])->update([
@@ -77,7 +78,20 @@ class PenjualController extends Controller
                     "teams_idteams" => $idteams,
                 ]);
             }
+
+            if ($pemainBeliBahan[0][0] == $bahan[0]) {
+                $detail = $bahan[0];
+            } else {
+                $detail .= ", " . $bahan[0];
+            }
         }
+
+        $keterangan = "Team " . $team[0]->namaTeam . " Membeli Bahan (" . $detail . ")";
+        DB::table("history")->insert([
+            "keterangan" => $keterangan,
+            "tipe" => "bahan",
+            "teams_idteams" => $idteams,
+        ]);
 
         return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
     }
@@ -87,6 +101,8 @@ class PenjualController extends Controller
     {
         $idteams = $request["team"];
         $pemainJualBahan = $request["arrayBahan"];
+
+        $team = DB::table("teams")->where("idteams", "=", $idteams)->get();
 
         // cek barang di inventory pemain
         $bahanLebih = [];
@@ -145,6 +161,22 @@ class PenjualController extends Controller
         // delete semua barang yang stock-nya 0
         DB::table("inventory")->where("stock_barang", "=", 0)->delete();
 
+        $detail = "";
+        foreach ($pemainJualBahan as $bahan) {
+            if ($pemainJualBahan[0][0] == $bahan[0]) {
+                $detail = $bahan[0];
+            } else {
+                $detail .= ", " . $bahan[0];
+            }
+        }
+
+        $keterangan = "Team " . $team[0]->namaTeam . " Menjual Bahan (" . $detail . ")";
+        DB::table("history")->insert([
+            "keterangan" => $keterangan,
+            "tipe" => "bahan",
+            "teams_idteams" => $idteams,
+        ]);
+
         return response()->json(["status" => "success", "msg" => "Barang berhasil dijual"]);
     }
 
@@ -196,6 +228,7 @@ class PenjualController extends Controller
             "koin" => DB::raw("`koin` - " . $totHarga)
         ]);
 
+        $detail = "";
         foreach ($pemainBeliDowngrade as $downgrade) {
             // kurangi stok penjual
             DB::table("market_downgrade")->where("downgrade", "=", $downgrade[0])->update([
@@ -217,7 +250,20 @@ class PenjualController extends Controller
                     "teams_idteams" => $idteams,
                 ]);
             }
+
+            if ($pemainBeliDowngrade[0][0] == $downgrade[0]) {
+                $detail = $downgrade[0];
+            } else {
+                $detail .= ", " . $downgrade[0];
+            }
         }
+
+        $keterangan = "Team " . $team[0]->namaTeam . " Membeli Downgrade (" . $detail . ")";
+        DB::table("history")->insert([
+            "keterangan" => $keterangan,
+            "tipe" => "downgrade",
+            "teams_idteams" => $idteams,
+        ]);
 
         return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
     }
@@ -227,6 +273,8 @@ class PenjualController extends Controller
     {
         $idteams = $request["team"];
         $pemainBeliDowngrade = $request["arrayDowngrade"];
+
+        $team = DB::table("teams")->where("idteams", $idteams)->get();
 
         // cek barang di inventory pemain
         $downgradeLebih = [];
@@ -284,6 +332,22 @@ class PenjualController extends Controller
 
         // delete semua barang yang stock-nya 0
         DB::table("inventory")->where("stock_barang", "=", 0)->delete();
+
+        $detail = "";
+        foreach ($pemainBeliDowngrade as $downgrade) {
+            if ($pemainBeliDowngrade[0][0] == $downgrade[0]) {
+                $detail = $downgrade[0];
+            } else {
+                $detail .= ", " . $downgrade[0];
+            }
+        }
+
+        $keterangan = "Team " . $team[0]->namaTeam . " Menjual Bahan (" . $detail . ")";
+        DB::table("history")->insert([
+            "keterangan" => $keterangan,
+            "tipe" => "downgrade",
+            "teams_idteams" => $idteams,
+        ]);
 
         return response()->json(["status" => "success", "msg" => "Barang berhasil dijual"]);
     }

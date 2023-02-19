@@ -120,6 +120,10 @@
                         @endcan
 
                         <li class="nav-item">
+                            <a href="{{ route('history') }}" class="nav-link">History</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="" class="nav-link"></a>
                         </li>
                     </ul>

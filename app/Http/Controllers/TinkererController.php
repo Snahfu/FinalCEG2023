@@ -65,7 +65,8 @@ class TinkererController extends Controller
         if (
             DB::table("inventory")->where("nama_barang", "=", $downgrade_1)->where("teams_idteams", "=", $idteam)->exists() &&
             DB::table("inventory")->where("nama_barang", "=", $downgrade_2)->where("teams_idteams", "=", $idteam)->exists() &&
-            DB::table("inventory")->where("nama_barang", "=", $downgrade_3)->where("teams_idteams", "=", $idteam)->exists()
+            (DB::table("inventory")->where("nama_barang", "=", $downgrade_3)->where("teams_idteams", "=", $idteam)->exists() ||
+                $downgrade_3 == "")
         ) {
             // kurangi stock downgrade
             foreach ($downgrade as $dg) {
@@ -75,6 +76,7 @@ class TinkererController extends Controller
                     ->update(["stock_barang" => DB::raw("`stock_barang`- 1")]);
             }
 
+            // tambah stok barang yang di-crafting
             if (DB::table("inventory")->where("nama_barang", "=", $alat)->where("teams_idteams", "=", $idteam)->exists()) {
                 DB::table("inventory")
                     ->where("nama_barang", "=", $alat)
@@ -90,6 +92,17 @@ class TinkererController extends Controller
 
             // delete semua barang yang stock-nya 0
             DB::table("inventory")->where("stock_barang", "=", 0)->delete();
+
+            // special case untuk alat dengan 2 downgrade
+            $downgrade3 = ($downgrade_3 == "") ? "" : ", " . $downgrade_3;
+
+            // tambahkan history
+            $keterangan = "Team " . $team[0]->namaTeam . " Craft Alat (" . $alat . ") dengan Downgrade (" . $downgrade_1 . ", " . $downgrade_2 . $downgrade3 . ")";
+            DB::table("history")->insert([
+                "keterangan" => $keterangan,
+                "tipe" => "crafting",
+                "teams_idteams" => $idteam,
+            ]);
 
             $msg = "Alat (" . $alat . ") berhasil di Crafting untuk team " . $team[0]->namaTeam;
         } else {
@@ -137,7 +150,18 @@ class TinkererController extends Controller
             // delete semua barang yang stock-nya 0
             DB::table("inventory")->where("stock_barang", "=", 0)->delete();
 
-            $msg = "Alat (" . $alat . ") berhasil di Dismantle menjadi Downgrade (" . $downgrade[0] . ", " . $downgrade[1] . ", " . $downgrade[2] . ") untuk team " . $team[0]->namaTeam;
+            // special case alat dengan 2 downgrade
+            $downgrade3 = (count($downgrade) == 2) ? "" : ", " . $downgrade[2];
+
+            // tambahkan history
+            $keterangan = "Team " . $team[0]->namaTeam . " Dismantle Alat (" . $alat . ") menjadi Downgrade (" . $downgrade[0] . ", " . $downgrade[1] . $downgrade3 . ")";
+            DB::table("history")->insert([
+                "keterangan" => $keterangan,
+                "tipe" => "dismantle",
+                "teams_idteams" => $idteam,
+            ]);
+
+            $msg = "Alat (" . $alat . ") berhasil di Dismantle menjadi Downgrade (" . $downgrade[0] . ", " . $downgrade[1] . $downgrade3 . ") untuk team " . $team[0]->namaTeam;
         } else {
             $msg = "Alat tidak mencukupi untuk Dismantle";
         }

@@ -29,6 +29,7 @@ Route::get("/hint", function () {
     return view("hint");
 })->name("hint");
 
+Route::get("/history", "HistoryController@history")->name("history");
 
 // Admin Bahan
 // Admin Jual, Pemain Beli
