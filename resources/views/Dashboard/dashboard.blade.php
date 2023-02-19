@@ -61,7 +61,7 @@
                     <div class="row">
 
                         <div class="col">
-                            <div class="d-flex flex-row " style="margin-bottom: 0px">
+                            <div class="d-flex flex-row " style="margin-bottom: 0px;">
                                 <div class="btnItems tab d-flex align-items-center justify-content-center activeTab"
                                     id="btnAlat">
                                     <a href="#">Alat</a>
@@ -79,7 +79,7 @@
 
 
                             <div class="table-responsive">
-                                <table class="table ">
+                                <table class="table">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col" width="15%">

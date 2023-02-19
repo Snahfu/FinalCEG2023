@@ -1,4 +1,6 @@
-
+table{
+    transition: all 0.2s ease;
+}
 
 th {
     text-align: center;
@@ -10,25 +12,26 @@ td {
 .container-fluid{
     height: 100vh;
 }
+
 h1 {
     overflow: hidden;
     text-align: left;
-  }
+}
   
 
 h1:after {
-background-color: #000;
-content: "";
-display: inline-block;
-height: 1px;
-position: relative;
-vertical-align: middle;
-width: 100%;
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 2px;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
 }
   
 h1:after {
-left: 0.5em;
-margin-right: -50%;
+    left: 0.5em;
+    margin-right: -50%;
 }
 
 .dashboard {

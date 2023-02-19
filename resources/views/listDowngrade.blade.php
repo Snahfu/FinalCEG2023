@@ -16,7 +16,7 @@
             background-color: #000;
             content: "";
             display: inline-block;
-            height: 1px;
+            height: 2px;
             position: relative;
             vertical-align: middle;
             width: 100%;

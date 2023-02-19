@@ -1,47 +1,59 @@
 @extends('layouts.app')
 
 @section('css')
-    <style>
-        table,
-        tr,
-        th,
-        td {
-            border: 1px solid black;
-        }
 
-        table {
-            width: 100%
-        }
-
-        th {
-            text-align: center;
-        }
-    </style>
+    <!-- Styles -->
+    <link href="{{ asset('css/pemain/history.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
     <main class="d-block mx-auto">
-        <div class="container history w-75">
-            <h2>History</h2>
+        <div class="container history d-flex flex-column">
 
-            <table>
-                <tr>
-                    <th style="width: 100px;">No.</th>
-                    <th>Keterangan</th>
-                    <th>Waktu</th>
-                </tr>
-                <?php $i = 1; ?>
-                @foreach ($histories as $history)
-                    <tr>
-                        <td style="text-align: center;"><?php echo $i; ?></td>
-                        <td>{{ $history->keterangan }}</td>
-                        <td style="text-align: center;">{{ $history->created_at }}</td>
-                    </tr>
-                    <?php $i++; ?>
-                @endforeach
+            <div class="row my-2 my-md-3">
+                <div class="col">
+                    <h1 class="p-0 m-0">History</h1>
+                </div>
+                
+            </div>
 
-            </table>
-
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive rounded">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th width="15%">No.</th>
+                                    <th>Keterangan</th>
+                                    <th>Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                @foreach ($histories as $history)
+                                    <tr>
+                                        <td style="text-align: center;"><?php echo $i; ?></td>
+                                        <td>{{ $history->keterangan }}</td>
+                                        <td style="text-align: center;">{{ $history->created_at }}</td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row d-flex justify-content-end">
+                <div class="HeartAnimation d-flex justify-content-end"></div>
+            </div>
         </div>
     </main>
+    <script>
+        $(function() {
+            $(".HeartAnimation").click(function() {
+                $(this).toggleClass("animate");
+            });
+        });
+    </script>
 @endsection
