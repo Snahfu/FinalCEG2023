@@ -2,7 +2,7 @@
 
 @section('css')
     <style>
-        .card{
+        .card {
             border-radius: 20px;
             box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -21,22 +21,25 @@
             vertical-align: middle;
             width: 100%;
         }
-            
-            h1:after {
+
+        h1:after {
             left: 0.5em;
             margin-right: -50%;
         }
 
-        .selection{
-           max-width: 500px; 
+        .selection {
+            max-width: 500px;
         }
-        .text,.filter-option{
+
+        .text,
+        .filter-option {
             font-size: 14px;
         }
 
-        table{
+        table {
             font-size: 14px;
         }
+
         th {
             text-align: center;
             padding: 0 15px;
@@ -46,10 +49,11 @@
             padding: 10px 15px;
         }
 
-        .listDowngrade{
+        .listDowngrade {
             width: 60%;
         }
-        .downgrade{
+
+        .downgrade {
             height: 150px;
             font-size: 24px;
             display: flex;
@@ -58,29 +62,35 @@
 
         }
 
-        .show{
+        .show {
             height: 250px;
         }
-        
-        .dropdown{
+
+        .dropdown {
             border: 1px solid black !important;
         }
-        @media screen and (max-width:768px){
-            .text,.filter-option{
+
+        @media screen and (max-width:768px) {
+
+            .text,
+            .filter-option {
                 font-size: 12px;
             }
 
-            .listDowngrade{
+            .listDowngrade {
                 width: 100%;
             }
-            table{
+
+            table {
                 font-size: 12px
             }
         }
-        @media screen and (max-width:575px){
-            h1{
+
+        @media screen and (max-width:575px) {
+            h1 {
                 font-size: 18px;
             }
+
             h1:after {
                 background-color: #000;
                 content: "";
@@ -92,7 +102,6 @@
             }
         }
     </style>
-    
 @endsection
 
 @section('content')
@@ -101,25 +110,29 @@
 
             <div class="row my-3">
                 <div class="col">
-                    <h1 class="p-0 m-0">Downgrade</h1>
+                    <h1 class="p-0 m-0">List Downgrade</h1>
                 </div>
-                
+
             </div>
 
             {{-- Start of Card --}}
             <div class="card mt-3">
                 <div class="card-body">
 
-                    <div class="selection" >
-                        <span style="font-size:14px;" >Pilih Alat :</span> 
-                        <select name="alat" id="alat" class="form-control selectpicker bordered " data-live-search="true" tabindex="-1" aria-label="alat" style="max-width: 200px;font-size:14px;">
+                    <div class="selection">
+                        <span style="font-size:14px;">Pilih Alat :</span>
+                        <select name="alat" id="alat" class="form-control selectpicker bordered "
+                            data-live-search="true" tabindex="-1" aria-label="alat"
+                            style="max-width: 200px;font-size:14px;">
                             <option value="-" data-tokens="-" selected disabled>-- Pilih mesin --</option>
                             @foreach ($alat as $a)
-                                <option value="{{ $a->idalat }}" data-tokens="{{ $a->nama_alat }}">{{ $a->nama_alat }}</option>
+                                <option value="{{ $a->idalat }}" data-tokens="{{ $a->nama_alat }}">{{ $a->nama_alat }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
 
+                    <div class="text-center mt-3 border border-dark" style="background-color: #dddddd; border-radius: 100px;">Downgrade</div>
                     <div class="row">
                         <div class="col downgrade" id="downgrade_1">
 
@@ -134,8 +147,8 @@
                     </div>
 
 
-                    <div class="table-responsive" style="height:400px;">
-                        {{-- Start of Table --}}
+                    {{-- <div class="table-responsive" style="height:400px;">
+                        <!-- Start of Table -->
                         <table class="table">
                             <thead class="table-dark">
                                 <tr>
@@ -172,8 +185,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                        {{-- End of Table --}}
-                    </div>
+                        <!-- End of Table -->
+                    </div> --}}
                 </div>
             </div>
             {{-- End of Card --}}
