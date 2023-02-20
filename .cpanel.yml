@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/u1579892/FinalCEG2023
+    - /bin/cp -r * $DEPLOYPATH #copy all from root
