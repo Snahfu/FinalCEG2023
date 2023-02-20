@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2023 at 12:02 PM
+-- Generation Time: Feb 20, 2023 at 09:08 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -51,20 +51,28 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (9, 'Kolom Ekstraktor', 'Klem;Kondensor;Selang', 4),
 (10, 'Rotary Drum Filter', 'Pipe;Pisau;Drum', 4),
 (11, 'Ribbon Blenders', 'Motor;Gear;Cover', 5),
-(12, 'High Shear Mixers', 'Motor;Nozzle;Gear', 5),
+(12, 'Mixer', 'Motor;Nozzle;Gear', 5),
 (13, 'High Viscosity Batch Mixing', 'Screw;Stirrer;Motor', 5),
 (14, 'Double Planetary Mixing', 'Bowl;Beater;Handle', 5),
 (15, 'Tray Dryer', 'Tray Plate;Heater;Roller', 6),
-(16, 'Tray Dryer', 'Tray Plate;Blower;Roller', 6),
-(24, 'Spray Dryer', 'Chamber;Heater;Pipe', 6),
-(25, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
-(26, 'Rotary Dryer', 'Blower;Gear;Exhaust System', 6),
-(27, 'Flash Dryer', 'Pisau;Cyllinder;Tower Cap', 6),
-(28, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
-(29, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
-(30, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
-(31, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
-(32, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7);
+(16, 'Spray Dryer', 'Chamber;Heater;Pipe', 6),
+(17, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
+(18, 'Flash Dryer', 'Pisau;Cyllinder;Tower Cap', 6),
+(19, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
+(20, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
+(21, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
+(22, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
+(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7),
+(24, 'Plate & Frame Filter', 'Frame;Gear;Motor', 8),
+(25, 'Blancher', 'Gear;Screw;Heater', 8),
+(26, 'Storage', 'Board;Handle;Hinge', 8),
+(27, 'Cold Storage', 'Cooler;Handle;Hinge', 8),
+(28, 'Cutter', 'Pisau;Roller;Motor', 8),
+(29, 'Autoclave', 'Katup;Termometer;Screw', 8),
+(30, 'Boiler', 'Nozzle;Screw;Vent', 8),
+(31, 'Packaging Machine', 'Roller;Pisau;Skirtboard', 8),
+(32, 'Tray Storage', 'Tray Plate;Handle;Hinge', 8),
+(33, 'Tray', 'Screw;Handle;Board', 8);
 
 -- --------------------------------------------------------
 
@@ -141,10 +149,11 @@ INSERT INTO `jenisalat` (`idjenis`, `nama_jenis`) VALUES
 (1, 'Pencucian'),
 (2, 'Pemarutan'),
 (3, 'Pengepresan'),
-(4, 'Pendiaman dan Pemisahan'),
-(5, 'Pencampuran dan Pengadukan'),
+(4, 'Pendiaman & Pemisahan'),
+(5, 'Pencampuran & Pengadukan'),
 (6, 'Pengeringan'),
-(7, 'Pengangkut');
+(7, 'Pengangkut'),
+(8, 'Tambahan');
 
 -- --------------------------------------------------------
 
@@ -346,7 +355,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `teams_idteams` int(11) DEFAULT NULL,
   `role` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -466,7 +475,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alat`
 --
 ALTER TABLE `alat`
-  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `bahan`
@@ -490,7 +499,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `jenisalat`
 --
 ALTER TABLE `jenisalat`
-  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `market_bahan`
