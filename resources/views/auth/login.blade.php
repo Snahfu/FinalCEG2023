@@ -57,7 +57,6 @@
 @endsection
 
 @section('content')
-<h1>HALO AKU MAU COBA</h1>
     <div class="container">
         <div class="row justify-content-center">
             <div class="content-wrapper" style="top:25%;position: relative;">
