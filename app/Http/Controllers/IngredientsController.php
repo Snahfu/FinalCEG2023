@@ -42,11 +42,11 @@ class IngredientsController extends Controller
         // buat keterangan
         $details = "Team " . $team[0]->namaTeam . " mendapat bahan " . $nama_bahan . " (" . $jumlahAdd . ")";
         //  masukin ke history
-        // DB::table("history")->insert([
-        //     "keterangan" => $details,
-        //     "tipe" => "add",
-        //     "teams_idteams" => $idteams
-        // ]);
+        DB::table("history")->insert([
+            "keterangan" => $details,
+            "tipe" => "addIngredient",
+            "teams_idteams" => $idteams
+        ]);
 
         return response()->json(["status" => "success", "msg" => $details]);
     }

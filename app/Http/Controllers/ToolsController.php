@@ -42,11 +42,11 @@ class ToolsController extends Controller
         // buat keterangan
         $details = "Team " . $team[0]->namaTeam . " mendapat alat " . $nama_alat . " (" . $jumlahAdd . ")";
         //  masukin ke history
-        // DB::table("history")->insert([
-        //     "keterangan" => $details,
-        //     "tipe" => "add",
-        //     "teams_idteams" => $idteams
-        // ]);
+        DB::table("history")->insert([
+            "keterangan" => $details,
+            "tipe" => "addTool",
+            "teams_idteams" => $idteams
+        ]);
 
         return response()->json(["status" => "success", "msg" => $details]);
     }

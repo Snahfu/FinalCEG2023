@@ -18,13 +18,19 @@ class HistoryController extends Controller
                 $histories = DB::table("history")->where("teams_idteams", $user->teams_idteams)->get();
                 break;
             case "AdminDowngrade":
-                $histories = DB::table("history")->where("tipe", "=", "downgrade")->get();
+                $histories = DB::table("history")->where("tipe", "downgrade")->get();
                 break;
             case "AdminBahan":
                 $histories = DB::table("history")->where("tipe", "bahan")->get();
                 break;
-            case "Tinkerer":
-                $histories = DB::table("history")->where("tipe", "crafting")->orWhere("tipe", "=", "dismantle")->get();
+            case "DnC":
+                $histories = DB::table("history")->where("tipe", "crafting")->orWhere("tipe", "dismantle")->get();
+                break;
+            case "Ingredient":
+                $histories = DB::table("history")->where("tipe", "addIngredient")->get();
+                break;
+            case "Tool":
+                $histories = DB::table("history")->where("tipe", "addTool")->get();
                 break;
         }
 
