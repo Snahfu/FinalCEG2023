@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2023 at 09:08 AM
+-- Generation Time: Feb 21, 2023 at 01:00 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -96,12 +96,10 @@ INSERT INTO `bahan` (`idbahan`, `nama_bahan`) VALUES
 (4, 'Air Kelapa'),
 (5, 'Gula'),
 (6, 'Asam Cuka'),
-(7, 'ZA'),
-(8, 'NPK'),
-(9, 'Asam Sitrat'),
-(10, 'Starter'),
-(11, 'Urea'),
-(12, 'Vanili');
+(7, 'Asam Sitrat'),
+(8, 'Starter'),
+(9, 'Urea'),
+(10, 'Vanili');
 
 -- --------------------------------------------------------
 
@@ -133,19 +131,19 @@ CREATE TABLE `inventory` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenisalat`
+-- Table structure for table `jenis_alat`
 --
 
-CREATE TABLE `jenisalat` (
+CREATE TABLE `jenis_alat` (
   `idjenis` int(11) NOT NULL,
   `nama_jenis` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `jenisalat`
+-- Dumping data for table `jenis_alat`
 --
 
-INSERT INTO `jenisalat` (`idjenis`, `nama_jenis`) VALUES
+INSERT INTO `jenis_alat` (`idjenis`, `nama_jenis`) VALUES
 (1, 'Pencucian'),
 (2, 'Pemarutan'),
 (3, 'Pengepresan'),
@@ -176,25 +174,23 @@ CREATE TABLE `market_bahan` (
 --
 
 INSERT INTO `market_bahan` (`idmarket_bahan`, `bahan`, `stok`, `harga_beli`, `harga_jual`, `sesi`, `tipe`) VALUES
-(1, 'Daging Kelapa', 10, 50, 40, 1, 'biasa'),
-(2, 'Air', 10, 30, 20, 1, 'biasa'),
-(3, 'Natrium Kaseinat ', 10, 75, 60, 1, 'biasa'),
-(4, 'Air Kelapa', 10, 85, 70, 3, 'biasa'),
-(5, 'Gula', 10, 45, 35, 3, 'biasa'),
-(6, 'Asam Cuka', 10, 60, 45, 3, 'biasa'),
-(7, 'ZA', 10, 25, 20, 3, 'biasa'),
-(8, 'NPK', 10, 25, 20, 3, 'biasa'),
-(9, 'Asam Sitrat', 10, 35, 25, 3, 'biasa'),
-(10, 'Starter ', 10, 95, 80, 3, 'biasa'),
-(11, 'Urea', 10, 40, 30, 3, 'biasa'),
-(12, 'Vanili', 10, 55, 45, 3, 'biasa'),
-(13, 'Daging kelapa', 3, 35, 0, 1, 'flash sale'),
-(14, 'Natrium Kaseinat', 3, 60, 0, 1, 'flash sale'),
-(15, 'Air Kelapa', 3, 70, 0, 3, 'flash sale '),
-(16, 'Gula', 3, 30, 0, 3, 'flash sale '),
-(17, 'Asam Cuka', 3, 45, 0, 3, 'flash sale '),
-(18, 'Starter', 3, 75, 0, 3, 'flash sale '),
-(19, 'Vanili', 3, 40, 0, 3, 'flash sale ');
+(1, 'Daging Kelapa', 100, 50, 40, 1, 'biasa'),
+(2, 'Air', 100, 30, 20, 1, 'biasa'),
+(3, 'Natrium Kaseinat ', 100, 75, 60, 1, 'biasa'),
+(4, 'Air Kelapa', 100, 85, 70, 3, 'biasa'),
+(5, 'Gula', 100, 45, 35, 3, 'biasa'),
+(6, 'Asam Cuka', 100, 60, 45, 3, 'biasa'),
+(7, 'Asam Sitrat', 100, 35, 25, 3, 'biasa'),
+(8, 'Starter ', 100, 95, 80, 3, 'biasa'),
+(9, 'Urea', 100, 40, 30, 3, 'biasa'),
+(10, 'Vanili', 100, 55, 45, 3, 'biasa'),
+(11, 'Daging kelapa', 3, 35, 0, 1, 'flash sale'),
+(12, 'Natrium Kaseinat', 3, 60, 0, 1, 'flash sale'),
+(13, 'Air Kelapa', 3, 70, 0, 3, 'flash sale '),
+(14, 'Gula', 3, 30, 0, 3, 'flash sale '),
+(15, 'Asam Cuka', 3, 45, 0, 3, 'flash sale '),
+(16, 'Starter', 3, 75, 0, 3, 'flash sale '),
+(17, 'Vanili', 3, 40, 0, 3, 'flash sale ');
 
 -- --------------------------------------------------------
 
@@ -333,15 +329,6 @@ CREATE TABLE `teams` (
   `koin` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `teams`
---
-
-INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'Player 1', '500'),
-(2, 'Player 2', '100'),
-(3, 'Player 3', '700');
-
 -- --------------------------------------------------------
 
 --
@@ -366,15 +353,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `teams_idteams`, `role`) VALUES
-(1, 'Player 1', 'player1@gmail.com', NULL, '$2y$10$jr.nKsakwUXKq9b/cOgmwu0JcsMusXxEqSeYbdk0D.wzsCA2xa.k.', NULL, '2023-02-11 20:57:07', '2023-02-11 20:57:07', 1, 'Player'),
-(2, 'Player 2', 'player2@gmail.com', NULL, '$2y$10$DRPLFt2dP97FyigNeUegLe4t95aguEideCnZBcvApy3pjVtiA3RBa', NULL, '2023-02-12 02:09:22', '2023-02-12 02:09:22', 2, 'Player'),
-(3, 'Player 3', 'player3@gmail.com', NULL, '$2y$10$ezOLJR7T6DY21UIbFEb67etw6u7l8adRlmzZZmsVdoVizJ6FYfX5G', NULL, '2023-02-12 02:09:40', '2023-02-12 02:09:40', 3, 'Player'),
-(4, 'AdminD1', 'admind1@gmail.com', NULL, '$2y$10$NowElmKAydLPPqeYAmc2c.Oin6Uip6WRojuUTtA2q5Dzam5kac0mG', NULL, '2023-02-12 02:10:24', '2023-02-12 02:10:24', NULL, 'AdminDowngrade'),
-(5, 'AdminD2', 'admind2@gmail.com', NULL, '$2y$10$4349QuFRmP8/808Qm2GZFet1yA3EiaeevoPrTsyCr7Dzy6V5vr552', NULL, '2023-02-12 02:10:53', '2023-02-12 02:10:53', NULL, 'AdminDowngrade'),
-(6, 'AdminB1', 'adminb1@gmail.com', NULL, '$2y$10$uX1GSspEx5rVhnLp1gtn.umv11dPHx7VLdRtV0mzygVqletfGaP0O', NULL, '2023-02-12 02:11:11', '2023-02-12 02:11:11', NULL, 'AdminBahan'),
-(7, 'AdminB2', 'adminb2@gmail.com', NULL, '$2y$10$WxqDBsKgPBLhi1hQIRoPdOQ27nbqEb4CzGuwW/lM6sS5KpNgA89wa', NULL, '2023-02-12 02:11:36', '2023-02-12 02:11:36', NULL, 'AdminBahan'),
-(8, 'Tinkerer 1', 'tinkerer1@gmail.com', NULL, '$2y$10$Dl/Qomv1sWSdc3YuMBUHreY1VoHlGVFta202iJOrOkynXX0GRpWt6', NULL, '2023-02-12 02:12:24', '2023-02-12 02:12:24', NULL, 'Tinkerer'),
-(9, 'Tinkerer 2', 'tinkerer2@gmail.com', NULL, '$2y$10$LXzTLCMXoz2hbxgg6iLLV.lxXxYe82azqaVU5P8L39NFetvGaWkWi', NULL, '2023-02-12 02:12:43', '2023-02-12 02:12:43', NULL, 'Tinkerer');
+(1, 'Tools 1', 'tools1@gmail.com', NULL, '$2y$10$pHEZaic8Xs9n04TA90ArMeYQt5cpO/tjC0Ms6T7yvzi3DEkdJebzS', NULL, '2023-02-21 11:20:57', '2023-02-21 04:16:49', NULL, 'Tool'),
+(2, 'Tools 2', 'tools2@gmail.com', NULL, '$2y$10$ha/n5jiNiekAtLw8Fe3kf.ZLHxhuzb0tcNbdtYOKRXW3hQwLGLpTa', NULL, '2023-02-21 11:20:57', '2023-02-21 04:17:14', NULL, 'Tool'),
+(3, 'Tools 3', 'tools3@gmail.com', NULL, '$2y$10$uJwhW4XwForKbGMMhtep.u4cSjtXOT4gTk3/Uq950J88k6KdEQa8K', NULL, '2023-02-21 11:20:57', '2023-02-21 04:17:37', NULL, 'Tool'),
+(4, 'Tools 4', 'tools4@gmail.com', NULL, '$2y$10$1pLwtLMFqpaZ2Pod5SKKiuDGSSNjikOXfHPU3VpOIun9Y9nsdQ8.G', NULL, '2023-02-21 11:20:57', '2023-02-21 04:18:07', NULL, 'Tool'),
+(5, 'Tools 5', 'tools5@gmail.com', NULL, '$2y$10$glgsQDnEIstmOZq4uoVsiuIdBkLocjTIb6X2m3wWvXEcO3qA4T5Ai', NULL, '2023-02-21 11:20:57', '2023-02-21 04:18:23', NULL, 'Tool'),
+(6, 'Ingredient 1', 'ingredient1@gmail.com', NULL, '$2y$10$.rxCe5Qh1qXKwVSe1fVp/.KIa7XCp/INodbzLA4Ep9sM.q6hRTEVS', NULL, '2023-02-21 11:23:22', '2023-02-21 04:19:31', NULL, 'Ingredient'),
+(7, 'Ingredient 2', 'ingredient2@gmail.com', NULL, '$2y$10$Q3lyQeyhez4Sbclv4XluN.laWj4POBKzvjR2Cx6nZSZhDTF94E002', NULL, '2023-02-21 11:23:22', '2023-02-21 04:20:08', NULL, 'Ingredient'),
+(8, 'Ingredient 3', 'ingredient3@gmail.com', NULL, '$2y$10$A4pM7d36HNCtQD2MgWMXOekDLPnC2V8OXAJ3s5Bk2LFLND.YCrUoC', NULL, '2023-02-21 11:23:22', '2023-02-21 04:22:40', NULL, 'Ingredient'),
+(9, 'Store Bahan 1', 'storebahan1@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-02-21 11:57:37', '2023-02-21 04:29:38', NULL, 'AdminBahan'),
+(10, 'Store Bahan 2', 'storebahan2@gmail.com', NULL, '$2y$10$tJBPytvLYUDhdNeMJAtpqure0BzUs7Y7HZf7GDAzQtgaUo991Sfb2', NULL, '2023-02-21 11:57:37', '2023-02-21 04:29:56', NULL, 'AdminBahan'),
+(11, 'Store Bahan 3', 'storebahan3@gmail.com', NULL, '$2y$10$pB3igxQJVup6mhuKzzKySebuR1awd2alfzMIPTgKZAXgPw4R/ZiKe', NULL, '2023-02-21 11:57:37', '2023-02-21 04:30:18', NULL, 'AdminBahan'),
+(12, 'Store Downgrade 1', 'storedowngrade1@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-21 11:58:58', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
+(13, 'Store Downgrade 2', 'storedowngrade2@gmail.com', NULL, '$2y$10$cvQTRjvwjrF.to/pTjgpe.JFkZ8YWNx63lPuYwQCIws/OOIl.ZOQ6', NULL, '2023-02-21 11:59:03', '2023-02-21 04:33:42', NULL, 'AdminDowngrade'),
+(14, 'Store Downgrade 3', 'storedowngrade3@gmail.com', NULL, '$2y$10$pbmKMiFrdGevS8Tg69c11eeu4MyM3jf1Fc/9Z/uI36KNEFP/So5pe', NULL, '2023-02-21 11:59:08', '2023-02-21 04:34:02', NULL, 'AdminDowngrade');
 
 --
 -- Indexes for dumped tables
@@ -408,9 +400,9 @@ ALTER TABLE `inventory`
   ADD KEY `fk_inventory_teams1_idx` (`teams_idteams`);
 
 --
--- Indexes for table `jenisalat`
+-- Indexes for table `jenis_alat`
 --
-ALTER TABLE `jenisalat`
+ALTER TABLE `jenis_alat`
   ADD PRIMARY KEY (`idjenis`);
 
 --
@@ -481,7 +473,7 @@ ALTER TABLE `alat`
 -- AUTO_INCREMENT for table `bahan`
 --
 ALTER TABLE `bahan`
-  MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `history`
@@ -496,16 +488,16 @@ ALTER TABLE `inventory`
   MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jenisalat`
+-- AUTO_INCREMENT for table `jenis_alat`
 --
-ALTER TABLE `jenisalat`
+ALTER TABLE `jenis_alat`
   MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `market_bahan`
 --
 ALTER TABLE `market_bahan`
-  MODIFY `idmarket_bahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idmarket_bahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `market_downgrade`
@@ -529,13 +521,13 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -545,7 +537,7 @@ ALTER TABLE `users`
 -- Constraints for table `alat`
 --
 ALTER TABLE `alat`
-  ADD CONSTRAINT `fk_alat_jenis1` FOREIGN KEY (`jenis_idjenis`) REFERENCES `jenisalat` (`idjenis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_alat_jenis1` FOREIGN KEY (`jenis_idjenis`) REFERENCES `jenis_alat` (`idjenis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `history`
