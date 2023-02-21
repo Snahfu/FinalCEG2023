@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->role == "AdminDowngrade") {
                 return Response::allow();
             } else {
-                return Response::deny("Hanya untuk Penjual Downgrade");
+                return Response::deny("Hanya untuk Pos Penjual Downgrade");
             }
         });
 
@@ -47,15 +47,31 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->role == "AdminBahan") {
                 return Response::allow();
             } else {
-                return Response::deny("Hanya untuk Penjual Bahan");
+                return Response::deny("Hanya untuk Pos Penjual Bahan");
             }
         });
 
-        Gate::define("isTinkerer", function ($user) {
-            if ($user->role == "Tinkerer") {
+        Gate::define("isDnC", function ($user) {
+            if ($user->role == "DnC") {
                 return Response::allow();
             } else {
-                return Response::deny("Hanya untuk Tinkerer");
+                return Response::deny("Hanya untuk Pos DnC");
+            }
+        });
+
+        Gate::define("isIngredient", function ($user) {
+            if ($user->role == "Ingredient") {
+                return Response::allow();
+            } else {
+                return Response::deny("Hanya untuk Pos Ingredient");
+            }
+        });
+
+        Gate::define("isTool", function ($user) {
+            if ($user->role == "Tool") {
+                return Response::allow();
+            } else {
+                return Response::deny("Hanya untuk Pos Tool");
             }
         });
     }

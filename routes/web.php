@@ -31,6 +31,14 @@ Route::get("/hint", function () {
 
 Route::get("/history", "HistoryController@history")->name("history");
 
+// Admin Ingredients
+Route::get("/ingredients", "IngredientsController@ingredients")->name("ingredients");
+Route::post("/ingredients/add", "IngredientsController@addIngredients")->name("addIngredients");
+
+// Admin Tools
+Route::get("/tools", "ToolsController@tools")->name("tools");
+Route::post("/tools/add", "ToolsController@addTools")->name("addTools");
+
 // Admin Bahan
 // Admin Jual, Pemain Beli
 Route::get("/penjualBahanSell", "PenjualController@penjualBahanSell")->name("penjualBahanSell");

@@ -73,6 +73,9 @@
                         <th>
                             Stock
                         </th>
+                        <th>
+                            jumlah
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="items">

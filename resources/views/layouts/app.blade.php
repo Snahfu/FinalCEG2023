@@ -119,13 +119,15 @@
                             </li>
                         @endcan
 
-                        <li class="nav-item">
-                            <a href="{{ route('history') }}" class="nav-link">History</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="" class="nav-link"></a>
-                        </li>
+                        @cannot('isIngredient')
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
+                        @elsecannot("isTool")
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
+                        @endcannot
                     </ul>
 
                     <!-- Right Side Of Navbar -->

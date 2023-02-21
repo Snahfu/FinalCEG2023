@@ -47,8 +47,12 @@ class LoginController extends Controller
             return "/penjualBahanSell";
         } else if (Auth::user()->role == "AdminDowngrade") {
             return "/penjualDowngradeSell";
-        } else if (Auth::user()->role == "Tinkerer") {
+        } else if (Auth::user()->role == "DnC") {
             return "/tinkerer";
+        } else if (Auth::user()->role == "Ingredient") {
+            return "/ingredient";
+        } else if (Auth::user()->role == "Tool") {
+            return "/tool";
         }
     }
 }
