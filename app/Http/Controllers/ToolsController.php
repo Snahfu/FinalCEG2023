@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class ToolsController extends Controller
 {
     public function tools()
     {
+        $user = Auth::user();
         $teams = DB::table("teams")->get();
         $alat = DB::table("alat")->get();
 
-        return view("Pos.tools", compact("teams", "alat"));
+        return view("Pos.tools", compact("user", "teams", "alat"));
     }
 
     public function addTools(Request $request)

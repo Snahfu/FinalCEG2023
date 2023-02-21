@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class IngredientsController extends Controller
 {
     public function ingredients()
     {
+        $user = Auth::user();
         $teams = DB::table("teams")->get();
         $bahan = DB::table("bahan")->get();
 
-        return view("Pos.ingredients", compact("teams", "bahan"));
+        return view("Pos.ingredients", compact("user", "teams", "bahan"));
     }
 
     public function addIngredients(Request $request)
