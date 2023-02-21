@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 01:10 PM
+-- Generation Time: Feb 21, 2023 at 03:03 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -224,62 +224,62 @@ CREATE TABLE `market_downgrade` (
 --
 
 INSERT INTO `market_downgrade` (`idmarket_downgrade`, `downgrade`, `stok`, `harga_beli`, `harga_jual`, `tipe`) VALUES
-(1, 'Motor', 100, 85, 100, 'biasa'),
-(2, 'Pipe', 100, 40, 50, 'biasa'),
-(3, 'Tub', 100, 30, 35, 'biasa'),
-(4, 'Pisau', 100, 60, 75, 'biasa'),
-(5, 'Gear', 100, 35, 45, 'biasa'),
-(6, 'Gauge', 100, 55, 65, 'biasa'),
-(7, 'Piston', 100, 60, 70, 'biasa'),
-(8, 'Cylinder', 100, 50, 60, 'biasa'),
-(9, 'Frame', 100, 45, 55, 'biasa'),
-(10, 'Screw', 100, 60, 75, 'biasa'),
-(11, 'Kaca', 100, 45, 55, 'biasa'),
-(12, 'Katup', 100, 25, 30, 'biasa'),
-(13, 'Kolom', 100, 30, 40, 'biasa'),
-(14, 'Kondensor', 100, 40, 50, 'biasa'),
-(15, 'Reboiler', 100, 65, 80, 'biasa'),
-(16, 'Klem', 100, 50, 60, 'biasa'),
-(17, 'Selang', 100, 30, 35, 'biasa'),
-(18, 'Drum', 100, 55, 65, 'biasa'),
-(19, 'Cover', 100, 20, 25, 'biasa'),
-(20, 'Nozzle', 100, 35, 40, 'biasa'),
-(21, 'Stirrer', 100, 35, 40, 'biasa'),
-(22, 'Bowl', 100, 20, 25, 'biasa'),
-(23, 'Beater', 100, 25, 30, 'biasa'),
-(24, 'Handle', 100, 35, 45, 'biasa'),
-(25, 'Tray Plate', 100, 45, 55, 'biasa'),
-(26, 'Heater', 100, 55, 65, 'biasa'),
-(27, 'Roller', 100, 40, 50, 'biasa'),
-(28, 'Chamber', 100, 70, 85, 'biasa'),
-(29, 'Exhaust System', 100, 40, 50, 'biasa'),
-(30, 'Tower Cap', 100, 30, 35, 'biasa'),
-(31, 'Blower', 100, 55, 65, 'biasa'),
-(32, 'Cyclone', 100, 20, 25, 'biasa'),
-(33, 'Impeller', 100, 30, 35, 'biasa'),
-(34, 'Skirtboard', 100, 20, 25, 'biasa'),
-(35, 'Bucket', 100, 30, 35, 'biasa'),
-(36, 'Inlet', 100, 25, 30, 'biasa'),
-(37, 'Board', 100, 25, 30, 'biasa'),
-(38, 'Hinge', 100, 50, 60, 'biasa'),
-(39, 'Cooler', 100, 75, 90, 'biasa'),
-(40, 'Termometer', 100, 70, 85, 'biasa'),
-(41, 'Vent', 100, 80, 95, 'biasa'),
-(42, 'Motor', 3, 0, 80, 'flash sale'),
-(43, 'Pisau', 3, 0, 55, 'flash sale'),
-(44, 'Gauge', 3, 0, 45, 'flash sale'),
-(45, 'Piston', 3, 0, 50, 'flash sale'),
-(46, 'Cylinder', 3, 0, 40, 'flash sale'),
-(47, 'Frame', 3, 0, 35, 'flash sale'),
-(48, 'Screw', 3, 0, 55, 'flash sale'),
-(49, 'Kaca', 3, 0, 35, 'flash sale'),
-(50, 'Reboiler', 3, 0, 60, 'flash sale'),
-(51, 'Klem', 3, 0, 40, 'flash sale'),
-(52, 'Drum', 3, 0, 45, 'flash sale'),
-(53, 'Tray Plate', 3, 0, 35, 'flash sale'),
-(54, 'Heater', 3, 0, 45, 'flash sale'),
-(55, 'Chamber', 3, 0, 65, 'flash sale'),
-(56, 'Blower', 3, 0, 45, 'flash sale');
+(1, 'Motor', 100, 100, 85, 'biasa'),
+(2, 'Pipe', 100, 50, 40, 'biasa'),
+(3, 'Tub', 100, 35, 30, 'biasa'),
+(4, 'Pisau', 100, 75, 60, 'biasa'),
+(5, 'Gear', 100, 45, 35, 'biasa'),
+(6, 'Gauge', 100, 65, 55, 'biasa'),
+(7, 'Piston', 100, 70, 60, 'biasa'),
+(8, 'Cylinder', 100, 60, 50, 'biasa'),
+(9, 'Frame', 100, 55, 45, 'biasa'),
+(10, 'Screw', 100, 75, 60, 'biasa'),
+(11, 'Kaca', 100, 55, 45, 'biasa'),
+(12, 'Katup', 100, 30, 25, 'biasa'),
+(13, 'Kolom', 100, 40, 30, 'biasa'),
+(14, 'Kondensor', 100, 50, 40, 'biasa'),
+(15, 'Reboiler', 100, 80, 65, 'biasa'),
+(16, 'Klem', 100, 60, 50, 'biasa'),
+(17, 'Selang', 100, 35, 30, 'biasa'),
+(18, 'Drum', 100, 65, 55, 'biasa'),
+(19, 'Cover', 100, 25, 20, 'biasa'),
+(20, 'Nozzle', 100, 40, 35, 'biasa'),
+(21, 'Stirrer', 100, 40, 35, 'biasa'),
+(22, 'Bowl', 100, 25, 20, 'biasa'),
+(23, 'Beater', 100, 30, 25, 'biasa'),
+(24, 'Handle', 100, 45, 35, 'biasa'),
+(25, 'Tray Plate', 100, 55, 45, 'biasa'),
+(26, 'Heater', 100, 65, 55, 'biasa'),
+(27, 'Roller', 100, 50, 40, 'biasa'),
+(28, 'Chamber', 100, 85, 70, 'biasa'),
+(29, 'Exhaust System', 100, 50, 40, 'biasa'),
+(30, 'Tower Cap', 100, 35, 30, 'biasa'),
+(31, 'Blower', 100, 65, 55, 'biasa'),
+(32, 'Cyclone', 100, 25, 20, 'biasa'),
+(33, 'Impeller', 100, 35, 30, 'biasa'),
+(34, 'Skirtboard', 100, 25, 20, 'biasa'),
+(35, 'Bucket', 100, 35, 30, 'biasa'),
+(36, 'Inlet', 100, 30, 25, 'biasa'),
+(37, 'Board', 100, 30, 25, 'biasa'),
+(38, 'Hinge', 100, 60, 50, 'biasa'),
+(39, 'Cooler', 100, 90, 75, 'biasa'),
+(40, 'Termometer', 100, 85, 70, 'biasa'),
+(41, 'Vent', 100, 95, 80, 'biasa'),
+(42, 'Motor', 3, 80, 0, 'flash sale'),
+(43, 'Pisau', 3, 55, 0, 'flash sale'),
+(44, 'Gauge', 3, 45, 0, 'flash sale'),
+(45, 'Piston', 3, 50, 0, 'flash sale'),
+(46, 'Cylinder', 3, 40, 0, 'flash sale'),
+(47, 'Frame', 3, 35, 0, 'flash sale'),
+(48, 'Screw', 3, 55, 0, 'flash sale'),
+(49, 'Kaca', 3, 35, 0, 'flash sale'),
+(50, 'Reboiler', 3, 60, 0, 'flash sale'),
+(51, 'Klem', 3, 40, 0, 'flash sale'),
+(52, 'Drum', 3, 45, 0, 'flash sale'),
+(53, 'Tray Plate', 3, 35, 0, 'flash sale'),
+(54, 'Heater', 3, 45, 0, 'flash sale'),
+(55, 'Chamber', 3, 65, 0, 'flash sale'),
+(56, 'Blower', 3, 45, 0, 'flash sale');
 
 -- --------------------------------------------------------
 
@@ -334,7 +334,16 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '0');
+(1, 'User 1', '0'),
+(2, 'User 2', '0'),
+(3, 'User 3', '0'),
+(4, 'User 4', '0'),
+(5, 'User 5', '0'),
+(6, 'User 6', '0'),
+(7, 'User 7', '0'),
+(8, 'User 8', '0'),
+(9, 'User 9', '0'),
+(10, 'User 10', '0');
 
 -- --------------------------------------------------------
 
@@ -369,12 +378,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (7, 'Ingredient 2', 'ingredient2@gmail.com', NULL, '$2y$10$Q3lyQeyhez4Sbclv4XluN.laWj4POBKzvjR2Cx6nZSZhDTF94E002', NULL, '2023-02-21 11:23:22', '2023-02-21 04:20:08', NULL, 'Ingredient'),
 (8, 'Ingredient 3', 'ingredient3@gmail.com', NULL, '$2y$10$A4pM7d36HNCtQD2MgWMXOekDLPnC2V8OXAJ3s5Bk2LFLND.YCrUoC', NULL, '2023-02-21 11:23:22', '2023-02-21 04:22:40', NULL, 'Ingredient'),
 (9, 'Store Bahan 1', 'storebahan1@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-02-21 11:57:37', '2023-02-21 04:29:38', NULL, 'AdminBahan'),
-(10, 'Store Bahan 2', 'storebahan2@gmail.com', NULL, '$2y$10$tJBPytvLYUDhdNeMJAtpqure0BzUs7Y7HZf7GDAzQtgaUo991Sfb2', NULL, '2023-02-21 11:57:37', '2023-02-21 04:29:56', NULL, 'AdminBahan'),
-(11, 'Store Bahan 3', 'storebahan3@gmail.com', NULL, '$2y$10$pB3igxQJVup6mhuKzzKySebuR1awd2alfzMIPTgKZAXgPw4R/ZiKe', NULL, '2023-02-21 11:57:37', '2023-02-21 04:30:18', NULL, 'AdminBahan'),
-(12, 'Store Downgrade 1', 'storedowngrade1@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-21 11:58:58', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
-(13, 'Store Downgrade 2', 'storedowngrade2@gmail.com', NULL, '$2y$10$cvQTRjvwjrF.to/pTjgpe.JFkZ8YWNx63lPuYwQCIws/OOIl.ZOQ6', NULL, '2023-02-21 11:59:03', '2023-02-21 04:33:42', NULL, 'AdminDowngrade'),
-(14, 'Store Downgrade 3', 'storedowngrade3@gmail.com', NULL, '$2y$10$pbmKMiFrdGevS8Tg69c11eeu4MyM3jf1Fc/9Z/uI36KNEFP/So5pe', NULL, '2023-02-21 11:59:08', '2023-02-21 04:34:02', NULL, 'AdminDowngrade'),
-(15, 'User 1', 'user1@gmail.com', NULL, '$2y$10$dRbgUo9F5jhH41o0b.ALlepzIrqlho4zSN4gUo2Fb.EyhddXBUyfK', NULL, '2023-02-21 12:10:07', '2023-02-21 05:07:39', 1, 'Player');
+(10, 'Store Downgrade 1', 'storedowngrade1@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-21 13:50:14', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
+(11, 'DnC', 'dnc@gmail.com', NULL, '$2y$10$toloTVmYQsk9OG2t7agtReY1xCmchb2urG4Hug6M4FYKb8KOlsIzu', NULL, '2023-02-21 13:50:22', '2023-02-21 06:48:34', NULL, 'DnC'),
+(12, 'User 1', 'user1@gmail.com', NULL, '$2y$10$0CAL8Cqjwo7665e98V4mQOeSpNVGMP5ZcyTEWB9d6MlJos8xXrjMS', NULL, '2023-02-21 14:00:24', '2023-02-21 06:52:25', 1, 'Player'),
+(13, 'User 2', 'user2@gmail.com', NULL, '$2y$10$RtPi6QZ4ez3muOgPdTnLWOxpSkezStvfuAuJnMsl11qmxT8zc1DcK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:53:12', 2, 'Player'),
+(14, 'User 3', 'user3@gmail.com', NULL, '$2y$10$sScW8ifAEh.9NiSNeNaFvuUyrolc8CqhxVByHTd3fWGGtqNYuR/te', NULL, '2023-02-21 14:00:24', '2023-02-21 06:53:46', 3, 'Player'),
+(15, 'User 4', 'user4@gmail.com', NULL, '$2y$10$0b7OVeykodZSZ23gxlprIe2/VTN2eAwgMLduQdjvuLAGpEc3BgTra', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:08', 4, 'Player'),
+(16, 'User 5', 'user5@gmail.com', NULL, '$2y$10$Y3GuFyJdAVGa5gI3jBYrWuOf5DiyTdb7GRoUgDRQonIuJNzHCKC72', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:30', 5, 'Player'),
+(17, 'User 6', 'user6@gmail.com', NULL, '$2y$10$XmrnJ.Pf1BNN635zAkYiMuAjF5kjpPR.D1v0Vhp6.IMTZXVV2a.2m', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:53', 6, 'Player'),
+(18, 'User 7', 'user7@gmail.com', NULL, '$2y$10$ue0yhcKjBKqqFXvsNEt.AudwUFsGCDf3uEnLSygjPt.ypQ/ENnuru', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:09', 7, 'Player'),
+(19, 'User 8', 'user8@gmail.com', NULL, '$2y$10$IRQWNRzJK.4SFdTojYPuPep8sGd1Mucm4gfuALifF31dllAiRZVQy', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:39', 8, 'Player'),
+(20, 'User 9', 'user9@gmail.com', NULL, '$2y$10$2z3VNkteMWSBR01Hp1OJFuskYBXZ5tcj81J2yoN58TXPwALdqbl.m', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:59', 9, 'Player'),
+(21, 'User 10', 'user10@gmail.com', NULL, '$2y$10$qiO7o4pUpUuweI.SCu9SZ.XEVCjQ0xp9lGp/AntKZVYt7nAdJR4FK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:56:23', 10, 'Player');
 
 --
 -- Indexes for dumped tables
@@ -529,13 +544,13 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
