@@ -8,25 +8,53 @@
         td {
             border: 1px solid black;
         }
+
+        @media (min-width: 426px) {
+            #btnAdd {
+                width: 10%;
+            }
+        }
     </style>
 @endsection
 
 @section('content')
     <main class="d-block mx-auto">
-        <div class="container ingredient">
-            <select name="teams" id="teams">
-                @foreach ($teams as $team)
-                    <option value="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
-                @endforeach
-            </select>
-            <select name="bahan" id="bahan">
-                @foreach ($bahan as $b)
-                    <option value="{{ $b->nama_bahan }}">{{ $b->nama_bahan }}</option>
-                @endforeach
-            </select>
-            <input type="text" inputmode="numeric" name="jumlahAdd" id="jumlahAdd">
+        <div class="container ingredient d-flex flex-column gap-3">
+            <label for="teams">
+                Team :
+                <select name="teams" id="teams">
+                    <option value="-" selected disabled>-- Pilih Team --</option>
+                    @foreach ($teams as $team)
+                        <option value="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
+                    @endforeach
+
+                </select>
+
+            </label>
+
+
+            <label for="bahan">
+                Bahan :
+                <select name="bahan" id="bahan">
+                    <option value="-" selected disabled>-- Pilih Bahan --</option>
+                    @foreach ($bahan as $b)
+                        <option value="{{ $b->nama_bahan }}">{{ $b->nama_bahan }}</option>
+                    @endforeach
+
+                </select>
+
+            </label>
+
+            <label for="jumlahAdd">
+                Jumlah :
+                <input type="text" inputmode="numeric" name="jumlahAdd" id="jumlahAdd" placeholder="0">
+
+            </label>
+
             <button id="btnAdd" class="btn btn-primary">Add</button>
+
         </div>
+
     </main>
 
     {{-- Modal Alert --}}
@@ -73,8 +101,20 @@
 
     <script>
         $("#btnAdd").click(function() {
-            $("#confirmation").html("Apakah anda yakin?")
-            $("#ModalConfirmation").modal("show")
+            if ($("#teams").val() == null) {
+                $("#alert-warning").html("Tolong pilih Team terlebih dahulu")
+                $("#ModalAlert").modal("show")
+            } else if ($("#bahan").val() == null) {
+                $("#alert-warning").html("Tolong pilih Bahan terlebih dahulu")
+                $("#ModalAlert").modal("show")
+            } else if ($("#jumlahAdd").val() == "") {
+                $("#alert-warning").html("Tolong isi Jumlah terlebih dahulu")
+                $("#ModalAlert").modal("show")
+            } else {
+                $("#confirmation").html("Apakah anda yakin?")
+                $("#ModalConfirmation").modal("show")
+            }
+
         })
 
         $("#confirmSubmit").click(function() {
