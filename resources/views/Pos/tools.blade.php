@@ -1,178 +1,30 @@
 @extends('layouts.app')
 
 @section('css')
+
+    <!-- Styles -->
+    <link href="{{ asset('css/pos/template.css') }}" rel="stylesheet">
+
     <style>
-
-        .tool{
-            width: 60%;
-        }
-
-        .selection .form-control{
-            max-width: 350px;
-        }
-
-        .dropdown {
-            border: 1px solid black !important;
-        }
-
-        .dropdown-menu{
-            max-width: 350px;
-            max-height: 200px;
-        }
-
-        .card{
-            border: 0px solid black;
-            box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
-        }
-
-        .isiCard{
-            display: flex;
-            flex-direction: row;
-        }
-
-        .addSection{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            
-        }
-
-        .usable{
-            width: 60%;
-        }
-
-        #btnAdd{
-            max-width: 100px;
-        }
-
-        #jumlahAdd{
-            margin-left:10px;
-        }
-
-        .gif{
-            width: 360px;
-            height: auto;
-            
-        }
         .gifCont{
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 10px;
-            background-image: url({{ asset('assets/hiburan/wednesdaymorning.gif') }});
+            transition: all 0.1s ease-in-out;
+            background-image: url({{ asset('assets/hiburan/wednesdaymorning.gif')}});
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
-            transition: all 0.1s ease-in-out;
+            
 
         }
         .gifCont:hover{
-            background-image: url({{ asset('assets/hiburan/melastnight.gif') }});
             transition: all 0.1s ease-in-out;
-
+            background-image: url({{ asset('assets/hiburan/melastnight.gif') }});    
         }
-
-        @media screen and (max-width:1000px){
-            .gif{
-                width: 240px;
-            }
-        }
-
-        @media screen and (max-width:768px){
-            .tool{
-                width: 80%;
-            }
-            .gif{
-                width: auto;
-                height: 240px;
-            }
-            .usable{
-                width: 100%;
-            }
-
-            .addSection{
-                display: flex;
-                align-items: center;
-                width: 100%;
-            }
-            #jumlahAdd{
-                margin-left:10px;
-            }
-
-            .isiCard{
-                display: flex;
-                flex-direction: column  ;
-            }
-        }
-
-
-
-        @media screen and (max-width:575px){
-            .tool{
-                width: 95%;
-            }
-            .addSection{
-                display: flex;
-                flex-direction: column;
-            }
-            .usable{
-                width: 100%;
-            }
-            
-            
-            #btnAdd{
-                margin-top:10px;
-                max-width: 100%;
-            }
-            #jumlahAdd{
-                margin-left:10px;
-                max-width:150px;
-            }
-
-            .gif{
-                width: auto;
-                height: 160px;
-            }
-
-            .isiCard{
-                display: flex;
-                flex-direction: column  ;
-            }
-
-            .gifCont{
-                margin-top: 20px;
-                display: flex;
-                justify-content: center;
-            }
-        }
-
-        .HeartAnimation {
-            padding-top: 2em;
-            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/66955/web_heart_animation.png');
-            background-repeat: no-repeat;
-            background-size: 2900%;
-            background-position: left;
-            height: 50px;
-            width: 50px;
-            
-            cursor: pointer;
-        }
-
-        .animate {
-            animation: heart-burst .8s steps(28) forwards;
-        }
-
-        @keyframes heart-burst {
-            0% {
-                background-position: left
-            }
-            100% {
-                background-position: right
-            }
-        }
-    
     </style>
+    
 @endsection
 
 @section('content')
@@ -226,15 +78,7 @@
                            
                             {{-- <div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/wdgX1eCnUd8ZzWIMi4" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div> --}}
                         </div>
-
-
                     </div>
-                  
-
-                    
-
-                    
-
                 </div>
             </div>
 

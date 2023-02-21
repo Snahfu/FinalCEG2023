@@ -52,7 +52,9 @@
         .listDowngrade {
             width: 60%;
         }
-
+        .dropdown-menu{
+            max-height: 250px;
+        }
         .downgrade {
             height: 150px;
             font-size: 24px;
@@ -62,9 +64,7 @@
 
         }
 
-        .show {
-            height: 250px;
-        }
+
 
         .dropdown {
             border: 1px solid black !important;
