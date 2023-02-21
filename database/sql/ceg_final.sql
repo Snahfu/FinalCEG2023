@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 01:08 PM
+-- Generation Time: Feb 21, 2023 at 01:10 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -329,6 +329,13 @@ CREATE TABLE `teams` (
   `koin` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `teams`
+--
+
+INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
+(1, 'User 1', '0');
+
 -- --------------------------------------------------------
 
 --
@@ -367,7 +374,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (12, 'Store Downgrade 1', 'storedowngrade1@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-21 11:58:58', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
 (13, 'Store Downgrade 2', 'storedowngrade2@gmail.com', NULL, '$2y$10$cvQTRjvwjrF.to/pTjgpe.JFkZ8YWNx63lPuYwQCIws/OOIl.ZOQ6', NULL, '2023-02-21 11:59:03', '2023-02-21 04:33:42', NULL, 'AdminDowngrade'),
 (14, 'Store Downgrade 3', 'storedowngrade3@gmail.com', NULL, '$2y$10$pbmKMiFrdGevS8Tg69c11eeu4MyM3jf1Fc/9Z/uI36KNEFP/So5pe', NULL, '2023-02-21 11:59:08', '2023-02-21 04:34:02', NULL, 'AdminDowngrade'),
-(15, 'User 1', 'user1@gmail.com', NULL, '$2y$10$dRbgUo9F5jhH41o0b.ALlepzIrqlho4zSN4gUo2Fb.EyhddXBUyfK', NULL, '2023-02-21 05:07:39', '2023-02-21 05:07:39', NULL, NULL);
+(15, 'User 1', 'user1@gmail.com', NULL, '$2y$10$dRbgUo9F5jhH41o0b.ALlepzIrqlho4zSN4gUo2Fb.EyhddXBUyfK', NULL, '2023-02-21 12:10:07', '2023-02-21 05:07:39', 1, 'Player');
 
 --
 -- Indexes for dumped tables
@@ -522,7 +529,7 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
