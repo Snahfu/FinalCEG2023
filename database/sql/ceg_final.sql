@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 01:00 PM
+-- Generation Time: Feb 21, 2023 at 01:08 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -366,7 +366,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (11, 'Store Bahan 3', 'storebahan3@gmail.com', NULL, '$2y$10$pB3igxQJVup6mhuKzzKySebuR1awd2alfzMIPTgKZAXgPw4R/ZiKe', NULL, '2023-02-21 11:57:37', '2023-02-21 04:30:18', NULL, 'AdminBahan'),
 (12, 'Store Downgrade 1', 'storedowngrade1@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-21 11:58:58', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
 (13, 'Store Downgrade 2', 'storedowngrade2@gmail.com', NULL, '$2y$10$cvQTRjvwjrF.to/pTjgpe.JFkZ8YWNx63lPuYwQCIws/OOIl.ZOQ6', NULL, '2023-02-21 11:59:03', '2023-02-21 04:33:42', NULL, 'AdminDowngrade'),
-(14, 'Store Downgrade 3', 'storedowngrade3@gmail.com', NULL, '$2y$10$pbmKMiFrdGevS8Tg69c11eeu4MyM3jf1Fc/9Z/uI36KNEFP/So5pe', NULL, '2023-02-21 11:59:08', '2023-02-21 04:34:02', NULL, 'AdminDowngrade');
+(14, 'Store Downgrade 3', 'storedowngrade3@gmail.com', NULL, '$2y$10$pbmKMiFrdGevS8Tg69c11eeu4MyM3jf1Fc/9Z/uI36KNEFP/So5pe', NULL, '2023-02-21 11:59:08', '2023-02-21 04:34:02', NULL, 'AdminDowngrade'),
+(15, 'User 1', 'user1@gmail.com', NULL, '$2y$10$dRbgUo9F5jhH41o0b.ALlepzIrqlho4zSN4gUo2Fb.EyhddXBUyfK', NULL, '2023-02-21 05:07:39', '2023-02-21 05:07:39', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -527,7 +528,7 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
