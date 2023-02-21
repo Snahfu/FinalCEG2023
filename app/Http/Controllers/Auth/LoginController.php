@@ -50,9 +50,9 @@ class LoginController extends Controller
         } else if (Auth::user()->role == "DnC") {
             return "/tinkerer";
         } else if (Auth::user()->role == "Ingredient") {
-            return "/ingredient";
+            return "/ingredients";
         } else if (Auth::user()->role == "Tool") {
-            return "/tool";
+            return "/tools";
         }
     }
 }

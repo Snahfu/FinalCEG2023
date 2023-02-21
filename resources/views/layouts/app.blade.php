@@ -99,12 +99,18 @@
                             <li class="nav-item">
                                 <a href="{{ route('hint') }}" class="nav-link">Hint</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
                         @elsecan("isAdminBahan")
                             <li class="nav-item">
                                 <a href="{{ route('penjualBahanSell') }}" class="nav-link">Sell</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('penjualBahanBuy') }}" class="nav-link">Buy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
                             </li>
                         @elsecan("isAdminDowngrade")
                             <li class="nav-item">
@@ -113,21 +119,31 @@
                             <li class="nav-item">
                                 <a href="{{ route('penjualDowngradeBuy') }}" class="nav-link">Buy</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
                         @elsecan("isTinkerer")
                             <li class="nav-item">
                                 <a href="{{ route('tinkerer') }}" class="nav-link">Dashboard</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
+                        @elsecan("isIngredient")
+                            <li class="nav-item">
+                                <a href="{{ route('ingredients') }}" class="nav-link">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
+                        @elsecan("isTool")
+                            <li class="nav-item">
+                                <a href="{{ route('tools') }}" class="nav-link">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('history') }}" class="nav-link">History</a>
+                            </li>
                         @endcan
-
-                        @cannot('isIngredient')
-                            <li class="nav-item">
-                                <a href="{{ route('history') }}" class="nav-link">History</a>
-                            </li>
-                        @elsecannot("isTool")
-                            <li class="nav-item">
-                                <a href="{{ route('history') }}" class="nav-link">History</a>
-                            </li>
-                        @endcannot
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -159,7 +175,8 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
