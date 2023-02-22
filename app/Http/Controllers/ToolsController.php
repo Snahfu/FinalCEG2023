@@ -12,7 +12,7 @@ class ToolsController extends Controller
     {
         $user = Auth::user();
         $teams = DB::table("teams")->get();
-        $alat = DB::table("alat")->get();
+        $alat = DB::table("alat as a")->join("jenis_alat as ja", "a.jenis_idjenis", "=", "ja.idjenis")->get();
 
         return view("Pos.tools", compact("user", "teams", "alat"));
     }
