@@ -22,6 +22,7 @@
         .dashboard {
             width: 60%;
         }
+
         .HeartAnimation {
             padding-top: 2em;
             background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/66955/web_heart_animation.png');
@@ -30,7 +31,7 @@
             background-position: left;
             height: 50px;
             width: 50px;
-            
+
             cursor: pointer;
         }
 
@@ -42,6 +43,7 @@
             0% {
                 background-position: left
             }
+
             100% {
                 background-position: right
             }
@@ -74,7 +76,13 @@
                             Stock
                         </th>
                         <th>
-                            jumlah
+                            Harga Jual
+                        </th>
+                        <th>
+                            Harga Beli
+                        </th>
+                        <th>
+                            Jumlah
                         </th>
                     </tr>
                 </thead>
@@ -85,6 +93,12 @@
                             <td style="text-align: center;"><?php echo $id; ?></td>
                             <td>{{ $downgrade->downgrade }}</td>
                             <td style="text-align: center;">{{ $downgrade->stok }}</td>
+                            <td>
+                                {{ $downgrade->harga_beli }}
+                            </td>
+                            <td>
+                                {{ $downgrade->harga_jual }}
+                            </td>
                             <td style="text-align: center;"><input id="{{ $downgrade->downgrade }}" class="jumlah"
                                     type="number" min="0" max="{{ $downgrade->stok }}" value="0"
                                     style="max-width: 50px;">

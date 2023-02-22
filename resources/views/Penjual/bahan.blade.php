@@ -22,6 +22,7 @@
         .dashboard {
             width: 60%;
         }
+
         /* Parts are from twitter.com */
 
         /* Hiraukan ini */
@@ -33,7 +34,7 @@
             background-position: left;
             height: 50px;
             width: 50px;
-            
+
             cursor: pointer;
         }
 
@@ -45,6 +46,7 @@
             0% {
                 background-position: left
             }
+
             100% {
                 background-position: right
             }
@@ -77,10 +79,17 @@
                             Stok
                         </th>
                         <th>
+                            Harga Jual
+                        </th>
+                        <th>
+                            Harga Beli
+                        </th>
+                        <th>
                             Jumlah
                         </th>
                     </tr>
                 </thead>
+
                 <tbody id="items">
                     <?php $id = 1; ?>
                     @foreach ($market_bahan as $bahan)
@@ -88,6 +97,12 @@
                             <td style="text-align: center;"><?php echo $id; ?></td>
                             <td>{{ $bahan->bahan }}</td>
                             <td style="text-align: center;">{{ $bahan->stok }}</td>
+                            <td>
+                                {{ $bahan->harga_beli }}
+                            </td>
+                            <td>
+                                {{ $bahan->harga_jual }}
+                            </td>
                             <td style="text-align: center;"><input id="{{ $bahan->bahan }}" class="jumlah" type="number"
                                     min="0" max="{{ $bahan->stok }}" value="0" style="max-width: 50px;">
                             </td>
@@ -95,16 +110,18 @@
                         <?php $id++; ?>
                     @endforeach
                 </tbody>
+
             </table>
+
             <div>
                 <button id="btnConfirm" class="btn btn-primary" style="float: right;">Confirm</button>
             </div>
             <div class="row d-flex justify-content-end">
                 <div class="HeartAnimation d-flex justify-content-end"></div>
             </div>
-            
+
         </div>
-        
+
     </main>
 
     {{-- Modal Alert --}}
@@ -156,7 +173,7 @@
                 $(this).toggleClass("animate");
             });
         });
-        
+
         $("#btnConfirm").click(function() {
             if ($("#teams").val() != "-") {
                 if ($("h1#tipe").html() == "Sell") {
