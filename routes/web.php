@@ -66,8 +66,15 @@ Route::post("/tinkerer/downgrade", "TinkererController@changeDowngrade")->name("
 Route::post("/tinkerer/crafting", "TinkererController@crafting")->name("tinkerer.crafting");
 Route::post("/tinkerer/dismantle", "TinkererController@dismantle")->name("tinkerer.dismantle");
 
+// addKoin
+// Untuk Pos Consultant, Bonus (Sementara)
 Route::get("addKoin", "DashboardController@koin")->name("koin");
 Route::post("addKoin/koin", "DashboardController@addKoin")->name("addKoin");
+
+// Sesi
+Route::get("/adminSesi", "SesiController@sesi")->name("sesi");
+Route::post("/adminSesi/upDownSesi", "SesiController@upDownSesi")->name("upDownSesi");
+Route::post("/adminSesi/ganti", "SesiController@gantiSesi")->name("gantiSesi");
 
 // Middleware
 Auth::routes();
