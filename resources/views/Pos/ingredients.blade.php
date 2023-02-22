@@ -72,7 +72,7 @@
                                 <div class="d-flex align-items-center">
                                     <label>Jumlah </label>
 
-                                    <input class="form-control" type="text" inputmode="numeric" name="jumlahAdd"
+                                    <input class="form-control" type="number" inputmode="numeric" name="jumlahAdd"
                                         id="jumlahAdd">
                                 </div>
                                 <div class="d-flex align-items-center">
