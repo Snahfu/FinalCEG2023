@@ -1,19 +1,39 @@
 @extends('layouts.app')
 
 @section('css')
-    <style></style>
+<!-- Styles -->
+<link href="{{ asset('css/pos/template.css') }}" rel="stylesheet">
+    <style>
+
+    </style>
 @endsection
 
 @section('content')
-    <main>
-        <div>
+    <main class="d-block mx-1 mx-sm-4 my-5">
+        <div class="container addKoin d-flex flex-colomn gap-3">
+            <div class="card">
+                <div class="card-body mx-sm-3">
+                    <div class="isiCard">
+                        <div class="usable">
+                            <div class="selection">
+                                <div class="text">Nama Team :</div>
+                                <select name="team" id="team" class="form-control">
+                                    <option value="-" selected disabled>-- Pilih Team --</option>
+                                    @foreach ($teams as $team)
+                                        <option value="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="card">
             Nama Team :
-            <select name="team" id="team">
-                <option value="-" selected disabled>-- Pilih Team --</option>
-                @foreach ($teams as $team)
-                    <option value="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
-                @endforeach
-            </select>
+            
 
             Koin :
             <input id="jumlahKoin" type="text" inputmode="numeric" name="koin" id="koin">
