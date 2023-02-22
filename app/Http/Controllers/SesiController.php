@@ -51,7 +51,7 @@ class SesiController extends Controller
                     "tipe" => "biasa",
                 ]);
 
-                $msg = "Sesi biasa";
+                $msg = "Sesi BIASA";
                 break;
 
             case "flash":
@@ -59,7 +59,7 @@ class SesiController extends Controller
                     "tipe" => "flash sale",
                 ]);
 
-                $msg = "FLASH SALE";
+                $msg = "FLASH SALE!!";
                 break;
         }
 
