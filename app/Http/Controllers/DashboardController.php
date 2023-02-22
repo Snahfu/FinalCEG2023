@@ -16,7 +16,7 @@ class DashboardController extends Controller
 
         $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
 
-        $alat = DB::table("alat as a")->join("jenis_alat as j", "a.jenis_idjenis", "=", "j.idjenis")-> orderBy("nama_alat", "asc")->get();
+        $alat = DB::table("alat as a")->join("jenis_alat as j", "a.jenis_idjenis", "=", "j.idjenis")->orderBy("nama_alat", "asc")->get();
 
         return view("Dashboard.dashboard", compact("alat", "team", "inventory"));
     }
@@ -27,15 +27,17 @@ class DashboardController extends Controller
 
         $itemType = $request->get("tipe");
 
-        $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
+        $inventory = DB::table("inventory")->where("teams_idteams", $user->teams_idteams)->get();
 
         $data = "";
         switch ($itemType) {
             case "alat":
-                $data = DB::table("alat")->get();
+                $data = DB::table("alat")
+                    ->orderBy("nama_alat", "asc")
+                    ->get();
                 break;
             case "bahan":
-                $data = DB::table("bahan")->orderBy("nama_bahan" , "asc")->get();
+                $data = DB::table("bahan")->orderBy("nama_bahan", "asc")->get();
                 break;
             case "downgrade":
                 $data = [
