@@ -35,7 +35,7 @@ class DashboardController extends Controller
                 $data = DB::table("alat")->get();
                 break;
             case "bahan":
-                $data = DB::table("bahan")->get();
+                $data = DB::table("bahan")->orderBy("nama_bahan" , "asc")->get();
                 break;
             case "downgrade":
                 $data = [
