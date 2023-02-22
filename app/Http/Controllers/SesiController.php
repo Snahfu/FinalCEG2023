@@ -28,6 +28,7 @@ class SesiController extends Controller
                         "sesi" => DB::raw("`sesi` - 1")
                     ]);
 
+                    $msg = "Pindah ke sesi " . ($sesiNow + 1);
                 } else {
                     $msg = "SUDAH SESI 1 WOE GABISA NGURANG LAGI";
                 }
@@ -38,6 +39,8 @@ class SesiController extends Controller
                     DB::table("sesi")->where("idsesi", 1)->update([
                         "sesi" => DB::raw("`sesi` + 1")
                     ]);
+
+                    $msg = "Pindah ke sesi " . ($sesiNow + 1);
                 } else {
                     $msg = "SUDAH SESI 3 WOE GABISA NAMBAH LAGI";
                 }
@@ -47,6 +50,8 @@ class SesiController extends Controller
                 DB::table("sesi")->where("idsesi", 1)->update([
                     "tipe" => "biasa",
                 ]);
+
+                $msg = "Sesi biasa";
                 break;
 
             case "flash":
