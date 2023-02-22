@@ -28,7 +28,7 @@ class SesiController extends Controller
                         "sesi" => DB::raw("`sesi` - 1")
                     ]);
 
-                    $msg = "Pindah ke sesi " . ($sesiNow + 1);
+                    $msg = "Pindah ke sesi " . ($sesiNow - 1);
                 } else {
                     $msg = "SUDAH SESI 1 WOE GABISA NGURANG LAGI";
                 }
