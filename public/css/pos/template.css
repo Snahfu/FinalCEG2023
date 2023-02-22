@@ -1,4 +1,4 @@
-.tool,.ingredient{
+.tool,.ingredient,.addKoin{
     width: 60%;
 }
 
@@ -70,7 +70,7 @@ input::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width:768px){
-    .tool,.ingredient{
+    .tool,.ingredient,.addKoin{
         width: 80%;
     }
     .gif{
@@ -99,7 +99,7 @@ input::-webkit-inner-spin-button {
 
 
 @media screen and (max-width:575px){
-    .tool,.ingredient{
+    .tool,.ingredient,.addKoin{
         width: 95%;
     }
     .addSection{

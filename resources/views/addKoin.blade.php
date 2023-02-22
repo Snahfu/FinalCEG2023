@@ -10,17 +10,17 @@
 
 @section('content')
     <main class="d-block mx-1 mx-sm-4 my-5">
-        <div class="container addKoin d-flex flex-colomn gap-3">
+        <div class="container addKoin d-flex flex-column gap-3">
             <div class="card">
                 <div class="card-body mx-sm-3">
                     <div class="isiCard">
                         <div class="usable">
                             <div class="selection">
                                 <div class="text">Nama Team :</div>
-                                <select name="team" id="team" class="form-control">
+                                <select name="team" id="team" class="form-control selectpicker bordered" data-live-search="true" tabindex="-1" aria-label="team">
                                     <option value="-" selected disabled>-- Pilih Team --</option>
                                     @foreach ($teams as $team)
-                                        <option value="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
+                                        <option value="{{ $team->idteams }}" data-tokens="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
                                     @endforeach
                                 </select>
                             </div>
