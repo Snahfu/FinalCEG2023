@@ -16,7 +16,7 @@ class DashboardController extends Controller
 
         $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
 
-        $alat = DB::table("alat as a")->join("jenis_alat as j", "a.jenis_idjenis", "=", "j.idjenis")->get();
+        $alat = DB::table("alat as a")->join("jenis_alat as j", "a.jenis_idjenis", "=", "j.idjenis")-> orderBy("nama_alat", "asc")->get();
 
         return view("Dashboard.dashboard", compact("alat", "team", "inventory"));
     }

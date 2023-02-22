@@ -94,10 +94,12 @@
                                         </tr>
                                     </thead>
                                     <tbody id="items" class="table-group-divider">
+                                        <?php $no=1; ?>
                                         @foreach ($alat as $a)
                                             <?php $helper = false; ?>
+                                            
                                             <tr>
-                                                <td style="text-align: center;" scope="row">{{ $a->idalat }}</td>
+                                                <td style="text-align: center;" scope="row"><?php echo $no;?></td>
                                                 <td scope="row">{{ $a->nama_alat }}</td>
                                                 @foreach ($inventory as $i)
                                                     @if ($a->nama_alat == $i->nama_barang)
@@ -110,6 +112,7 @@
                                                     <td style="text-align: center;" scope="row">0</td>
                                                 @endif
                                             </tr>
+                                            <?php $no++; ?>
                                         @endforeach
                                     </tbody>
                                 </table>
