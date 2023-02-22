@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <main class="d-block mx-4">
+    <main class="d-block mx-1 sm-mx-4">
         <div class="container dashboard d-flex flex-column">
 
             <div class="card py-2 mb-4 mt-3" id="header">

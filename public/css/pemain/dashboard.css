@@ -154,7 +154,7 @@ h1:after {
         width: 75px;
     }
     .dashboard{
-        width: 90%;
+        width: 100%;
     }
     #header{
         display: flex;
