@@ -73,7 +73,7 @@
                                     <label>Jumlah </label>
 
                                     <input class="form-control" type="number" inputmode="numeric" name="jumlahAdd"
-                                        id="jumlahAdd">
+                                        id="jumlahAdd" min="0" placeholder="0">
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <button id="btnAdd" class="btn btn-primary" style="margin-left:10px">Add</button>
