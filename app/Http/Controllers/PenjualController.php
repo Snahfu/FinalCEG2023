@@ -42,13 +42,18 @@ class PenjualController extends Controller
         // hitung total harga
         $totHarga = 0;
         foreach ($pemainBeliBahan as $bahan) {
-            $hargaSatuan = DB::table("market_bahan")->select("harga_beli")->where("bahan", "=", $bahan[0])->where("tipe", $sesi[0]->tipe)->get();
+            $hargaSatuan = DB::table("market_bahan")
+                ->select("harga_beli")
+                ->where("bahan", $bahan[0])
+                ->where("sesi", $sesi[0]->sesi)
+                ->where("tipe", $sesi[0]->tipe)
+                ->get();
             $hargaSatuan = $hargaSatuan[0]->harga_beli;
 
             $totHarga += $bahan[1] * $hargaSatuan;
         }
 
-        $team = DB::table("teams")->where("idteams", "=", $idteams)->get();
+        $team = DB::table("teams")->where("idteams", $idteams)->get();
         $danaTeam = $team[0]->koin;
 
         // cek apakah koin team cukup
@@ -57,23 +62,26 @@ class PenjualController extends Controller
         }
 
         // team bayar penjual
-        DB::table("teams")->where("idteams", "=", $idteams)->update([
+        DB::table("teams")->where("idteams", $idteams)->update([
             "koin" => DB::raw("`koin` - " . $totHarga)
         ]);
 
         $detail = "";
         foreach ($pemainBeliBahan as $bahan) {
             // kurangi stok penjual
-            // Kurang where sesi
-            DB::table("market_bahan")->where("bahan", "=", $bahan[0])->update([
-                "stok" => DB::raw("`stok` - " . $bahan[1]),
-            ]);
+            DB::table("market_bahan")
+                ->where("bahan", $bahan[0])
+                ->where("sesi", $sesi[0]->sesi)
+                ->where("tipe", $sesi[0]->tipe)
+                ->update([
+                    "stok" => DB::raw("`stok` - " . $bahan[1]),
+                ]);
 
             // tambah ke inventory
-            if (DB::table("inventory")->where("nama_barang", "=", $bahan[0])->where("teams_idteams", "=", $idteams)->exists()) {
+            if (DB::table("inventory")->where("nama_barang", $bahan[0])->where("teams_idteams", $idteams)->exists()) {
                 DB::table("inventory")
-                    ->where("nama_barang", "=", $bahan[0])
-                    ->where("teams_idteams", "=", $idteams)
+                    ->where("nama_barang", $bahan[0])
+                    ->where("teams_idteams", $idteams)
                     ->update([
                         "stock_barang" => DB::raw("`stock_barang` + " . $bahan[1]),
                     ]);
@@ -109,14 +117,14 @@ class PenjualController extends Controller
         $pemainJualBahan = $request["arrayBahan"];
         $sesi = DB::table("sesi")->get();
 
-        $team = DB::table("teams")->where("idteams", "=", $idteams)->get();
+        $team = DB::table("teams")->where("idteams", $idteams)->get();
 
         // cek barang di inventory pemain
         $bahanLebih = [];
         $helper = true;
         foreach ($pemainJualBahan as $bahan) {
             // bahan tidak ada
-            if (DB::table("inventory")->where("nama_barang", "=", $bahan[0])->where("teams_idteams", $idteams)->doesntExist()) {
+            if (DB::table("inventory")->where("nama_barang", $bahan[0])->where("teams_idteams", $idteams)->doesntExist()) {
                 array_push($bahanLebih, $bahan[0]);
                 $helper = false;
             }
@@ -142,21 +150,27 @@ class PenjualController extends Controller
         $totHarga = 0;
         foreach ($pemainJualBahan as $bahan) {
             // hitung harga jual
-            $hargaSatuan = DB::table("market_bahan")->select("harga_jual")->where("bahan", $bahan[0])->where("tipe", $sesi[0]->tipe)->get();
+            $hargaSatuan = DB::table("market_bahan")
+                ->select("harga_jual")
+                ->where("bahan", $bahan[0])
+                ->where("sesi", $sesi[0]->sesi)
+                ->where("tipe", $sesi[0]->tipe)
+                ->get();
             $totHarga += $bahan[1] * $hargaSatuan[0]->harga_jual;
 
             // kurangi bahan di inventory
-            // Kurang where team
             DB::table("inventory")
                 ->where("nama_barang", $bahan[0])
+                ->where("teams_idteams", $idteams)
                 ->update([
                     "stock_barang" => DB::raw("`stock_barang` - " . $bahan[1]),
                 ]);
 
             // tambah bahan ke market
-            // Kurang where sesi
             DB::table('market_bahan')
                 ->where("bahan", $bahan[0])
+                ->where("sesi", $sesi[0]->sesi)
+                ->where("tipe", $sesi[0]->tipe)
                 ->update([
                     "stok" => DB::raw("`stok` + " . $bahan[1]),
                 ]);
@@ -223,13 +237,18 @@ class PenjualController extends Controller
         // hitung total harga
         $totHarga = 0;
         foreach ($pemainBeliDowngrade as $downgrade) {
-            $hargaSatuan = DB::table("market_downgrade")->select("harga_beli")->where("downgrade", "=", $downgrade[0])->where("tipe", $sesi[0]->tipe)->get();
+            $hargaSatuan = DB::table("market_downgrade")
+                ->select("harga_beli")
+                ->where("downgrade", $downgrade[0])
+                ->where("tipe", $sesi[0]->tipe)
+                ->get();
+
             $hargaSatuan = $hargaSatuan[0]->harga_beli;
 
             $totHarga += $downgrade[1] * $hargaSatuan;
         }
 
-        $team = DB::table("teams")->where("idteams", "=", $idteams)->get();
+        $team = DB::table("teams")->where("idteams", $idteams)->get();
         $danaTeam = $team[0]->koin;
 
         // cek apakah koin team cukup
@@ -238,22 +257,27 @@ class PenjualController extends Controller
         }
 
         // team bayar penjual
-        DB::table("teams")->where("idteams", "=", $idteams)->update([
-            "koin" => DB::raw("`koin` - " . $totHarga)
-        ]);
+        DB::table("teams")
+            ->where("idteams", "=", $idteams)
+            ->update([
+                "koin" => DB::raw("`koin` - " . $totHarga)
+            ]);
 
         $detail = "";
         foreach ($pemainBeliDowngrade as $downgrade) {
             // kurangi stok penjual
-            DB::table("market_downgrade")->where("downgrade", "=", $downgrade[0])->update([
-                "stok" => DB::raw("`stok` - " . $downgrade[1]),
-            ]);
+            DB::table("market_downgrade")
+                ->where("downgrade", "=", $downgrade[0])
+                ->where("tipe", $sesi[0]->tipe)
+                ->update([
+                    "stok" => DB::raw("`stok` - " . $downgrade[1]),
+                ]);
 
             // tambah ke inventory
-            if (DB::table("inventory")->where("nama_barang", "=", $downgrade[0])->where("teams_idteams", "=", $idteams)->exists()) {
+            if (DB::table("inventory")->where("nama_barang", $downgrade[0])->where("teams_idteams", $idteams)->exists()) {
                 DB::table("inventory")
-                    ->where("nama_barang", "=", $downgrade[0])
-                    ->where("teams_idteams", "=", $idteams)
+                    ->where("nama_barang", $downgrade[0])
+                    ->where("teams_idteams", $idteams)
                     ->update([
                         "stock_barang" => DB::raw("`stock_barang` + " . $downgrade[1]),
                     ]);
@@ -296,13 +320,13 @@ class PenjualController extends Controller
         $helper = true;
         foreach ($pemainBeliDowngrade as $downgrade) {
             // downgrade tidak ada
-            if (DB::table("inventory")->where("nama_barang", "=", $downgrade[0])->where("teams_idteams", "=", $idteams)->doesntExist()) {
+            if (DB::table("inventory")->where("nama_barang", $downgrade[0])->where("teams_idteams", $idteams)->doesntExist()) {
                 array_push($downgradeLebih, $downgrade[0]);
                 $helper = false;
             }
             // downgrade ada tapi stok kurang
             else {
-                $stokDowngrade = DB::table("inventory")->select("stock_barang")->where("nama_barang", "=", $downgrade[0])->where("teams_idteams", "=", $idteams)->get();
+                $stokDowngrade = DB::table("inventory")->select("stock_barang")->where("nama_barang", $downgrade[0])->where("teams_idteams", $idteams)->get();
                 $stokDowngrade = $stokDowngrade[0]->stock_barang;
 
                 // stok inventory kurang
@@ -322,7 +346,12 @@ class PenjualController extends Controller
         $totHarga = 0;
         foreach ($pemainBeliDowngrade as $downgrade) {
             // hitung harga jual
-            $hargaSatuan = DB::table("market_downgrade")->select("harga_jual")->where("downgrade", "=", $downgrade[0])->where("tipe", $sesi[0]->tipe)->get();
+            $hargaSatuan = DB::table("market_downgrade")
+                ->select("harga_jual")
+                ->where("downgrade", $downgrade[0])
+                ->where("tipe", $sesi[0]->tipe)
+                ->get();
+
             $totHarga += $downgrade[1] * $hargaSatuan[0]->harga_jual;
 
             // kurangi downgrade di inventory
@@ -334,19 +363,20 @@ class PenjualController extends Controller
 
             // tambah downgrade ke market
             DB::table('market_downgrade')
-                ->where("downgrade", "=", $downgrade[0])
+                ->where("downgrade", $downgrade[0])
+                ->where("tipe", $sesi[0]->tipe)
                 ->update([
                     "stok" => DB::raw("`stok` + " . $downgrade[1]),
                 ]);
         }
 
         // uang diberikan ke team
-        DB::table("teams")->where("idteams", "=", $idteams)->update([
+        DB::table("teams")->where("idteams", $idteams)->update([
             "koin" => DB::raw("`koin` + " . $totHarga),
         ]);
 
         // delete semua barang yang stock-nya 0
-        DB::table("inventory")->where("stock_barang", "=", 0)->delete();
+        DB::table("inventory")->where("stock_barang", 0)->delete();
 
         $detail = "";
         foreach ($pemainBeliDowngrade as $downgrade) {
