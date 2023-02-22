@@ -29,8 +29,8 @@
     <main class="d-block mx-1 mx-sm-4 my-5">
         <div class="container addKoin d-flex flex-column gap-3">
             <div class="card">
-                <div class="card-body mx-sm-3 d-flex align-items-center">
-                    <div class="isiCard d-flex align-items-center">
+                <div class="card-body mx-sm-3">
+                    <div class="isiCard ">
                         <div class="usable">
                             <div class="selection my-3">
                                 <div class="text">Nama Team :</div>
@@ -55,10 +55,12 @@
                         <div class="gifCont">
                             <div class="gif"></div>
                         </div>
-                        
                     </div>
-
                 </div>
+            </div>
+
+            <div class="row d-flex justify-content-end">
+                <div class="HeartAnimation d-flex justify-content-end"></div>
             </div>
 
         </div>
@@ -85,6 +87,11 @@
     </div>
 
     <script>
+        $(function() {
+            $(".HeartAnimation").click(function() {
+                $(this).toggleClass("animate");
+            });
+        });
         $("#btnAddKoin").click(function() {
             $.ajax({
                 type: "POST",
