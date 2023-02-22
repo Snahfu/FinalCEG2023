@@ -53,7 +53,7 @@ class TinkererController extends Controller
         $idteam = $request->get("team");
         $alat = $request->get("alat");
 
-        $team = DB::table("teams")->select("namaTeam")->where("idteams", "=", $idteam)->get();
+        $team = DB::table("teams")->select("namaTeam")->where("idteams", $idteam)->get();
 
         $downgrade_1 = $request->get("downgrade_1");
         $downgrade_2 = $request->get("downgrade_2");
@@ -64,24 +64,24 @@ class TinkererController extends Controller
         $msg = "";
         // kalau semua downgrade ada
         if (
-            DB::table("inventory")->where("nama_barang", "=", $downgrade_1)->where("teams_idteams", "=", $idteam)->exists() &&
-            DB::table("inventory")->where("nama_barang", "=", $downgrade_2)->where("teams_idteams", "=", $idteam)->exists() &&
-            (DB::table("inventory")->where("nama_barang", "=", $downgrade_3)->where("teams_idteams", "=", $idteam)->exists() ||
+            DB::table("inventory")->where("nama_barang", $downgrade_1)->where("teams_idteams", $idteam)->exists() &&
+            DB::table("inventory")->where("nama_barang", $downgrade_2)->where("teams_idteams", $idteam)->exists() &&
+            (DB::table("inventory")->where("nama_barang", $downgrade_3)->where("teams_idteams", $idteam)->exists() ||
                 $downgrade_3 == "")
         ) {
             // kurangi stock downgrade
             foreach ($downgrade as $dg) {
                 DB::table("inventory")
-                    ->where("nama_barang", "=", $dg)
-                    ->where("teams_idteams", "=", $idteam)
+                    ->where("nama_barang", $dg)
+                    ->where("teams_idteams", $idteam)
                     ->update(["stock_barang" => DB::raw("`stock_barang`- 1")]);
             }
 
             // tambah stok barang yang di-crafting
-            if (DB::table("inventory")->where("nama_barang", "=", $alat)->where("teams_idteams", "=", $idteam)->exists()) {
+            if (DB::table("inventory")->where("nama_barang", $alat)->where("teams_idteams", $idteam)->exists()) {
                 DB::table("inventory")
-                    ->where("nama_barang", "=", $alat)
-                    ->where("teams_idteams", "=", $idteam)
+                    ->where("nama_barang", $alat)
+                    ->where("teams_idteams", $idteam)
                     ->update(["stock_barang" => DB::raw("`stock_barang` + 1")]);
             } else {
                 DB::table("inventory")->insert([
@@ -92,7 +92,7 @@ class TinkererController extends Controller
             }
 
             // delete semua barang yang stock-nya 0
-            DB::table("inventory")->where("stock_barang", "=", 0)->delete();
+            DB::table("inventory")->where("stock_barang", 0)->delete();
 
             // special case untuk alat dengan 2 downgrade
             $downgrade3 = ($downgrade_3 == "") ? "" : ", " . $downgrade_3;
