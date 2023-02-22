@@ -37,6 +37,7 @@ class PenjualController extends Controller
     {
         $idteams = $request["team"];
         $pemainBeliBahan = $request["arrayBahan"];
+        $sesi = DB::table("sesi")->get();
 
         // hitung total harga
         $totHarga = 0;
