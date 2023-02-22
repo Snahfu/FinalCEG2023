@@ -66,6 +66,8 @@ Route::post("/tinkerer/downgrade", "TinkererController@changeDowngrade")->name("
 Route::post("/tinkerer/crafting", "TinkererController@crafting")->name("tinkerer.crafting");
 Route::post("/tinkerer/dismantle", "TinkererController@dismantle")->name("tinkerer.dismantle");
 
+Route::get("addKoin", "DashboardController@koin")->name("koin");
+Route::post("addKoin/koin", "DashboardController@addKoin")->name("addKoin");
 
 // Middleware
 Auth::routes();

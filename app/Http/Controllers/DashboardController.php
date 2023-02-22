@@ -41,7 +41,7 @@ class DashboardController extends Controller
                 $data = [
                     "Motor", "Pipe", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
                     "Kaca", "Katup", "Kolom", "Kondensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
-                    "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Heater", "Roller", "Chamber", "Exhaust System", 
+                    "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Heater", "Roller", "Chamber", "Exhaust System",
                     "Tower Cap", "Blower", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet", "Board", "Hinge",
                     "Cooler", "Termometer", "Vent"
                 ];
@@ -49,5 +49,28 @@ class DashboardController extends Controller
         }
 
         return response()->json(["data" => $data, "inventory" => $inventory]);
+    }
+
+    public function koin()
+    {
+        $teams = DB::table("teams")->get();
+
+        return view("addKoin", compact("teams"));
+    }
+
+    public function addKoin(Request $request)
+    {
+        $idteam = $request['idteam'];
+        $jumlahKoin = $request['jumlahKoin'];
+
+        $team = DB::table("teams")->where("idteams", $idteam)->get();
+
+        DB::table("teams")->where("idteams", $idteam)->update([
+            "koin" => DB::raw("`koin` + " . $jumlahKoin),
+        ]);
+
+        $detail = "Koin sejumlah " . $jumlahKoin . " berhasil ditambahkan ke " . $team[0]->namaTeam;
+
+        return response()->json(["msg" => $detail]);
     }
 }
