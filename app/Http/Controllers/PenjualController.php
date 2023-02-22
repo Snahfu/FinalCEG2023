@@ -64,6 +64,7 @@ class PenjualController extends Controller
         $detail = "";
         foreach ($pemainBeliBahan as $bahan) {
             // kurangi stok penjual
+            // Kurang where sesi
             DB::table("market_bahan")->where("bahan", "=", $bahan[0])->update([
                 "stok" => DB::raw("`stok` - " . $bahan[1]),
             ]);
@@ -145,6 +146,7 @@ class PenjualController extends Controller
             $totHarga += $bahan[1] * $hargaSatuan[0]->harga_jual;
 
             // kurangi bahan di inventory
+            // Kurang where team
             DB::table("inventory")
                 ->where("nama_barang", $bahan[0])
                 ->update([
@@ -152,6 +154,7 @@ class PenjualController extends Controller
                 ]);
 
             // tambah bahan ke market
+            // Kurang where sesi
             DB::table('market_bahan')
                 ->where("bahan", $bahan[0])
                 ->update([
