@@ -33,7 +33,7 @@
             <div>
                 <h2>{{ $user->name }}</h2>
             </div>
-            
+
             <div class="card">
                 <div class="card-body mx-sm-3">
                     <div class="isiCard">
@@ -62,7 +62,7 @@
                                     <option value="-" selected disabled>-- Pilih Alat --</option>
                                     @foreach ($alat as $a)
                                         <option value="{{ $a->nama_alat }}" data-tokens="{{ $a->nama_alat }}">
-                                            {{ $a->nama_alat }}</option>
+                                            {{ $a->nama_alat }} ({{ $a->nama_jenis }})</option>
                                     @endforeach
                                 </select>
                             </div>
