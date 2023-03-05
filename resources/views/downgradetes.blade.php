@@ -64,6 +64,10 @@
     .card-container .card-body{
         padding: 16px 12px 16px 12px;
     }
+
+    .nomortb {
+        text-align: center;
+    }
 </style>
 @endsection
 
@@ -118,7 +122,43 @@
             {{-- Sisi pembelian --}}
             <div class="col-lg-4 col-12">
                 <div class="card">
-                    <div class="card-body"></div>
+                    <div class="card-body">
+                        <div class="row my-2">
+                            {{-- Selection Team --}}
+                            <div class="selection">
+                                <label class="text">Nama Team :</label>
+                                <select name="teams" id="teams" class="form-control selectpicker bordered"
+                                    data-live-search="true" tabindex="-1" aria-label="team">
+                                    {{-- <option value="-" selected disabled>-- Pilih Team --</option>
+                                    @foreach ($teams as $team)
+                                        <option value="{{ $team->idteams }}" data-tokens="{{ $team->idteams }}">
+                                            {{ $team->namaTeam }}</option>
+                                    @endforeach --}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text">Daftar Penjualan/Pembelian:</div>
+                        <div class="row">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="nomortb" width="15%">1.</td>
+                                        <td width="70%">Pisau</td>
+                                        <td><input type="number" style="width: 100px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nomortb" width="15%">2.</td>
+                                        <td width="70%">Kondensor</td>
+                                        <td><input type="number" style="width: 100px"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-success">Konfirmasi</button>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </div>
