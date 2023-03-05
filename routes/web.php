@@ -79,3 +79,6 @@ Route::post("/adminSesi/ganti", "SesiController@gantiSesi")->name("gantiSesi");
 Auth::routes();
 
 Route::get('/home', "HomeController@index")->name('home');
+Route::get('/downtes', function () {
+    return view('downgradetes');
+})->name('downgradeTes');
