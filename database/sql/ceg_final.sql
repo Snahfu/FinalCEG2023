@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 03:03 PM
+-- Generation Time: Mar 09, 2023 at 04:44 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -317,6 +317,13 @@ CREATE TABLE `sesi` (
   `tipe` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `sesi`
+--
+
+INSERT INTO `sesi` (`idsesi`, `sesi`, `tipe`) VALUES
+(1, 1, 'biasa');
+
 -- --------------------------------------------------------
 
 --
@@ -334,16 +341,16 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '0'),
-(2, 'User 2', '0'),
-(3, 'User 3', '0'),
-(4, 'User 4', '0'),
-(5, 'User 5', '0'),
-(6, 'User 6', '0'),
-(7, 'User 7', '0'),
-(8, 'User 8', '0'),
-(9, 'User 9', '0'),
-(10, 'User 10', '0');
+(1, 'User 1', '1050'),
+(2, 'User 2', '1150'),
+(3, 'User 3', '1250'),
+(4, 'User 4', '1100'),
+(5, 'User 5', '1075'),
+(6, 'User 6', '1100'),
+(7, 'User 7', '1400'),
+(8, 'User 8', '1650'),
+(9, 'User 9', '1425'),
+(10, 'User 10', '1400');
 
 -- --------------------------------------------------------
 
@@ -377,8 +384,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (6, 'Ingredient 1', 'ingredient1@gmail.com', NULL, '$2y$10$.rxCe5Qh1qXKwVSe1fVp/.KIa7XCp/INodbzLA4Ep9sM.q6hRTEVS', NULL, '2023-02-21 11:23:22', '2023-02-21 04:19:31', NULL, 'Ingredient'),
 (7, 'Ingredient 2', 'ingredient2@gmail.com', NULL, '$2y$10$Q3lyQeyhez4Sbclv4XluN.laWj4POBKzvjR2Cx6nZSZhDTF94E002', NULL, '2023-02-21 11:23:22', '2023-02-21 04:20:08', NULL, 'Ingredient'),
 (8, 'Ingredient 3', 'ingredient3@gmail.com', NULL, '$2y$10$A4pM7d36HNCtQD2MgWMXOekDLPnC2V8OXAJ3s5Bk2LFLND.YCrUoC', NULL, '2023-02-21 11:23:22', '2023-02-21 04:22:40', NULL, 'Ingredient'),
-(9, 'Store Bahan 1', 'storebahan1@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-02-21 11:57:37', '2023-02-21 04:29:38', NULL, 'AdminBahan'),
-(10, 'Store Downgrade 1', 'storedowngrade1@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-21 13:50:14', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
+(9, 'Store Bahan', 'storebahan@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-02-22 01:43:26', '2023-02-21 04:29:38', NULL, 'AdminBahan'),
+(10, 'Store Downgrade', 'storedowngrade@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-22 01:43:24', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
 (11, 'DnC', 'dnc@gmail.com', NULL, '$2y$10$toloTVmYQsk9OG2t7agtReY1xCmchb2urG4Hug6M4FYKb8KOlsIzu', NULL, '2023-02-21 13:50:22', '2023-02-21 06:48:34', NULL, 'DnC'),
 (12, 'User 1', 'user1@gmail.com', NULL, '$2y$10$0CAL8Cqjwo7665e98V4mQOeSpNVGMP5ZcyTEWB9d6MlJos8xXrjMS', NULL, '2023-02-21 14:00:24', '2023-02-21 06:52:25', 1, 'Player'),
 (13, 'User 2', 'user2@gmail.com', NULL, '$2y$10$RtPi6QZ4ez3muOgPdTnLWOxpSkezStvfuAuJnMsl11qmxT8zc1DcK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:53:12', 2, 'Player'),
@@ -538,7 +545,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `sesi`
 --
 ALTER TABLE `sesi`
-  MODIFY `idsesi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idsesi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `teams`
