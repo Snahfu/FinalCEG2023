@@ -82,3 +82,9 @@ Route::get('/home', "HomeController@index")->name('home');
 Route::get('/downtes', function () {
     return view('downgradetes');
 })->name('downgradeTes');
+Route::get('/pengumpulan', function () {
+    return view('pengumpulan');
+})->name('pengumpulan');
+Route::get('/tespengumpulan', function () {
+    return view('tespengumpulan');
+})->name('tespengumpulan');
