@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('css')
-<!-- Styles -->
-<link href="{{ asset('css/pos/template.css') }}" rel="stylesheet">
-<style>
+    <!-- Styles -->
+    <link href="{{ asset('css/pos/template.css') }}" rel="stylesheet">
+    <style>
         .gifCont {
             display: flex;
             align-items: center;
@@ -34,24 +34,27 @@
                         <div class="usable">
                             <div class="selection my-3">
                                 <div class="text">Nama Team :</div>
-                                <select name="team" id="team" class="form-control selectpicker bordered" data-live-search="true" tabindex="-1" aria-label="team">
+                                <select name="team" id="team" class="form-control selectpicker bordered"
+                                    data-live-search="true" tabindex="-1" aria-label="team">
                                     <option value="-" selected disabled>-- Pilih Team --</option>
                                     @foreach ($teams as $team)
-                                        <option value="{{ $team->idteams }}" data-tokens="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
+                                        <option value="{{ $team->idteams }}" data-tokens="{{ $team->idteams }}">
+                                            {{ $team->namaTeam }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="addSection">
                                 <div class="d-flex align-items-center">
                                     <label>Jumlah </label>
-                                    <input class="form-control" id="jumlahKoin" type="number" inputmode="numeric" name="koin" id="koin" min="0" placeholder="0">
+                                    <input class="form-control" id="jumlahKoin" type="number" inputmode="numeric"
+                                        name="koin" id="koin" min="0" placeholder="0">
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <button id="btnAddKoin" class="btn btn-primary" style="margin-left:10px">Add</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="gifCont">
                             <div class="gif"></div>
                         </div>
@@ -92,6 +95,7 @@
                 $(this).toggleClass("animate");
             });
         });
+
         $("#btnAddKoin").click(function() {
             $.ajax({
                 type: "POST",
@@ -104,6 +108,9 @@
                 success: function(data) {
                     $("#alert-warning").html(data.msg)
                     $("#ModalAlert").modal("show")
+
+                    $("#team").val("-").change()
+                    $("#jumlahKoin").val("")
                 },
                 error: function() {
                     alert("error")

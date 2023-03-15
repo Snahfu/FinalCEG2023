@@ -31,6 +31,8 @@ Route::get("/hint", function () {
 
 Route::get("/history", "HistoryController@history")->name("history");
 
+Route::get("/pengumpulan", "PengumpulanController@webPage")->name("pengumpulan");
+
 // Admin Ingredients
 Route::get("/ingredients", "IngredientsController@ingredients")->name("ingredients");
 Route::post("/ingredients/add", "IngredientsController@addIngredients")->name("addIngredients");
