@@ -14,8 +14,6 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
-
-
         }
 
         .gifCont:hover {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 04:44 PM
+-- Generation Time: Mar 15, 2023 at 04:01 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -62,17 +62,7 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (20, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
 (21, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
 (22, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
-(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7),
-(24, 'Plate & Frame Filter', 'Frame;Gear;Motor', 8),
-(25, 'Blancher', 'Gear;Screw;Heater', 8),
-(26, 'Storage', 'Board;Handle;Hinge', 8),
-(27, 'Cold Storage', 'Cooler;Handle;Hinge', 8),
-(28, 'Cutter', 'Pisau;Roller;Motor', 8),
-(29, 'Autoclave', 'Katup;Termometer;Screw', 8),
-(30, 'Boiler', 'Nozzle;Screw;Vent', 8),
-(31, 'Packaging Machine', 'Roller;Pisau;Skirtboard', 8),
-(32, 'Tray Storage', 'Tray Plate;Handle;Hinge', 8),
-(33, 'Tray', 'Screw;Handle;Board', 8);
+(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7);
 
 -- --------------------------------------------------------
 
@@ -150,8 +140,7 @@ INSERT INTO `jenis_alat` (`idjenis`, `nama_jenis`) VALUES
 (4, 'Pendiaman & Pemisahan'),
 (5, 'Pencampuran & Pengadukan'),
 (6, 'Pengeringan'),
-(7, 'Pengangkut'),
-(8, 'Tambahan');
+(7, 'Pengangkut');
 
 -- --------------------------------------------------------
 
