@@ -35,9 +35,15 @@ class PenjualController extends Controller
     // Pemain Beli
     public function jualBahan(Request $request)
     {
+
+
         $idteams = $request["team"];
         $pemainBeliBahan = $request["arrayBahan"];
         $sesi = DB::table("sesi")->get();
+
+        // dd($request["arrayBahan"]);
+        // echo json_encode($request["arrayBahan"]);
+        // die;
 
         // hitung total harga
         $totHarga = 0;
@@ -95,8 +101,10 @@ class PenjualController extends Controller
 
             if ($pemainBeliBahan[0][0] == $bahan[0]) {
                 $detail = $bahan[0];
+                $detail .= " ($bahan[1]) ";
             } else {
                 $detail .= ", " . $bahan[0];
+                $detail .= " ($bahan[1]) ";
             }
         }
 
@@ -188,8 +196,10 @@ class PenjualController extends Controller
         foreach ($pemainJualBahan as $bahan) {
             if ($pemainJualBahan[0][0] == $bahan[0]) {
                 $detail = $bahan[0];
+                $detail .= " ($bahan[1]) ";
             } else {
                 $detail .= ", " . $bahan[0];
+                $detail .= " ($bahan[1]) ";
             }
         }
 
