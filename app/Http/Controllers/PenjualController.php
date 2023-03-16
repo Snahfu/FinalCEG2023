@@ -222,7 +222,8 @@ class PenjualController extends Controller
 
         $market_downgrade = DB::table("market_downgrade")->where("tipe", $sesi[0]->tipe)->get();
 
-        return view("Penjual.downgrade", compact("teams", "market_downgrade", "tipe"));
+        // return view("Penjual.downgrade", compact("teams", "market_downgrade", "tipe"));
+        return view("Penjual.downgrade2", compact("teams", "market_downgrade", "tipe"));
     }
 
     // Pemain Jual
@@ -234,7 +235,8 @@ class PenjualController extends Controller
 
         $market_downgrade = DB::table("market_downgrade")->where("tipe", $sesi[0]->tipe)->get();
 
-        return view("Penjual.downgrade", compact("teams", "market_downgrade", "tipe"));
+        // return view("Penjual.downgrade", compact("teams", "market_downgrade", "tipe"));
+        return view("Penjual.downgrade2", compact("teams", "market_downgrade", "tipe"));
     }
 
     // Pemain Beli
