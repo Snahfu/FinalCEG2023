@@ -53,6 +53,8 @@ class LoginController extends Controller
             return "/ingredients";
         } else if (Auth::user()->role == "Tool") {
             return "/tools";
+        } else if (Auth::user()->role == "AdminHint") {
+            return "/hint";
         }
     }
 }

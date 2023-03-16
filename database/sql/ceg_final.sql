@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2023 at 04:01 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- Generation Time: Mar 16, 2023 at 08:25 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -62,7 +61,17 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (20, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
 (21, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
 (22, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
-(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7);
+(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7),
+(24, 'Plate & Frame Filter', 'Frame;Gear;Motor', 8),
+(25, 'Blancher', 'Gear;Screw;Heater', 8),
+(26, 'Storage', 'Board;Handle;Hinge', 8),
+(27, 'Cold Storage', 'Cooler;Handle;Hinge', 8),
+(28, 'Cutter', 'Pisau;Roller;Motor', 8),
+(29, 'Autoclave', 'Katup;Termometer;Screw', 8),
+(30, 'Boiler', 'Nozzle;Screw;Vent', 8),
+(31, 'Packaging Machine', 'Roller;Pisau;Skirtboard', 8),
+(32, 'Tray Storage', 'Tray Plate;Handle;Hinge', 8),
+(33, 'Tray', 'Screw;Handle;Board', 8);
 
 -- --------------------------------------------------------
 
@@ -94,6 +103,33 @@ INSERT INTO `bahan` (`idbahan`, `nama_bahan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hints`
+--
+
+CREATE TABLE `hints` (
+  `idhints` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `url_hint` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hints`
+--
+
+INSERT INTO `hints` (`idhints`, `name`, `url_hint`) VALUES
+(1, 'Rabbids 1', 'https://i.ibb.co/q94PJn1/Rabbids-blur-1.jpg'),
+(2, 'Rabbids 2', 'https://i.ibb.co/sPX1D9B/Rabbids-blur-2.jpg'),
+(3, 'Rabbids 3', 'https://i.ibb.co/60y1wKp/Rabbids-blur-3.jpg'),
+(4, 'Squirtle 1', 'https://i.ibb.co/MSF4xcG/Squirtle-blur-1.jpg'),
+(5, 'Squirtle 2', 'https://i.ibb.co/k3M3b85/Squirtle-blur-2.jpg'),
+(6, 'Squirtle 3', 'https://i.ibb.co/cDGdjrD/Squirtle-blur-3.jpg'),
+(7, 'Woody 1', 'https://i.ibb.co/3zkzT1z/Woody-blur-1.jpg'),
+(8, 'Woody 2', 'https://i.ibb.co/G3rS2dk/Woody-blur-2.jpg'),
+(9, 'Woody 3', 'https://i.ibb.co/JRpFTZr/Woody-blur-3.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `history`
 --
 
@@ -104,6 +140,25 @@ CREATE TABLE `history` (
   `tipe` varchar(45) NOT NULL,
   `teams_idteams` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history_hints`
+--
+
+CREATE TABLE `history_hints` (
+  `hints_idhints` int(11) NOT NULL,
+  `teams_idteams` int(11) NOT NULL,
+  `keterangan` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `history_hints`
+--
+
+INSERT INTO `history_hints` (`hints_idhints`, `teams_idteams`, `keterangan`) VALUES
+(1, 1, 'Team User 1 mendapat hint Rabbids 1');
 
 -- --------------------------------------------------------
 
@@ -140,7 +195,8 @@ INSERT INTO `jenis_alat` (`idjenis`, `nama_jenis`) VALUES
 (4, 'Pendiaman & Pemisahan'),
 (5, 'Pencampuran & Pengadukan'),
 (6, 'Pengeringan'),
-(7, 'Pengangkut');
+(7, 'Pengangkut'),
+(8, 'Tambahan');
 
 -- --------------------------------------------------------
 
@@ -384,8 +440,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (17, 'User 6', 'user6@gmail.com', NULL, '$2y$10$XmrnJ.Pf1BNN635zAkYiMuAjF5kjpPR.D1v0Vhp6.IMTZXVV2a.2m', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:53', 6, 'Player'),
 (18, 'User 7', 'user7@gmail.com', NULL, '$2y$10$ue0yhcKjBKqqFXvsNEt.AudwUFsGCDf3uEnLSygjPt.ypQ/ENnuru', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:09', 7, 'Player'),
 (19, 'User 8', 'user8@gmail.com', NULL, '$2y$10$IRQWNRzJK.4SFdTojYPuPep8sGd1Mucm4gfuALifF31dllAiRZVQy', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:39', 8, 'Player'),
-(20, 'User 9', 'user9@gmail.com', NULL, '$2y$10$2z3VNkteMWSBR01Hp1OJFuskYBXZ5tcj81J2yoN58TXPwALdqbl.m', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:59', 9, 'Player'),
-(21, 'User 10', 'user10@gmail.com', NULL, '$2y$10$qiO7o4pUpUuweI.SCu9SZ.XEVCjQ0xp9lGp/AntKZVYt7nAdJR4FK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:56:23', 10, 'Player');
+(20, 'User 9', 'user9@gmail.com', NULL, '$2y$10$qiO7o4pUpUuweI.SCu9SZ.XEVCjQ0xp9lGp/AntKZVYt7nAdJR4FK', NULL, '2023-03-15 16:48:12', '2023-02-21 06:55:59', 9, 'Player'),
+(21, 'User 10', 'user10@gmail.com', NULL, '$2y$10$qiO7o4pUpUuweI.SCu9SZ.XEVCjQ0xp9lGp/AntKZVYt7nAdJR4FK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:56:23', 10, 'Player'),
+(22, 'Admin Hint', 'adminhint@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-03-15 16:51:40', NULL, NULL, 'AdminHint');
 
 --
 -- Indexes for dumped tables
@@ -405,11 +462,25 @@ ALTER TABLE `bahan`
   ADD PRIMARY KEY (`idbahan`);
 
 --
+-- Indexes for table `hints`
+--
+ALTER TABLE `hints`
+  ADD PRIMARY KEY (`idhints`);
+
+--
 -- Indexes for table `history`
 --
 ALTER TABLE `history`
   ADD PRIMARY KEY (`idhistory`),
   ADD KEY `fk_history_teams1_idx` (`teams_idteams`);
+
+--
+-- Indexes for table `history_hints`
+--
+ALTER TABLE `history_hints`
+  ADD PRIMARY KEY (`hints_idhints`,`teams_idteams`),
+  ADD KEY `fk_hints_has_teams_teams1_idx` (`teams_idteams`),
+  ADD KEY `fk_hints_has_teams_hints1_idx` (`hints_idhints`);
 
 --
 -- Indexes for table `inventory`
@@ -495,6 +566,12 @@ ALTER TABLE `bahan`
   MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `hints`
+--
+ALTER TABLE `hints`
+  MODIFY `idhints` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
@@ -546,7 +623,7 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -563,6 +640,13 @@ ALTER TABLE `alat`
 --
 ALTER TABLE `history`
   ADD CONSTRAINT `fk_history_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `history_hints`
+--
+ALTER TABLE `history_hints`
+  ADD CONSTRAINT `fk_hints_has_teams_hints1` FOREIGN KEY (`hints_idhints`) REFERENCES `hints` (`idhints`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_hints_has_teams_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `inventory`

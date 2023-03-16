@@ -25,9 +25,9 @@ Route::post("/dashboard/inventory", "DashboardController@getItems")->name("inven
 Route::get("/listDowngrade", "ListDowngradeController@listDowngrade")->name("listDowngrade");
 Route::post("/listDowngrade/alat", "ListDowngradeController@changeAlat")->name("listDowngrade.alat");
 
-Route::get("/hint", function () {
-    return view("hint");
-})->name("hint");
+// Route::get("/hint", function () {
+//     return view("hint");
+// })->name("hint");
 
 Route::get("/history", "HistoryController@history")->name("history");
 
@@ -60,6 +60,9 @@ Route::post("/penjualDowngrade/jual", "PenjualController@jualDowngrade")->name("
 Route::get("/penjualDowngradeBuy", "PenjualController@penjualDowngradeBuy")->name("penjualDowngradeBuy");
 Route::post("/penjualDowngrade/beli", "PenjualController@beliDowngrade")->name("adminDowngradeBuy");
 
+// Admin Hint
+Route::get("/hint", "HintController@hint")->name("hint");
+Route::post("/hint/add", "HintController@addHint")->name("addHint");
 
 // Admin Tinkerer
 Route::get("/tinkerer", "TinkererController@tinkerer")->name("tinkerer");
