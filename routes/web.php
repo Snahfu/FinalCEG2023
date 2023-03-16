@@ -25,9 +25,7 @@ Route::post("/dashboard/inventory", "DashboardController@getItems")->name("inven
 Route::get("/listDowngrade", "ListDowngradeController@listDowngrade")->name("listDowngrade");
 Route::post("/listDowngrade/alat", "ListDowngradeController@changeAlat")->name("listDowngrade.alat");
 
-// Route::get("/hint", function () {
-//     return view("hint");
-// })->name("hint");
+Route::get("/playerHint", "HintController@playerHint")->name("playerHint");
 
 Route::get("/history", "HistoryController@history")->name("history");
 

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HintController extends Controller
 {
-    // Pemain Beli
     public function hint()
     {
         $user = Auth::user();
@@ -46,5 +45,20 @@ class HintController extends Controller
         }
 
         return response()->json(["status" => "success", "msg" => $details]);
+    }
+
+    public function playerHint()
+    {
+        $team = Auth::user();
+
+        $idTeam = DB::table('teams')->where("namaTeam", $team->name)->value("idteams");
+
+        //Hint yang dimiliki oleh tim tersebut
+        $hints = DB::table("hints as h")
+        ->join('history_hints as hh', 'h.idhints', '=', 'hh.hints_idhints')
+        ->join('teams as t', 't.idteams', '=', 'hh.teams_idteams')
+        ->where('t.idteams', '=', $idTeam)->get();
+
+        return view("HintsDashboard.playerHint", compact("hints"));
     }
 }

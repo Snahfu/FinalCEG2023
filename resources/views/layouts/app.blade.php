@@ -97,7 +97,7 @@
                                 <a href="{{ route('listDowngrade') }}" class="nav-link">List Downgrade</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('hint') }}" class="nav-link">Hint</a>
+                                <a href="{{ route('playerHint') }}" class="nav-link">Hint</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('pengumpulan') }}" class="nav-link">Pengumpulan</a>
