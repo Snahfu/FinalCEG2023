@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use App\Events\Team;
 
 class PenjualController extends Controller
 {
@@ -17,7 +18,8 @@ class PenjualController extends Controller
 
         $market_bahan = DB::table("market_bahan")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
 
-        return view("Penjual.bahan", compact("teams", "market_bahan", "tipe"));
+        // return view("Penjual.bahan", compact("teams", "market_bahan", "tipe"));
+        return view("Penjual.bahan2", compact("teams", "market_bahan", "tipe"));
     }
 
     // Pemain Jual
@@ -29,21 +31,16 @@ class PenjualController extends Controller
 
         $market_bahan = DB::table("market_bahan")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
 
-        return view("Penjual.bahan", compact("teams", "market_bahan", "tipe"));
+        // return view("Penjual.bahan", compact("teams", "market_bahan", "tipe"));
+        return view("Penjual.bahan2", compact("teams", "market_bahan", "tipe"));
     }
 
     // Pemain Beli
     public function jualBahan(Request $request)
     {
-
-
         $idteams = $request["team"];
         $pemainBeliBahan = $request["arrayBahan"];
         $sesi = DB::table("sesi")->get();
-
-        // dd($request["arrayBahan"]);
-        // echo json_encode($request["arrayBahan"]);
-        // die;
 
         // hitung total harga
         $totHarga = 0;
@@ -108,12 +105,19 @@ class PenjualController extends Controller
             }
         }
 
+        // tambah history
         $keterangan = "Team " . $team[0]->namaTeam . " Membeli Bahan (" . $detail . ")";
         DB::table("history")->insert([
             "keterangan" => $keterangan,
             "tipe" => "bahan",
             "teams_idteams" => $idteams,
         ]);
+
+        // update koin di halaman user
+        $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
+        $updatedKoin = $updatedTeam[0]->koin;
+
+        event(new Team($idteams, $updatedKoin));
 
         return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
     }
@@ -203,12 +207,19 @@ class PenjualController extends Controller
             }
         }
 
+        // tambah history
         $keterangan = "Team " . $team[0]->namaTeam . " Menjual Bahan (" . $detail . ")";
         DB::table("history")->insert([
             "keterangan" => $keterangan,
             "tipe" => "bahan",
             "teams_idteams" => $idteams,
         ]);
+
+        // update koin di halaman user
+        $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
+        $updatedKoin = $updatedTeam[0]->koin;
+
+        event(new Team($idteams, $updatedKoin));
 
         return response()->json(["status" => "success", "msg" => "Barang berhasil dijual"]);
     }
@@ -285,8 +296,9 @@ class PenjualController extends Controller
                     "stok" => DB::raw("`stok` - " . $downgrade[1]),
                 ]);
 
-            // tambah ke inventory
+            // tambah ke inventory pembeli
             if (DB::table("inventory")->where("nama_barang", $downgrade[0])->where("teams_idteams", $idteams)->exists()) {
+                // kalau barang sudah ada langsung update
                 DB::table("inventory")
                     ->where("nama_barang", $downgrade[0])
                     ->where("teams_idteams", $idteams)
@@ -294,6 +306,7 @@ class PenjualController extends Controller
                         "stock_barang" => DB::raw("`stock_barang` + " . $downgrade[1]),
                     ]);
             } else {
+                // kalau barang belum ada insert
                 DB::table("inventory")->insert([
                     "nama_barang" => $downgrade[0],
                     "stock_barang" => $downgrade[1],
@@ -308,12 +321,19 @@ class PenjualController extends Controller
             }
         }
 
+        // buat keterangan history dan masukkan ke history
         $keterangan = "Team " . $team[0]->namaTeam . " Membeli Downgrade (" . $detail . ")";
         DB::table("history")->insert([
             "keterangan" => $keterangan,
             "tipe" => "downgrade",
             "teams_idteams" => $idteams,
         ]);
+
+        // update koin di halaman user
+        $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
+        $updatedKoin = $updatedTeam[0]->koin;
+
+        event(new Team($idteams, $updatedKoin));
 
         return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
     }
@@ -399,12 +419,19 @@ class PenjualController extends Controller
             }
         }
 
+        // tambah keterangan ke history
         $keterangan = "Team " . $team[0]->namaTeam . " Menjual Bahan (" . $detail . ")";
         DB::table("history")->insert([
             "keterangan" => $keterangan,
             "tipe" => "downgrade",
             "teams_idteams" => $idteams,
         ]);
+
+        // update koin di halaman user
+        $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
+        $updatedKoin = $updatedTeam[0]->koin;
+
+        event(new Team($idteams, $updatedKoin));
 
         return response()->json(["status" => "success", "msg" => "Barang berhasil dijual"]);
     }

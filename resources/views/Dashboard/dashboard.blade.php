@@ -53,7 +53,7 @@
                 <div class="col">
                     <h1 class="p-0 m-0">Dashboard</h1>
                 </div>
-                
+
             </div>
 
             <div class="card my-4" id="card-inv">
@@ -94,12 +94,12 @@
                                         </tr>
                                     </thead>
                                     <tbody id="items" class="table-group-divider">
-                                        <?php $no=1; ?>
+                                        <?php $no = 1; ?>
                                         @foreach ($alat as $a)
                                             <?php $helper = false; ?>
-                                            
+
                                             <tr>
-                                                <td style="text-align: center;" scope="row"><?php echo $no;?></td>
+                                                <td style="text-align: center;" scope="row"><?php echo $no; ?></td>
                                                 <td scope="row">{{ $a->nama_alat }}</td>
                                                 @foreach ($inventory as $i)
                                                     @if ($a->nama_alat == $i->nama_barang)
@@ -126,7 +126,10 @@
         </div>
     </main>
 
+    <script src="../js/app.js"></script>
+    {{-- JQUERY --}}
     <script>
+        //  dipakai untuk mengganti inventory (alat, bahan, downgrade)
         $(".btnItems").click(function() {
             let itemType = ""
             switch (this.id) {
@@ -280,6 +283,20 @@
                     alert("error")
                 }
             })
+        })
+    </script>
+
+    {{-- PUSHER --}}
+    <script>
+        window.Echo.channel('teamPusher').listen('.team', (e) => {
+            let thisId = "<?php echo $team[0]->idteams; ?>"
+            console.log(thisId)
+            console.log(e.id)
+
+            if (thisId == e.id) {
+                $(".koin").html(e.koin)
+                console.log('masuk')
+            }
         })
     </script>
 @endsection

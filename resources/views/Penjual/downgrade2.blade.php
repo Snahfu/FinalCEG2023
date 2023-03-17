@@ -17,9 +17,9 @@
         }
 
         /* h1:before {
-                                                                                                                                                            right: 0.5em;
-                                                                                                                                                            margin-left: 1.5%;
-                                                                                                                                                        } */
+            right: 0.5em;
+            margin-left: 1.5%;
+        } */
 
         h1:after {
             left: 0.5em;
@@ -84,7 +84,7 @@
 
             <div class="row my-2 my-md-3 d-flex justify-content-center">
                 <div class="col">
-                    <h1 class="p-0 m-0">Buy</h1>
+                    <h1 id="tipe" class="p-0 m-0">{{ $tipe }}</h1>
                 </div>
 
             </div>
@@ -221,20 +221,23 @@
 
     <script>
         let num = 0
+        // jalan waktu reload
         $(document).ready(function() {
             let keranjang = localStorage.getItem("keranjang")
 
-            if (keranjang != null) {
-                // console.log(keranjang)
+            if (keranjang != null && keranjang.length > 0) {
+                console.log(keranjang)
 
                 // tampilin di keranjnang waktu reload
                 $.each(JSON.parse(keranjang), function(index, value) {
-                    // console.log(`${index}, ${value}`)
-                    $('#keranjang').append(
-                        `<tr>
+                    console.log(`${index}, ${value}`)
+                    let val = (value[1] != null) ? value[1] : 0
+                    $("#keranjang").append(
+                        `<tr identifier="${parseInt(index)+1}">
                             <td class="nomortb" width="15%">${parseInt(index)+1}</td>
-                            <td width="70%">${value}</td>
-                            <td><input id="${parseInt(index)+1}" type="number" style="width: 100px" min=0 value=0></td>
+                            <td width="70%">${value[0]}</td>
+                            <td><input id="${parseInt(index)+1}" type="number" style="width: 100px" min=0 value=${val}></td>
+                            <td><button style="border: none; background-color: transparent;" onClick="delItem(${parseInt(index)+1})"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
                         </tr>`)
                 })
 
@@ -243,15 +246,8 @@
 
         })
 
-        $('.btnAdd').click(function() {
-            // append ke keranjang
-            $('#keranjang').append(
-                `<tr>
-                    <td class="nomortb" width="15%">${parseInt(num)+1}</td>
-                    <td width="70%">${$(this).attr('id')}</td>
-                    <td><input id="${parseInt(num)+1}" type="number" style="width: 100px" min=0 value=0></td>
-                </tr>`)
-
+        // jalan waktu btnAdd di klik
+        $(".btnAdd").click(function() {
             // ambil keranjang di localStorage
             let arrKeranjang = []
             let cek_keranjang = localStorage.getItem("keranjang")
@@ -260,32 +256,146 @@
                 arrKeranjang = JSON.parse(cek_keranjang)
             }
 
-            arrKeranjang.push([$(this).attr('id')])
+            // append ke keranjang
+            $("#keranjang").append(
+                `<tr>
+                    <td class="nomortb" width="15%">${arrKeranjang.length + 1}</td>
+                    <td width="70%">${$(this).attr("id")}</td>
+                    <td><input id="${arrKeranjang.length + 1}" type="number" style="width: 100px" min=0 value=0></td>
+                    <td><button style="border: none; background-color: transparent;" onClick="delItem()"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
+                </tr>`)
+
+            arrKeranjang.push([$(this).attr("id")])
 
             console.log(arrKeranjang)
 
-            localStorage.setItem('keranjang', JSON.stringify(arrKeranjang))
+            localStorage.setItem("keranjang", JSON.stringify(arrKeranjang))
             num++
         })
 
-        $('#btnConfirm').click(function() {
+        // jalan waktu btnConfirm (Konfirmasi) di klik
+        $("#btnConfirm").click(function() {
             let id = 0
             let arrayKeranjang = JSON.parse(localStorage.getItem("keranjang"))
 
             // tambah atau ubah jumlah yang dibeli
             if (arrayKeranjang != null) {
-                $('#keranjang>tr').each(function() {
+                $("#keranjang>tr").each(function() {
                     // console.log($(`input#${parseInt(id)+1}`).val())
-                    arrayKeranjang[id].push($(`input#${parseInt(id)+1}`).val())
+                    if (arrayKeranjang[id][1] != null) {
+                        arrayKeranjang[id][1] = $(`input#${parseInt(id)+1}`).val()
+                    } else {
+                        arrayKeranjang[id].push($(`input#${parseInt(id)+1}`).val())
+                    }
                     id++
                 })
             }
 
             console.log(arrayKeranjang)
 
-            // bersihkan semua data keranjang
-            $('#keranjang').html('')
-            localStorage.removeItem('keranjang')
+            localStorage.setItem("keranjang", JSON.stringify(arrayKeranjang))
+
+            // console.log($("#teams").find(":selected").val())
+            if ($("#teams").find(":selected").val() != "-") {
+
+                $("#confirmation").html(`Apakah Team ${$("#teams").find(":selected").text()} yakin ingin membeli:`)
+
+                $("#listDowngrade").html("")
+                $.each(arrayKeranjang, function(index, value) {
+                    if (value[1] != null && value[1] > 0) {
+                        $("#listDowngrade").append(`
+                        <li name="${value[0]}" value="${value[1]}">
+                            ${value[0]} (${value[1]})
+                        </li>`)
+                    }
+                })
+
+                $("#ModalConfirmation").modal("show")
+
+            } else {
+                $("#alert-warning").html("Tolong pilih Team terlebih dahulu")
+                $("#ModalAlert").modal("show")
+            }
         })
+
+        // jalan waktu sudah konfirmasi di modal
+        $("#confirmSubmit").click(function() {
+            let arrayDowngrade = []
+            arrayDowngrade = JSON.parse(localStorage.getItem("keranjang"))
+            // console.log(arrayDowngrade)
+
+            if ($("h1#tipe").html() == "Sell") {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('adminDowngradeSell') }}",
+                    data: {
+                        '_token': '<?php echo csrf_token(); ?>',
+                        'team': $("#teams").val(),
+                        'arrayDowngrade': arrayDowngrade,
+                    },
+                    success: function(data) {
+                        let msg = data.msg
+                        $("#alert-warning").html(msg)
+                        $("#ModalAlert").modal("show")
+                    },
+                    error: function() {
+                        alert('error')
+                    }
+                })
+            } else if ($("h1#tipe").html() == "Buy") {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('adminDowngradeBuy') }}",
+                    data: {
+                        '_token': '<?php echo csrf_token(); ?>',
+                        'team': $("#teams").val(),
+                        'arrayDowngrade': arrayDowngrade
+                    },
+                    success: function(data) {
+                        if (data.status == "kurang") {
+                            $("#alert-warning").html(data.msg)
+                            $("#alert-body").append(`<ul></ul>`)
+                            $.each(data.downgradeLebih, function(key, value) {
+                                $("#alert-body>ul").html(`<li>${value}</li>`)
+                            })
+                            $("#ModalAlert").modal("show")
+                        } else {
+                            $("#alert-warning").html(data.msg)
+                            $("#ModalAlert").modal("show")
+                        }
+                    },
+                    error: function() {
+                        alert("error")
+                    }
+                })
+            }
+
+            // bersihkan semua data keranjang
+            $("#keranjang").html("")
+            localStorage.removeItem("keranjang")
+        })
+
+        // jalan waktu x di klik
+        function delItem(id) {
+            $(`tr[identifier="${id}"]`).remove()
+            let arr_keranjang = []
+            arr_keranjang = JSON.parse(localStorage.getItem("keranjang"))
+
+            arr_keranjang.splice(parseInt(id) - 1, 1)
+
+            localStorage.setItem("keranjang", JSON.stringify(arr_keranjang))
+
+            $("#keranjang").html("")
+            $.each(arr_keranjang, function(index, value){
+                let val = (value[1] != null) ? value[1] : 0
+                $("#keranjang").append(
+                    `<tr identifier="${parseInt(index)+1}">
+                        <td class="nomortb" width="15%">${parseInt(index)+1}</td>
+                        <td width="70%">${value[0]}</td>
+                        <td><input id="${parseInt(index)+1}" type="number" style="width: 100px" min=0 value=${val}></td>
+                        <td><button style="border: none; background-color: transparent;" onClick="delItem(${parseInt(index)+1})"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
+                    </tr>`)
+            })
+        }
     </script>
 @endsection
