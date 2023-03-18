@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 06:15 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Generation Time: Mar 18, 2023 at 06:49 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -42,7 +43,7 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (1, 'Washer', 'Motor;Pipe;Tub', 1),
 (2, 'Grater', 'Motor;Pisau;Gear', 2),
 (3, 'Coconut Hydraulic Press Machine', 'Pipe;Gauge;Piston', 3),
-(4, 'H Frame', 'Cylinder;Pipe;Frame', 3),
+(4, 'Screw Press', 'Screw;Gear;Motor', 3),
 (5, 'Bingkai Roll', 'Frame;Gear;Screw', 3),
 (6, 'Bench Frame', 'Frame;Gear;Screw', 3),
 (7, 'Corong Pemisah', 'Kaca;Katup', 4),
@@ -61,17 +62,7 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (20, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
 (21, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
 (22, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
-(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7),
-(24, 'Plate & Frame Filter', 'Frame;Gear;Motor', 8),
-(25, 'Blancher', 'Gear;Screw;Heater', 8),
-(26, 'Storage', 'Board;Handle;Hinge', 8),
-(27, 'Cold Storage', 'Cooler;Handle;Hinge', 8),
-(28, 'Cutter', 'Pisau;Roller;Motor', 8),
-(29, 'Autoclave', 'Katup;Termometer;Screw', 8),
-(30, 'Boiler', 'Nozzle;Screw;Vent', 8),
-(31, 'Packaging Machine', 'Roller;Pisau;Skirtboard', 8),
-(32, 'Tray Storage', 'Tray Plate;Handle;Hinge', 8),
-(33, 'Tray', 'Screw;Handle;Board', 8);
+(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7);
 
 -- --------------------------------------------------------
 
@@ -98,7 +89,8 @@ INSERT INTO `bahan` (`idbahan`, `nama_bahan`) VALUES
 (7, 'Asam Sitrat'),
 (8, 'Starter'),
 (9, 'Urea'),
-(10, 'Vanili');
+(10, 'Vanili'),
+(11, 'Maltodekstrin');
 
 -- --------------------------------------------------------
 
@@ -151,15 +143,6 @@ CREATE TABLE `history_hints` (
   `keterangan` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `history_hints`
---
-
-INSERT INTO `history_hints` (`hints_idhints`, `teams_idteams`, `keterangan`) VALUES
-(1, 1, 'Team User 1 mendapat hint Rabbids 1'),
-(5, 1, 'Team User 1 mendapat hint Clue 5'),
-(6, 1, 'Team User 1 mendapat hint Clue 6');
-
 -- --------------------------------------------------------
 
 --
@@ -195,8 +178,7 @@ INSERT INTO `jenis_alat` (`idjenis`, `nama_jenis`) VALUES
 (4, 'Pendiaman & Pemisahan'),
 (5, 'Pencampuran & Pengadukan'),
 (6, 'Pengeringan'),
-(7, 'Pengangkut'),
-(8, 'Tambahan');
+(7, 'Pengangkut');
 
 -- --------------------------------------------------------
 
@@ -386,16 +368,16 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '1050'),
-(2, 'User 2', '1150'),
-(3, 'User 3', '1250'),
-(4, 'User 4', '1100'),
-(5, 'User 5', '1075'),
-(6, 'User 6', '1100'),
-(7, 'User 7', '1400'),
-(8, 'User 8', '1650'),
-(9, 'User 9', '1425'),
-(10, 'User 10', '1400');
+(1, 'User 1', '680'),
+(2, 'User 2', '1535'),
+(3, 'User 3', '935'),
+(4, 'User 4', '1490'),
+(5, 'User 5', '1135'),
+(6, 'User 6', '825'),
+(7, 'User 7', '950'),
+(8, 'User 8', '1850'),
+(9, 'User 9', '1720'),
+(10, 'User 10', '1200');
 
 -- --------------------------------------------------------
 
@@ -557,19 +539,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alat`
 --
 ALTER TABLE `alat`
-  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `bahan`
 --
 ALTER TABLE `bahan`
-  MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `hints`
 --
 ALTER TABLE `hints`
-  MODIFY `idhints` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idhints` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `history`
@@ -587,7 +569,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `jenis_alat`
 --
 ALTER TABLE `jenis_alat`
-  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `market_bahan`
@@ -605,7 +587,7 @@ ALTER TABLE `market_downgrade`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sesi`
