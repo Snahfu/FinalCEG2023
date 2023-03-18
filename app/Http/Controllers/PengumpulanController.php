@@ -12,9 +12,24 @@ class PengumpulanController extends Controller
     {
         $user = Auth::user();
 
-        $inventory = DB::table('inventory')->where('teams_idteams', $user->teams_idteams)->get();
+        $inventory_bahan = DB::table('inventory')
+            ->where('teams_idteams', $user->teams_idteams)
+            ->whereIn('nama_barang', function ($query) {
+                $query->select('nama_bahan')
+                    ->from('bahan');
+            })->get();
+
+        $inventory_alat = DB::table('inventory')
+            ->where('teams_idteams', $user->teams_idteams)
+            ->whereIn('nama_barang', function ($query) {
+                $query->select('nama_alat')
+                    ->from('alat');
+            })->get();
+            
+        // $inventory = array_merge($inventory_alat, $inventory_bahan);
         // dd($inventory);
-        return view('pengumpulan', compact('inventory'));
+
+        return view('pengumpulan', compact('inventory_bahan', 'inventory_alat'));
     }
 
     public function kumpul()
