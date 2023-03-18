@@ -12,12 +12,12 @@ class PengumpulanController extends Controller
     {
         $user = Auth::user();
 
-        $inventory = DB::table('inventory')->where('teams_idteams', $user->teams_idteams);
-
+        $inventory = DB::table('inventory')->where('teams_idteams', $user->teams_idteams)->get();
+        // dd($inventory);
         return view('pengumpulan', compact('inventory'));
     }
 
-    public function kumpul(){
-        
+    public function kumpul()
+    {
     }
 }

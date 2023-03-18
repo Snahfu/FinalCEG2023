@@ -40,7 +40,7 @@
 
     <!---- Pusher ---->
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    
+
     @yield('head')
 
     <!-- Styles -->
@@ -197,6 +197,38 @@
             @yield('content')
         </main>
     </div>
+
+    {{-- Modal Sesi --}}
+    <div class="modal fade" id="ModalSesi" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalSesiLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalSesiLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="alert-body" class="modal-body flex">
+                    <b id="sesi-alert"></b>
+                </div>
+                <div class="modal-footer">
+                    {{-- button OK --}}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script>
+    var pusher = new Pusher('ee40c583b896ff3cfaa7', {
+        cluster: 'ap1'
+    });
+
+    var sesiPusher = pusher.subscribe('sesiPusher');
+    sesiPusher.bind('sesi', (e) => {
+        $("#sesi-alert").html(e.sesiMsg)
+        $("#ModalSesi").modal("show")
+    });
+</script>
 
 </html>

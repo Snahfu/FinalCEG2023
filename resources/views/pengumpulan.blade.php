@@ -131,21 +131,26 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                
+
                 <li class="sidebar-brand">
                     <a id="menu-toggle" style="float:right;"> <i class="fa fa-bars "></i></a>
                 </li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
+                {{-- <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
                         ondragstart="drag(event)"></li>
                 <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
                         ondragstart="drag(event)"></li>
                 <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
                         ondragstart="drag(event)"></li>
                 <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
-                        ondragstart="drag(event)"></li>
+                        ondragstart="drag(event)"></li> --}}
                 <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
                         ondragstart="drag(event)"></li>
-                        
+                @foreach ($inventory as $item)
+                    @for ($count = 1; $count <= $item->stock_barang; $count++)
+                        <li class="picture" style="background-color: white; color: black; width: 100px; height: 100px; margin: 0 0 50px 0">
+                            <img style="background-color: white; color: black;"><span>{{ $item->nama_barang }}</span></li>
+                    @endfor
+                @endforeach
             </ul>
 
         </div>

@@ -14,11 +14,12 @@ class Sesi implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public function __construct()
+    public $sesiMsg;
+    public function __construct($sesiMsg)
     {
-        //
+        $this->sesiMsg = $sesiMsg;
     }
-    
+
     public function broadcastOn()
     {
         return new Channel('sesiPusher');

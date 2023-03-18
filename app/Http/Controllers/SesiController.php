@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Events\Sesi;
 
 class SesiController extends Controller
 {
@@ -21,6 +22,7 @@ class SesiController extends Controller
         $sesiNow = (int) $request['sesiNow'];
 
         $msg = "";
+        $helper = false;
         switch ($command) {
             case "back":
                 if ($sesiNow > 1) {
@@ -29,6 +31,7 @@ class SesiController extends Controller
                     ]);
 
                     $msg = "Pindah ke sesi " . ($sesiNow - 1);
+                    $helper = true;
                 } else {
                     $msg = "SUDAH SESI 1 WOE GABISA NGURANG LAGI";
                 }
@@ -41,6 +44,7 @@ class SesiController extends Controller
                     ]);
 
                     $msg = "Pindah ke sesi " . ($sesiNow + 1);
+                    $helper = true;
                 } else {
                     $msg = "SUDAH SESI 3 WOE GABISA NAMBAH LAGI";
                 }
@@ -52,6 +56,7 @@ class SesiController extends Controller
                 ]);
 
                 $msg = "Sesi Biasa";
+                $helper = true;
                 break;
 
             case "flash":
@@ -60,10 +65,15 @@ class SesiController extends Controller
                 ]);
 
                 $msg = "FLASH SALE!!";
+                $helper = true;
                 break;
         }
 
         $sesiBaru = DB::table("sesi")->get();
+
+        if ($helper == true) {
+            event(new Sesi($msg));
+        }
 
         return response()->json(["data" => $sesiBaru, "msg" => $msg]);
     }
