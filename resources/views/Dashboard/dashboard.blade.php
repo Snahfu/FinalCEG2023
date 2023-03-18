@@ -126,7 +126,7 @@
         </div>
     </main>
 
-    <script src="../js/app.js"></script>
+    <script src="../../js/app.js"></script>
     {{-- JQUERY --}}
     <script>
         //  dipakai untuk mengganti inventory (alat, bahan, downgrade)
