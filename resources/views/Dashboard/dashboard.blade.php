@@ -288,15 +288,33 @@
 
     {{-- PUSHER --}}
     <script>
-        window.Echo.channel('teamPusher').listen('.team', (e) => {
+        // window.Echo.channel('teamPusher').listen('.team', (e) => {
+        //     let thisId = "<?php echo $team[0]->idteams; ?>"
+        //     console.log(thisId)
+        //     console.log(e.id)
+
+        //     if (thisId == e.id) {
+        //         $(".koin").html(e.koin)
+        //         console.log('masuk')
+        //     }
+        // })
+
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('ee40c583b896ff3cfaa7', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('teamPusher');
+        channel.bind('team', (e) => {
             let thisId = "<?php echo $team[0]->idteams; ?>"
-            console.log(thisId)
-            console.log(e.id)
+            // console.log(thisId)
+            // console.log(e.id)
 
             if (thisId == e.id) {
                 $(".koin").html(e.koin)
-                console.log('masuk')
+                // console.log('masuk')
             }
-        })
+        });
     </script>
 @endsection
