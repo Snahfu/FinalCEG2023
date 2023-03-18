@@ -46,8 +46,8 @@
 
     <script>
         $(".btnSesi").click(function() {
-            console.log($("#sesiNow").html())
-            console.log($(this).attr("id"))
+            // console.log($("#sesiNow").html())
+            // console.log($(this).attr("id"))
             $.ajax({
                 type: "POST",
                 url: "{{ route('gantiSesi') }}",
@@ -57,8 +57,10 @@
                     'sesiNow': $("#sesiNow").html(),
                 },
                 success: function(data) {
-                    $("#alert-warning").html(data.msg)
-                    $("#ModalAlert").modal("show")
+                    if(!data.helper){
+                        $("#alert-warning").html(data.msg)
+                        $("#ModalAlert").modal("show")
+                    }
 
                     $("#sesiNow").html(data.data[0].sesi)
                 },

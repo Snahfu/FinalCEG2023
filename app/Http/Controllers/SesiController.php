@@ -75,6 +75,6 @@ class SesiController extends Controller
             event(new Sesi($msg));
         }
 
-        return response()->json(["data" => $sesiBaru, "msg" => $msg]);
+        return response()->json(["data" => $sesiBaru, "msg" => $msg, "helper" => $helper]);
     }
 }

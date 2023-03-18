@@ -377,7 +377,10 @@
 
         // jalan waktu x di klik
         function delItem(id) {
+            // delete item
             $(`tr[identifier="${id}"]`).remove()
+
+            // ambil sisa ke array
             let arr_keranjang = []
             arr_keranjang = JSON.parse(localStorage.getItem("keranjang"))
 
@@ -385,6 +388,7 @@
 
             localStorage.setItem("keranjang", JSON.stringify(arr_keranjang))
 
+            // delete sisa dan tampilkan sisa
             $("#keranjang").html("")
             $.each(arr_keranjang, function(index, value){
                 let val = (value[1] != null) ? value[1] : 0

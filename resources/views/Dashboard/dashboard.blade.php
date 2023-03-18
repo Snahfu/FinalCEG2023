@@ -312,7 +312,7 @@
             // console.log(e.id)
 
             if (thisId == e.id) {
-                $(".koin").html(e.koin)
+                $(".koin").html(`${e.koin} Koin`)
                 // console.log('masuk')
             }
         });
