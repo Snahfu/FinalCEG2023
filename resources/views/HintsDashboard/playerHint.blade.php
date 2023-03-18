@@ -29,6 +29,12 @@
             transition: all 0.1s ease-in-out;
             background-image: url({{ asset('assets/hiburan/melastnight.gif') }});
         }
+
+        .scale-img{
+            /* transform: scale(0.5); */
+            width: 300px;
+            height: auto;
+        }
     </style>
 @endsection
 
@@ -40,9 +46,8 @@
                     @foreach ($hints as $hint)
                         <div class="col-md-4 mb-3">
                             <div class="card">
-
-                                <div style="max-height: 350px; overflow:hidden">
-                                    <img src="{{$hint->url_hint }}" class="card-img-top" alt="{{ $hint->name }}">
+                                <div>
+                                    <img src="{{$hint->url_hint }}" class="card-img-top scale-img rounded mx-auto d-block" alt="{{ $hint->name }}">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $hint->name }}</h5>

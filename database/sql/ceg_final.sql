@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2023 at 08:25 AM
+-- Generation Time: Mar 18, 2023 at 06:15 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -117,15 +117,13 @@ CREATE TABLE `hints` (
 --
 
 INSERT INTO `hints` (`idhints`, `name`, `url_hint`) VALUES
-(1, 'Rabbids 1', 'https://i.ibb.co/q94PJn1/Rabbids-blur-1.jpg'),
-(2, 'Rabbids 2', 'https://i.ibb.co/sPX1D9B/Rabbids-blur-2.jpg'),
-(3, 'Rabbids 3', 'https://i.ibb.co/60y1wKp/Rabbids-blur-3.jpg'),
-(4, 'Squirtle 1', 'https://i.ibb.co/MSF4xcG/Squirtle-blur-1.jpg'),
-(5, 'Squirtle 2', 'https://i.ibb.co/k3M3b85/Squirtle-blur-2.jpg'),
-(6, 'Squirtle 3', 'https://i.ibb.co/cDGdjrD/Squirtle-blur-3.jpg'),
-(7, 'Woody 1', 'https://i.ibb.co/3zkzT1z/Woody-blur-1.jpg'),
-(8, 'Woody 2', 'https://i.ibb.co/G3rS2dk/Woody-blur-2.jpg'),
-(9, 'Woody 3', 'https://i.ibb.co/JRpFTZr/Woody-blur-3.jpg');
+(1, 'Clue 1', 'https://i.ibb.co/47LVs1c/Clue-1.jpg'),
+(2, 'Clue 2', 'https://i.ibb.co/vYpp7Nj/Clue-2.jpg'),
+(3, 'Clue 3', 'https://i.ibb.co/gWFqTB5/Clue-3.jpg'),
+(4, 'Clue 4', 'https://i.ibb.co/xgjzYgK/Clue-4.jpg'),
+(5, 'Clue 5', 'https://i.ibb.co/f98pcjp/Clue-5.jpg'),
+(6, 'Clue 6', 'https://i.ibb.co/68DvGLz/Clue-6.jpg'),
+(7, 'Clue 7', 'https://i.ibb.co/PjMsSr2/Clue-7.jpg');
 
 -- --------------------------------------------------------
 
@@ -158,7 +156,9 @@ CREATE TABLE `history_hints` (
 --
 
 INSERT INTO `history_hints` (`hints_idhints`, `teams_idteams`, `keterangan`) VALUES
-(1, 1, 'Team User 1 mendapat hint Rabbids 1');
+(1, 1, 'Team User 1 mendapat hint Rabbids 1'),
+(5, 1, 'Team User 1 mendapat hint Clue 5'),
+(6, 1, 'Team User 1 mendapat hint Clue 6');
 
 -- --------------------------------------------------------
 
