@@ -100,6 +100,9 @@
                                 <a href="{{ route('listDowngrade') }}" class="nav-link">List Downgrade</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('listHarga') }}" class="nav-link">List Harga</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('playerHint') }}" class="nav-link">Hint</a>
                             </li>
                             <li class="nav-item">
@@ -108,6 +111,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
                             </li>
+
                         @elsecan("isAdminBahan")
                             <li class="nav-item">
                                 <a href="{{ route('penjualBahanSell') }}" class="nav-link">Sell</a>

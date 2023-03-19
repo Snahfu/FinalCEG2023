@@ -53,6 +53,44 @@ class DashboardController extends Controller
         return response()->json(["data" => $data, "inventory" => $inventory]);
     }
 
+    public function getHargaItems(Request $request)
+    {
+        $user = Auth::user();
+
+        $itemType = $request->get("tipe");
+
+        $inventory = DB::table("inventory")->where("teams_idteams", $user->teams_idteams)->get();
+
+        $data = "";
+        switch ($itemType) {
+            case "alat":
+                $data = DB::table("alat")
+                ->orderBy("nama_alat", "asc")
+                    ->get();
+                break;
+            case "bahan":
+                $data = DB::table("market_bahan")->get();
+                break;
+            case "downgrade":
+                $data = DB::table("market_downgrade")->get();
+                break;
+        }
+
+        return response()->json(["data" => $data, "inventory" => $inventory]);
+    }
+
+    public function listHargaDashboard()
+    {
+        $user = Auth::user();
+        $bahan = DB::table("market_bahan")->get();
+        $team = DB::table("teams")->where("idteams", "=", $user->teams_idteams)->get();
+        $downgrade = DB::table("market_downgrade")->get();
+        $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
+
+
+        return view("ListHarga.listHarga", compact("bahan", "downgrade", "team", "inventory"));
+    }
+
     public function koin()
     {
         $teams = DB::table("teams")->get();
