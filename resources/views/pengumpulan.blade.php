@@ -172,7 +172,7 @@
         #parent { 
             height: 700px;
             width: 1000px;
-            position: absolute;
+            position: fixed;
         }
 
         /* Flowchart Style*/
