@@ -12,13 +12,15 @@ class ToolsController extends Controller
     {
         $pos = Auth::user();
 
-        $teams = DB::table("teams")
-            ->whereNotIn(
-                "idteams",
-                function ($query) {
-                    $query->select("teams_idteams")->from("done_playing");
-                }
-            )->get();
+        // $teams = DB::table("teams")
+        //     ->whereNotIn(
+        //         "idteams",
+        //         function ($query) {
+        //             $query->select("teams_idteams")->from("done_playing");
+        //         }
+        //     )->get();
+
+        $teams = DB::table("teams")->get();
 
         $alat = DB::table("alat as a")->join("jenis_alat as ja", "a.jenis_idjenis", "=", "ja.idjenis")->get();
 
