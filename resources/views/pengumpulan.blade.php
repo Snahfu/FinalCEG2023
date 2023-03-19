@@ -33,6 +33,10 @@
 
 @section('css')
     <style>
+        :root{
+            --listHeight: 20vh; 
+        }
+
         body {
             overflow-x: hidden;
         }
@@ -62,7 +66,7 @@
             z-index: 1000;
             position: relative;
             width: 200px;
-            height: 100%;
+            height: 120vh;
             right: 15px;
             background-color: gray;
             overflow y: scroll;
@@ -74,7 +78,6 @@
 
         .sidebar-nav {
             position: absolute;
-            overflow-y: scroll;
             top: 0;
             right: 15px;
             width: 200px;
@@ -130,10 +133,16 @@
             display: flex;
             object-fit: contain;
             justify-content: space-around;
-            margin: 5px;
+            margin: 10px;
             margin-left: 40px;
             height: 120px;
             z-index: 2;
+        }
+        
+        .picture img{
+            object-fit: contain;
+            width: 150px; 
+            height: 150px;
         }
         #wrapper.toggled #sidebar-wrapper {
             width: 50px;
@@ -163,7 +172,7 @@
         #parent { 
             height: 700px;
             width: 1000px;
-            position: fixed;
+            position: absolute;
         }
 
         /* Flowchart Style*/
@@ -175,6 +184,7 @@
         function allowDrop(ev) {
             ev.preventDefault();
         }
+
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);
         }
@@ -186,12 +196,11 @@
             var y = ev.clientY; 
 
             var newDiv = $("<div>").addClass("draggable").css({
-                left: (x - 460) + "px",
-                top: (y - 100) + "px"
+                left: (x-300) + "px",
+                top: (y-260) + "px"
             }).appendTo($("#parent"));
             var data = ev.dataTransfer.getData("text");
             var newImage = document.createElement("img");
-
             newImage.id = "flowchartImage";
             newImage.setAttribute("src", data);
             jsPlumb.ready(function() {
@@ -237,17 +246,16 @@
                 <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
                 <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li> --}}
                 @foreach ($inventory_alat as $item)
-                    @for ($count = 1; $count <= $item->stock_barang; $count++)
-                        <li class="picture" style="background-color: white; color: black; object-fit: contain;" draggable="true" ondragstart="drag(event)">
-                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}" style="object-fit: contain;"><span>{{ $item->nama_barang }}</span></li>
-                    @endfor
+                        <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event)">
+                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                            <span style="text-align: center; padding-right: 20px;">{{$item->nama_barang}}</span>
+                        </li>
                 @endforeach
                 @foreach ($inventory_bahan as $item)
-                    @for ($count = 1; $count <= $item->stock_barang; $count++)
                         <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event)">
-                            <img><span>{{ $item->nama_barang }}</span></li>
-                    @endfor
-                @endforeach
+                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                        </li>
+                 @endforeach
             </ul>
         </div>
         <div id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
