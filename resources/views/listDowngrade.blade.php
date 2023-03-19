@@ -61,10 +61,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
         }
-
-
 
         .dropdown {
             border: 1px solid black !important;

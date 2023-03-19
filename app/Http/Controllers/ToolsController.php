@@ -10,15 +10,25 @@ class ToolsController extends Controller
 {
     public function tools()
     {
-        $user = Auth::user();
-        $teams = DB::table("teams")->get();
+        $pos = Auth::user();
+
+        $teams = DB::table("teams")
+            ->whereNotIn(
+                "idteams",
+                function ($query) {
+                    $query->select("teams_idteams")->from("done_playing");
+                }
+            )->get();
+
         $alat = DB::table("alat as a")->join("jenis_alat as ja", "a.jenis_idjenis", "=", "ja.idjenis")->get();
 
-        return view("Pos.tools", compact("user", "teams", "alat"));
+        return view("Pos.tools", compact("pos", "teams", "alat"));
     }
 
     public function addTools(Request $request)
     {
+        $pos = Auth::user();
+
         $idteams = $request['idteams'];
         $nama_alat = $request['nama_alat'];
         $jumlahAdd = $request["jumlahAdd"];
@@ -31,7 +41,7 @@ class ToolsController extends Controller
                 ->where("nama_barang", $nama_alat)
                 ->where("teams_idteams", $idteams)
                 ->update([
-                    "stock_barang" => DB::raw("stock_barang + " . $jumlahAdd),
+                    "stock_barang" => DB::raw("`stock_barang` + " . $jumlahAdd),
                 ]);
         } else {
             DB::table("inventory")->insert([
@@ -49,6 +59,13 @@ class ToolsController extends Controller
             "tipe" => "addTool",
             "teams_idteams" => $idteams
         ]);
+
+        // tambah status sudah main di pos ini
+        DB::table("done_playing")
+            ->insert([
+                "pos" => $pos->name,
+                "teams_idteams" => $idteams,
+            ]);
 
         return response()->json(["status" => "success", "msg" => $details]);
     }

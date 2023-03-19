@@ -31,7 +31,7 @@
         <div class="container tool">
 
             <div>
-                <h2>{{ $user->name }}</h2>
+                <h2>{{ $pos->name }}</h2>
             </div>
 
             <div class="card">
@@ -112,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
                     {{-- button OK --}}
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                    <button id="btnOk" type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -181,6 +181,10 @@
                     alert("error")
                 }
             })
+        })
+
+        $("#btnOk").click(function() {
+            location.reload();
         })
     </script>
 @endsection
