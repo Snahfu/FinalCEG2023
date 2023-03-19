@@ -7,6 +7,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/css/jsplumbtoolkit-defaults.css">
+<script>
+    var sourcePointOptions = { 
+                anchor: "Continuous",
+                endpoint: 'Rectangle',
+                isSource:true,
+                connector: "Flowchart",
+                maxConnections: -1,
+                connectorStyle: {strokeWidth:1, stroke:'black'},
+                scope:"blueline",
+                dragAllowedWhenFull: true
+            }; 
+            var targetPointOptions = { 
+                anchor: "Continuous",
+                endpoint: 'Dot',
+                isTarget:true,
+                connector: "Flowchart",
+                maxConnections: -1,
+                connectorStyle: {strokeWidth:1, stroke:'black'},
+                scope:"blueline",
+                dragAllowedWhenFull: true
+            };
+</script>
 @endsection
 
 @section('css')
@@ -43,9 +65,7 @@
             height: 100%;
             right: 15px;
             background-color: gray;
-            overflow-y: scroll;
-            overflow-x: hidden; 
-
+            overflow y: scroll;
             -webkit-transition: all 0.5s ease;
             -moz-transition: all 0.5s ease;
             -o-transition: all 0.5s ease;
@@ -54,6 +74,7 @@
 
         .sidebar-nav {
             position: absolute;
+            overflow-y: scroll;
             top: 0;
             right: 15px;
             width: 200px;
@@ -74,6 +95,7 @@
         }
 
         .sidebar-nav>.sidebar-brand {
+            padding-left: 140px; 
             height: 65px;
             font-size: 18px;
             line-height: 60px;
@@ -91,14 +113,13 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            background-color: lightslategray;
+            background-color: white;
             border-radius: 10px; 
-            overflow: hidden;
         }
 
         #flowchartImage{
             position: absolute; 
-            object-fit: cover;
+            object-fit: contain;
             padding: 0;
             margin: 0;
             height: 100px;
@@ -107,11 +128,12 @@
 
         .picture {
             display: flex;
-            object-fit: cover;
+            object-fit: contain;
             justify-content: space-around;
-            padding: 5px;
-            padding-left: 40px;
+            margin: 5px;
+            margin-left: 40px;
             height: 120px;
+            z-index: 2;
         }
         #wrapper.toggled #sidebar-wrapper {
             width: 50px;
@@ -130,15 +152,18 @@
         #wrapper.toggled .picture {
             visibility: hidden;
         }
-
+        #menu-toggle {
+            position: static;
+        }
         #wrapper.toggled #menu-toggle {
+            padding-left: 30px;
             padding-top: 20px;
         }
 
         #parent { 
             height: 700px;
             width: 1000px;
-            position: relative;
+            position: fixed;
         }
 
         /* Flowchart Style*/
@@ -156,8 +181,46 @@
 
         function drop(ev) {
             ev.preventDefault();
+
+            var x = ev.clientX; 
+            var y = ev.clientY; 
+
+            var newDiv = $("<div>").addClass("draggable").css({
+                left: (x - 460) + "px",
+                top: (y - 100) + "px"
+            }).appendTo($("#parent"));
             var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+            var newImage = document.createElement("img");
+
+            newImage.id = "flowchartImage";
+            newImage.setAttribute("src", data);
+            jsPlumb.ready(function() {
+                
+                jsPlumb.draggable($(".draggable"), {
+                    containment: "#parent",
+                    grid: [20, 20],
+                    stop: function(event) {
+                        jsPlumb.repaintEverything();
+                    }
+                });
+                
+            $(newImage).appendTo(newDiv);
+            $(newDiv).append("<i id='deleteButton' class='fa-solid fa-trash' style='left: -20px; top:-20px; position:relative;' onClick='delImg(this)'></i>");
+
+            jsPlumb.addEndpoint(newDiv,{
+            }, targetPointOptions);
+
+            jsPlumb.addEndpoint(newDiv, {
+            }, sourcePointOptions);
+            jsPlumb.repaintEverything();
+        })
+        }
+        function delImg(btn)
+        {
+            console.log("Button Pressed");
+            console.log(btn.parentElement);
+            jsPlumb.removeAllEndpoints(btn.parentElement);
+            btn.parentElement.remove();
         }
     </script>
     <div class="container" id="wrapper">
@@ -168,92 +231,31 @@
                 <li class="sidebar-brand">
                     <a id="menu-toggle" style="float:right;"> <i class="fa fa-bars "></i></a>
                 </li>
-                {{-- <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
-                        ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
-                        ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
-                        ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
-                        ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true"
-                        ondragstart="drag(event)"></li> --}}
+                {{-- <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
+                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
+                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
+                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
+                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li> --}}
                 @foreach ($inventory_alat as $item)
                     @for ($count = 1; $count <= $item->stock_barang; $count++)
-                        <li class="picture" style="background-color: white; color: black; width: 100px; height: 100px; margin: 0 0 50px 0">
-                            <img style="background-color: white; color: black;"><span>{{ $item->nama_barang }}</span></li>
+                        <li class="picture" style="background-color: white; color: black; object-fit: contain;" draggable="true" ondragstart="drag(event)">
+                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}" style="object-fit: contain;"><span>{{ $item->nama_barang }}</span></li>
                     @endfor
                 @endforeach
                 @foreach ($inventory_bahan as $item)
                     @for ($count = 1; $count <= $item->stock_barang; $count++)
-                        <li class="picture" style="background-color: white; color: black; width: 100px; height: 100px; margin: 0 0 50px 0">
-                            <img style="background-color: white; color: black;"><span>{{ $item->nama_barang }}</span></li>
+                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event)">
+                            <img><span>{{ $item->nama_barang }}</span></li>
                     @endfor
                 @endforeach
             </ul>
-
         </div>
-        <div id="parent" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div id="draggable1" class="draggable" style="top: 500px; left 500px">
-                <img id="flowchartImage" src="{{ 'assets' }}/users/dummy_pic.jpg">
-            </div>
-
-            <div id="draggable2" class="draggable" style="top: 500px; left: 500px;">
-            <p>Draggable 2</p>
-            </div>
-
-            <div id="draggable3" class="draggable" style="top: 500px; left: 500px;">
-            <p>Draggable 3</p>
-            </div>
-
-            <div id="draggable4" class="draggable" style="top: 500px; left: 500px;">
-            <p>Draggable 4</p>
-            </div>
-  </div>
-
+        <div id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
 
     <script>
     $(document).ready(function(){
         jsPlumb.ready(function() {
-        // $('#picture').draggable({
-        //     scroll: 'false',
-        //     revert: 'invalid',
-        //     helper: 'clone',
-        //     cursor: 'move'
-        // });
-        // jsPlumb.draggable($("#picture"),{
-        $('#parent').droppable({
-            accept: '.picture',
-            drop: function(event, ui) {
-                event.preventDefault();
-                var newDiv = $("<div>").addClass("draggable").appendTo($(this));
-                // var img = $("<img>").addClass("draggable").appendTo($(this));
-                // var droppedImage = ui.draggable.clone().attr('id', 'flowchartImage').appendTo(newDiv);
-                // droppedImage.removeAttr('style');
-                jsPlumb.draggable($(".draggable"), {
-                containment: "#parent",
-                grid: [20, 20],
-                stop: function(event) {
-                    jsPlumb.repaintEverything();
-                }
-                });
-                jsPlumb.addEndpoint(newDiv, {
-                }, targetPointOptions);
-
-                jsPlumb.addEndpoint(newDiv, {
-                }, sourcePointOptions);
-
-                droppedImage.css({
-                    'position': 'absolute', 
-                    'object-fit': 'cover',
-                    'padding': '0',
-                    'margin': '0',
-                    'height': '100px',
-                    'width': '100px'
-                });
-            }
-        });
             jsPlumb.draggable($(".draggable"), {
                 containment: "#parent",
                 grid: [20, 20],
@@ -261,32 +263,6 @@
                     jsPlumb.repaintEverything();
                 }
             });
-            var sourcePointOptions = { 
-                anchor: "Continuous",
-                endpoint: 'Rectangle',
-                isSource:true,
-                connector: "Flowchart",
-                maxConnections: -1,
-                connectorStyle: {strokeWidth:1, stroke:'black'},
-                scope:"blueline",
-                dragAllowedWhenFull: true
-            }; 
-            var targetPointOptions = { 
-                anchor: "Continuous",
-                endpoint: 'Dot',
-                isTarget:true,
-                connector: "Flowchart",
-                maxConnections: -1,
-                connectorStyle: {strokeWidth:1, stroke:'black'},
-                scope:"blueline",
-                dragAllowedWhenFull: true
-            };
-
-            jsPlumb.addEndpoint($("div.draggable"), {
-            }, targetPointOptions);
-
-            jsPlumb.addEndpoint($("div.draggable"), {
-            }, sourcePointOptions);
         });
 
         $("#menu-toggle").click(function(e) {
