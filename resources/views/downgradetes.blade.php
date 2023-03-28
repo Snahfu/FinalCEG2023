@@ -82,6 +82,12 @@
             
         </div>
 
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Nama peralatan" aria-label="" aria-describedby="">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+        </div>
         <div class="row">
             {{-- Sisi Display --}}
             <div class="col-lg-8 col-12">

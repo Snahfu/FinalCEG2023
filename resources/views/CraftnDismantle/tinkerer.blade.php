@@ -2,14 +2,6 @@
 
 @section('css')
     <style>
-        table,
-        thead,
-        tbody,
-        tr,
-        th,
-        td {
-            border: 1px solid black;
-        }
 
         th {
             text-align: center;
@@ -18,69 +10,193 @@
 
         td {
             padding: 10px 15px;
+            height: 54px;
+        }
+        button{
+            margin-left: 8px;
+        }
+
+        .dropdown-menu{
+            max-width: 350px;
+            max-height: 200px;
+        }
+
+        .card{
+            height: 363px;
+            box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+            border: 0px solid black;
+            border-radius: 20px;
         }
     </style>
 @endsection
 
 @section('content')
-    <main>
+    <main class="d-block mx-auto">
         <div class="container tinkerer">
-            {{-- Crafting --}}
-            <h2>Crafting</h2>
-            <select name="teamCraft" id="teamCraft">
-                <option value="-">-</option>
-                @foreach ($teams as $team)
-                    <option value="{{ $team->idteams }}">{{ $team->namaTeam }}</option>
-                @endforeach
-            </select>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Downgrade</th>
-                        <th>Alat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <select name="downgrade_1" id="downgrade_1" class="selectDowngrade">
-                                <option value="-">-</option>
-                                @foreach ($downgrade as $dg)
-                                    <option value="{{ $dg }}">{{ $dg }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td rowspan="3" style="text-align: center;">
-                            <h3 id="hasil_alat">None</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="downgrade_2" id="downgrade_2" class="selectDowngrade">
-                                <option value="-">-</option>
-                                @foreach ($downgrade as $dg)
-                                    <option value="{{ $dg }}">{{ $dg }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="downgrade_3" id="downgrade_3" class="selectDowngrade">
-                                <option value="-">-</option>
-                                @foreach ($downgrade as $dg)
-                                    <option value="{{ $dg }}">{{ $dg }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button id="btnCraft" class="btn btn-primary">Craft</button>
 
+            <div class="row my-2 my-md-3 d-flex justify-content-center">
+                <div class="col">
+                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <h1 id="tipe" class="p-0 m-0">Crafting</h1>
+                    <div class="card">
+                        <div class="card-body">
+
+                            {{-- Selection Team --}}
+                            <div class="selection mb-3">
+                                <label class="text">Nama Team :</label>
+                                <select name="teams" id="teams" class="form-control selectpicker bordered"
+                                    data-live-search="true" tabindex="-1" aria-label="team">
+                                    <option value="-" selected disabled>-- Pilih Team --</option>
+                                    @foreach ($teams as $team)
+                                        <option value="{{ $team->idteams }}" data-tokens="{{ $team->idteams }}">
+                                            {{ $team->namaTeam }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="">
+                                <table class="table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Downgrade</th>
+                                            <th>Alat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="selection">
+                                                    <select name="downgrade_1" id="downgrade_1" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                        <option value="-" selected disabled>-- Pilih Item --</option>
+                                                        @foreach ($downgrade as $dg)
+                                                            <option value="{{ $dg }}" data-tokens="{{$dg}}">{{ $dg }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                
+                                            </td>
+                                            <td rowspan="3" style="text-align: center;vertical-align : middle;">
+                                                <h3 id="hasil_alat">None</h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <div class="selection">
+                                                    <select name="downgrade_2" id="downgrade_2" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                        <option value="-" selected disabled>-- Pilih Item --</option>
+                                                        @foreach ($downgrade as $dg)
+                                                            <option value="{{ $dg }}" data-tokens="{{$dg}}">{{ $dg }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                {{-- <select name="downgrade_2" id="downgrade_2" class="selectDowngrade">
+                                                    <option value="-">-</option>
+                                                    @foreach ($downgrade as $dg)
+                                                        <option value="{{ $dg }}">{{ $dg }}</option>
+                                                    @endforeach
+                                                </select> --}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="selection">
+                                                    <select name="downgrade_3" id="downgrade_3" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                        <option value="-" selected disabled>-- Pilih Item --</option>
+                                                        @foreach ($downgrade as $dg)
+                                                            <option value="{{ $dg }}" data-tokens="{{$dg}}">{{ $dg }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                {{-- <select name="downgrade_3" id="downgrade_3" class="selectDowngrade">
+                                                    <option value="-">-</option>
+                                                    @foreach ($downgrade as $dg)
+                                                        <option value="{{ $dg }}">{{ $dg }}</option>
+                                                    @endforeach
+                                                </select> --}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                                     
+                            <button id="btnCraft" class="btn btn-success"><i class="fa-solid fa-hammer" style="margin-right: 8px;"></i>Craft</button>
+  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <h1 id="tipe" class="p-0 m-0">Dismantle</h1>
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            {{-- Selection Team --}}
+                            <div class="selection mb-3">
+                                <label class="text">Nama Team :</label>
+                                <select name="teams" id="teams" class="form-control selectpicker bordered"
+                                    data-live-search="true" tabindex="-1" aria-label="team">
+                                    <option value="-" selected disabled>-- Pilih Team --</option>
+                                    @foreach ($teams as $team)
+                                        <option value="{{ $team->idteams }}" data-tokens="{{ $team->idteams }}">
+                                            {{ $team->namaTeam }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="">
+                                <table class="table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Alat</th>
+                                            <th>Downgrade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="3" style="vertical-align : middle;">
+                                                <div class="selection">
+                                                    <select name="alat" id="alat" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                        <option value="-" selected disabled>-- Pilih Alat --</option>
+                                                        @foreach ($alat as $a)
+                                                            <option value="{{ $a->idalat }}" data-tokens="{{ $a->idalat }}">{{ $a->nama_alat }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                
+                                            </td>
+                                            <td id="dismantle_1">
+                                                -
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="dismantle_2">
+                                                -
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="dismantle_3">
+                                                -
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button id="btnDismantle" class="btn btn-danger"><i class="fa-solid fa-wrench" style="margin-right: 8px;"></i>Dismantle</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
             <div class="spacing"></div>
 
-            {{-- Dismantling --}}
+            {{-- Dismantling
             <h2>Dismantle</h2>
             <select name="teamDismantle" id="teamDismantle">
                 <option value="-">-</option>
@@ -122,7 +238,7 @@
                 </tbody>
             </table>
             <button id="btnDismantle" class="btn btn-primary">Dismantle</button>
-        </div>
+        </div> --}}
     </main>
 
     {{-- Modal Alert --}}

@@ -49,7 +49,12 @@
         .cardBuy {
             display: flex;
         }
-
+        
+        .cardMain{
+            border: 0px solid black;
+            box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+        }
         .card-container {
             display: grid;
             grid-template-columns: auto auto auto auto auto;
@@ -58,8 +63,8 @@
         .cardItems {
             width: auto;
             margin: 15px 10px 10px 10px !important;
-
-            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
+            border: 0px solid black;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
             transition: all 0.1s ease-in-out;
         }
 
@@ -92,7 +97,7 @@
             <div class="row">
                 {{-- Sisi Display --}}
                 <div class="col-lg-8 col-12">
-                    <div class="card">
+                    <div class="card cardMain">
                         <div class="card-body">
                             {{-- START Baris Pertama --}}
                             <div class="inline-spacing">
@@ -130,7 +135,7 @@
                 </div>
                 {{-- Sisi pembelian --}}
                 <div class="col-lg-4 col-12">
-                    <div class="card">
+                    <div class="card cardMain">
                         <div class="card-body">
                             <div class="row my-2">
                                 {{-- Selection Team --}}
