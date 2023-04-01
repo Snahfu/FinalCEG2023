@@ -313,7 +313,7 @@
 
             if (thisId == e.id) {
                 $(".koin").html(`${e.koin} Koin`)
-                // console.log('masuk')
+                console.log('masuk')
             }
         });
     </script>
