@@ -97,7 +97,6 @@
 
         .picture {
             position : relative;
-            display: flex;
             object-fit: contain;
             padding: 0;
             left: 15px; 
@@ -106,6 +105,7 @@
             height: 120px;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
             z-index: 2;
             transition: all 0,1s ease-in-out;
         }
@@ -121,6 +121,27 @@
             width: 150px; 
             height: 120px;
         }
+        .overlay{
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            color: white;
+            background-color: #515940;
+            opacity: 0; 
+        }
+        .text{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .picture:hover .overlay{
+            opacity: 90%; 
+        }
+
 
         /* Flowchart Style*/
     </style>
@@ -194,7 +215,8 @@
                 if(value > 0)
                 {
                     const item = "<li class='picture' style='background-color: white; color: black; display: flex; flex-direction: column' draggable='true' ondragstart='drag(event, \"" + key + "\")'>";
-                    $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>").appendTo(sidebar);
+                    const overlay = "<div class='overlay'><div class='text'>" + key + "</div></div>";
+                    $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>",overlay).appendTo(sidebar);
                     // $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>", "<span style='text-align: center; padding-right: 20px;'>" + key + "</span>").appendTo(sidebar);
                 }  
             }
@@ -207,7 +229,9 @@
         @foreach ($inventory_alat as $item)
             <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
                 <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
-                {{-- <span style="text-align: center; padding-right: 20px;">{{$item->nama_barang}}</span> --}}
+                <div class='overlay'>
+                    <div class='text'>{{$item->nama_barang}}
+                </div>
             </li>
             @for ($count = 1; $count <= $item->stock_barang; $count++)     
                 <script>
