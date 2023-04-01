@@ -63,6 +63,22 @@
             overflow-x: hidden;
             overflow-y: scroll;
         }
+        .header{
+            position: absolute;
+            display: inline-block;
+            top: 95px;
+            left: 210px;
+        }
+        h1:after {
+            background-color: #000;
+            content: "";
+            display: inline-block;
+            height: 2px;
+            position: relative;
+            vertical-align: middle;
+            left: 20px;
+            width: 890px;
+        }
         .sidebar-nav {
             z-index: 1000;
             position: relative;
@@ -113,7 +129,6 @@
             transform: translateY(-5px);
             box-shadow: 3 3px 7px rgba(0, 0, 0, 0.25);
         }
-        
         .picture img{
             object-fit: contain;
             margin: 0;
@@ -141,9 +156,6 @@
         .picture:hover .overlay{
             opacity: 90%; 
         }
-
-
-        /* Flowchart Style*/
     </style>
 @endsection
 
@@ -222,8 +234,9 @@
             }
         }
     </script>
-    </div>
     <div class="container" id="wrapper">
+    <!-- Header -->
+    <h1 class="header">Pengumpulan</h1>
     <!-- Sidebar -->
     <ul class="sidebar-nav" id="sidebar">
         @foreach ($inventory_alat as $item)
