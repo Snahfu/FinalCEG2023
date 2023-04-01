@@ -49,7 +49,7 @@
                             {{-- Selection Team --}}
                             <div class="selection mb-3">
                                 <label class="text">Nama Team :</label>
-                                <select name="teams" id="teams" class="form-control selectpicker bordered"
+                                <select name="teamCraft" id="teamCraft" class="form-control selectpicker bordered"
                                     data-live-search="true" tabindex="-1" aria-label="team">
                                     <option value="-" selected disabled>-- Pilih Team --</option>
                                     @foreach ($teams as $team)
@@ -139,7 +139,7 @@
                             {{-- Selection Team --}}
                             <div class="selection mb-3">
                                 <label class="text">Nama Team :</label>
-                                <select name="teams" id="teams" class="form-control selectpicker bordered"
+                                <select name="teamDismantle" id="teamDismantle" class="form-control selectpicker bordered"
                                     data-live-search="true" tabindex="-1" aria-label="team">
                                     <option value="-" selected disabled>-- Pilih Team --</option>
                                     @foreach ($teams as $team)
