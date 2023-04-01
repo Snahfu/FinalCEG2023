@@ -43,18 +43,22 @@ class LoginController extends Controller
     {
         if (Auth::user()->role == "Player") {
             return "/dashboard";
+        } else if (Auth::user()->role == "Tool") {
+            return "/tools";
+        } else if (Auth::user()->role == "Ingredient") {
+            return "/ingredients";
         } else if (Auth::user()->role == "AdminBahan") {
             return "/penjualBahanSell";
         } else if (Auth::user()->role == "AdminDowngrade") {
             return "/penjualDowngradeSell";
-        } else if (Auth::user()->role == "DnC") {
-            return "/tinkerer";
-        } else if (Auth::user()->role == "Ingredient") {
-            return "/ingredients";
-        } else if (Auth::user()->role == "Tool") {
-            return "/tools";
         } else if (Auth::user()->role == "AdminHint") {
             return "/hint";
+        } else if (Auth::user()->role == "DnC") {
+            return "/tinkerer";
+        } else if (Auth::user()->role == "Bonus") {
+            return "/addKoin";
+        } else if (Auth::user()->role == "Consultant") {
+            return "/minKoin";
         }
     }
 }

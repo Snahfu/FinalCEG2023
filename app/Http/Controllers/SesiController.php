@@ -24,31 +24,31 @@ class SesiController extends Controller
         $msg = "";
         $helper = false;
         switch ($command) {
-            case "back":
-                if ($sesiNow > 1) {
-                    DB::table("sesi")->where("idsesi", 1)->update([
-                        "sesi" => DB::raw("`sesi` - 1")
-                    ]);
+                // case "back":
+                //     if ($sesiNow > 1) {
+                //         DB::table("sesi")->where("idsesi", 1)->update([
+                //             "sesi" => DB::raw("`sesi` - 1")
+                //         ]);
 
-                    $msg = "Pindah ke sesi " . ($sesiNow - 1);
-                    $helper = true;
-                } else {
-                    $msg = "SUDAH SESI 1 WOE GABISA NGURANG LAGI";
-                }
-                break;
+                //         $msg = "Pindah ke sesi " . ($sesiNow - 1);
+                //         $helper = true;
+                //     } else {
+                //         $msg = "SUDAH SESI 1 WOE GABISA NGURANG LAGI";
+                //     }
+                //     break;
 
-            case "next":
-                if ($sesiNow < 3) {
-                    DB::table("sesi")->where("idsesi", 1)->update([
-                        "sesi" => DB::raw("`sesi` + 1")
-                    ]);
+                // case "next":
+                //     if ($sesiNow < 3) {
+                //         DB::table("sesi")->where("idsesi", 1)->update([
+                //             "sesi" => DB::raw("`sesi` + 1")
+                //         ]);
 
-                    $msg = "Pindah ke sesi " . ($sesiNow + 1);
-                    $helper = true;
-                } else {
-                    $msg = "SUDAH SESI 3 WOE GABISA NAMBAH LAGI";
-                }
-                break;
+                //         $msg = "Pindah ke sesi " . ($sesiNow + 1);
+                //         $helper = true;
+                //     } else {
+                //         $msg = "SUDAH SESI 3 WOE GABISA NAMBAH LAGI";
+                //     }
+                //     break;
 
             case "biasa":
                 DB::table("sesi")->where("idsesi", 1)->update([
@@ -59,12 +59,28 @@ class SesiController extends Controller
                 $helper = true;
                 break;
 
-            case "flash":
+            case "flash1":
                 DB::table("sesi")->where("idsesi", 1)->update([
-                    "tipe" => "flash sale",
+                    "tipe" => "flash sale 1",
                 ]);
 
-                $msg = "FLASH SALE!!";
+                $msg = "FLASH SALE 1 Telah Hadiirr!!";
+                $helper = true;
+                break;
+            case "flash2":
+                DB::table("sesi")->where("idsesi", 1)->update([
+                    "tipe" => "flash sale 2",
+                ]);
+
+                $msg = "FLASH SALE 2 Telah Hadiirr!!";
+                $helper = true;
+                break;
+            case "flash3":
+                DB::table("sesi")->where("idsesi", 1)->update([
+                    "tipe" => "flash sale 3",
+                ]);
+
+                $msg = "FLASH SALE 3 Telah Hadiirr!!";
                 $helper = true;
                 break;
         }

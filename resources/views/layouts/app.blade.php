@@ -230,7 +230,7 @@
 
     var sesiPusher = pusher.subscribe('sesiPusher');
     sesiPusher.bind('sesi', (e) => {
-        alert("Hai")
+        // alert("Hai")
         $("#sesi-alert").html(e.sesiMsg)
         $("#ModalSesi").modal("show")
     });

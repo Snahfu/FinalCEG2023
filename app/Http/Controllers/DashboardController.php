@@ -90,27 +90,4 @@ class DashboardController extends Controller
 
         return view("ListHarga.listHarga", compact("bahan", "downgrade", "team", "inventory"));
     }
-
-    public function koin()
-    {
-        $teams = DB::table("teams")->get();
-
-        return view("addKoin", compact("teams"));
-    }
-
-    public function addKoin(Request $request)
-    {
-        $idteam = $request['idteam'];
-        $jumlahKoin = $request['jumlahKoin'];
-
-        $team = DB::table("teams")->where("idteams", $idteam)->get();
-
-        DB::table("teams")->where("idteams", $idteam)->update([
-            "koin" => DB::raw("`koin` + " . $jumlahKoin),
-        ]);
-
-        $detail = "Koin sejumlah " . $jumlahKoin . " berhasil ditambahkan ke " . $team[0]->namaTeam;
-
-        return response()->json(["msg" => $detail]);
-    }
 }

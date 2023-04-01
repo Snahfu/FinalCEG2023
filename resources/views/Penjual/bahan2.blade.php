@@ -17,9 +17,9 @@
         }
 
         /* h1:before {
-            right: 0.5em;
-            margin-left: 1.5%;
-        } */
+                                                            right: 0.5em;
+                                                            margin-left: 1.5%;
+                                                        } */
 
         h1:after {
             left: 0.5em;
@@ -49,9 +49,9 @@
         .cardBuy {
             display: flex;
         }
-        
 
-        .cardMain{
+
+        .cardMain {
             border: 0px solid black;
             box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
             border-radius: 20px;
@@ -103,7 +103,7 @@
                         <div class="card-body">
                             {{-- START Baris Pertama --}}
                             <div class="inline-spacing">
-                                <div class="card-container">
+                                <div id="itemsForSale" class="card-container">
                                     @foreach ($market_bahan as $bahan)
                                         <div class="card col-2 p-0 cardItems">
                                             {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
@@ -112,7 +112,8 @@
                                                 <h6 class="">{{ $bahan->bahan }}</h6>
                                                 <div class="row my-1">
                                                     <div class="col">
-                                                        Stock : <span class="">{{ $bahan->stok }}</span>
+                                                        Stock : <span id="stok_barang"
+                                                            class="">{{ $bahan->stok }}</span>
                                                     </div>
 
                                                 </div>
@@ -122,8 +123,7 @@
                                                     <span class="badge bg-success mx-1">{{ $bahan->harga_jual }}</span>
                                                 </div>
 
-                                                <button id="{{ $bahan->bahan }}"
-                                                    class="btnAdd btn btn-primary w-100"><i
+                                                <button id="{{ $bahan->bahan }}" class="btnAdd btn btn-primary w-100"><i
                                                         class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
                                             </div>
                                         </div>
@@ -280,6 +280,32 @@
             num++
         })
 
+        function btnAdd(id){
+            // ambil keranjang di localStorage
+            let arrKeranjang = []
+            let cek_keranjang = localStorage.getItem("keranjang")
+
+            if (cek_keranjang != null) {
+                arrKeranjang = JSON.parse(cek_keranjang)
+            }
+
+            // append ke keranjang
+            $("#keranjang").append(
+                `<tr>
+                    <td class="nomortb" width="15%">${arrKeranjang.length + 1}</td>
+                    <td width="70%">${id}</td>
+                    <td><input id="${arrKeranjang.length + 1}" type="number" style="width: 100px" min=0 value=0></td>
+                    <td><button style="border: none; background-color: transparent;" onClick="delItem(${arrKeranjang.length + 1})"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
+                </tr>`)
+
+            arrKeranjang.push([id])
+
+            console.log(arrKeranjang)
+
+            localStorage.setItem("keranjang", JSON.stringify(arrKeranjang))
+            num++
+        }
+
         // jalan waktu btnConfirm (Konfirmasi) di klik
         $("#btnConfirm").click(function() {
             let id = 0
@@ -341,6 +367,33 @@
                         'arrayBahan': arrayBahan,
                     },
                     success: function(data) {
+                        $(`#itemsForSale`).html("")
+                        $.each(data.updatedMarket, function(index, value) {
+                            $(`#itemsForSale`).append(`
+                            <div class="card col-2 p-0 cardItems">
+                                {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
+                                    alt="..."> --}}
+                                <div class="card-body text-center">
+                                    <h6 class="">${value.bahan}</h6>
+                                    <div class="row my-1">
+                                        <div class="col">
+                                            Stock : <span id="stok_barang"
+                                                class="">${value.stok}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex justify-content-center my-1" style="font-size: 14px">
+
+                                        <span class="badge bg-danger mx-1">${value.harga_beli}</span>
+                                        <span class="badge bg-success mx-1">${value.harga_jual}</span>
+                                    </div>
+
+                                    <button id="${value.bahan}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                            class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
+                                </div>
+                            </div>`)
+                        })
+
                         let msg = data.msg
                         $("#alert-warning").html(msg)
                         $("#ModalAlert").modal("show")
@@ -367,6 +420,33 @@
                             })
                             $("#ModalAlert").modal("show")
                         } else {
+                            $(`#itemsForSale`).html("")
+                            $.each(data.updatedMarket, function(index, value) {
+                                $(`#itemsForSale`).append(`
+                                    <div class="card col-2 p-0 cardItems">
+                                        {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
+                                            alt="..."> --}}
+                                        <div class="card-body text-center">
+                                            <h6 class="">${value.bahan}</h6>
+                                            <div class="row my-1">
+                                                <div class="col">
+                                                    Stock : <span id="stok_barang"
+                                                        class="">${value.stok}</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="d-flex justify-content-center my-1" style="font-size: 14px">
+
+                                                <span class="badge bg-danger mx-1">${value.harga_beli}</span>
+                                                <span class="badge bg-success mx-1">${value.harga_jual}</span>
+                                            </div>
+
+                                            <button id="${value.bahan}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                                    class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
+                                        </div>
+                                    </div>`)
+                            })
+
                             $("#alert-warning").html(data.msg)
                             $("#ModalAlert").modal("show")
                         }
@@ -404,5 +484,57 @@
                     </tr>`)
             })
         }
+
+        // PUSHER
+        var pusher = new Pusher('ee40c583b896ff3cfaa7', {
+            cluster: 'ap1'
+        });
+
+        var sesiPusher = pusher.subscribe('sesiPusher');
+        sesiPusher.bind('sesi', (e) => {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('refreshPenjualBahan') }}",
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'barang': 'bahan',
+                },
+                success: function(data) {
+                    result = data.data
+
+                    $(`#keranjang`).html("")
+                    localStorage.removeItem("keranjang")
+                    $(`#itemsForSale`).html("")
+
+                    $.each(result, function(index, value) {
+                        $(`#itemsForSale`).append(`
+                        <div class="card col-2 p-0 cardItems">
+                            {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
+                                alt="..."> --}}
+                            <div class="card-body text-center">
+                                <h6 class="">${value.bahan}</h6>
+                                <div class="row my-1">
+                                    <div class="col">
+                                        Stock : <span class="">${value.stok}</span>
+                                    </div>
+
+                                </div>
+                                <div class="d-flex justify-content-center my-1" style="font-size: 14px">
+
+                                    <span class="badge bg-danger mx-1">${value.harga_beli}</span>
+                                    <span class="badge bg-success mx-1">${value.harga_jual}</span>
+                                </div>
+
+                                <button id="${value.bahan}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                        class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
+                            </div>
+                        </div>`)
+                    })
+                },
+                error: function() {
+                    alert("error")
+                }
+            })
+        });
     </script>
 @endsection
