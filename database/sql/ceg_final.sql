@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 06:49 PM
+-- Generation Time: Apr 01, 2023 at 06:34 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -42,27 +42,37 @@ CREATE TABLE `alat` (
 INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (1, 'Washer', 'Motor;Pipe;Tub', 1),
 (2, 'Grater', 'Motor;Pisau;Gear', 2),
-(3, 'Coconut Hydraulic Press Machine', 'Pipe;Gauge;Piston', 3),
-(4, 'Screw Press', 'Screw;Gear;Motor', 3),
-(5, 'Bingkai Roll', 'Frame;Gear;Screw', 3),
-(6, 'Bench Frame', 'Frame;Gear;Screw', 3),
-(7, 'Corong Pemisah', 'Kaca;Katup', 4),
-(8, 'Kolom Distilasi', 'Kolom;Kondensor;Reboiler', 4),
-(9, 'Kolom Ekstraktor', 'Klem;Kondensor;Selang', 4),
-(10, 'Rotary Drum Filter', 'Pipe;Pisau;Drum', 4),
-(11, 'Ribbon Blenders', 'Motor;Gear;Cover', 5),
-(12, 'Mixer', 'Motor;Nozzle;Gear', 5),
-(13, 'High Viscosity Batch Mixing', 'Screw;Stirrer;Motor', 5),
-(14, 'Double Planetary Mixing', 'Bowl;Beater;Handle', 5),
-(15, 'Tray Dryer', 'Tray Plate;Heater;Roller', 6),
-(16, 'Spray Dryer', 'Chamber;Heater;Pipe', 6),
-(17, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
-(18, 'Flash Dryer', 'Pisau;Cyllinder;Tower Cap', 6),
-(19, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
-(20, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
-(21, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
-(22, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
-(23, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7);
+(3, 'Cutter', 'Pisau;Motor;Skirtboard', 2),
+(4, 'Ball Mill', 'Gauge;Cylinder;Gear', 2),
+(5, 'Roll Crusher', 'Frame;Gear;Culinder', 2),
+(6, 'Cone Crusher', 'Screw;Frame;Motor', 2),
+(7, 'Coconut Hydraulic Press Machine', 'Pipe;Gauge;Piston', 3),
+(8, 'Bingkai Roll', 'Cylinder;Pipe;Frame', 3),
+(9, 'Screw Press', 'Screw;Gear;Motor', 3),
+(10, 'Bench Frame', 'Frame;Gear;Screw', 3),
+(11, 'Corong Pemisah', 'Kaca;Katup', 4),
+(12, 'Kolom Distilasi', 'Kolom;Kondensor;Reboiler', 4),
+(13, 'Kolom Ekstraktor', 'Klem;Kondensor;Selang', 4),
+(14, 'Rotary Drum Filter', 'Pipe;Pisau;Drum', 4),
+(15, 'Ribbon Blenders', 'Motor;Gear;Cover', 5),
+(16, 'Mixer', 'Motor;Nozzle;Gear', 5),
+(17, 'High Viscosity Batch Mixing', 'Screw;Stirrer;Motor', 5),
+(18, 'Double Planetary Mixing', 'Bowl;Beater;Handle', 5),
+(19, 'Tray Dryer', 'Tray Plate;Heater;Roller', 6),
+(20, 'Spray Dryer', 'Chamber;Heater;Pipe', 6),
+(21, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
+(22, 'Flash Dryer', 'Pisau;Cyllinder;Tower Cap', 6),
+(23, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
+(24, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
+(25, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
+(26, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
+(27, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7),
+(28, 'Silo', 'Cylinder;Pipe;Cover', 8),
+(29, 'Drum Storage', 'Handle;Cover;Cylinder', 8),
+(30, 'Tank Storage', 'Cover;Pipe;Gauge', 8),
+(31, 'Hopper', 'Blower;Cover;Cylinder', 8),
+(32, 'Intermediate Bulk Container (IBC)', 'Katup;Cover;Frame', 8),
+(33, 'Packager', 'Roller;Pisau;Skirtboard', 9);
 
 -- --------------------------------------------------------
 
@@ -83,14 +93,19 @@ INSERT INTO `bahan` (`idbahan`, `nama_bahan`) VALUES
 (1, 'Daging Kelapa'),
 (2, 'Air'),
 (3, 'Natrium Kaseinat'),
-(4, 'Air Kelapa'),
-(5, 'Gula'),
-(6, 'Asam Cuka'),
-(7, 'Asam Sitrat'),
-(8, 'Starter'),
-(9, 'Urea'),
-(10, 'Vanili'),
-(11, 'Maltodekstrin');
+(4, 'Maltodekstrin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `done_playing`
+--
+
+CREATE TABLE `done_playing` (
+  `iddone_playing` int(11) NOT NULL,
+  `pos` varchar(45) NOT NULL,
+  `teams_idteams` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,7 +115,7 @@ INSERT INTO `bahan` (`idbahan`, `nama_bahan`) VALUES
 
 CREATE TABLE `hints` (
   `idhints` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
   `url_hint` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -138,9 +153,9 @@ CREATE TABLE `history` (
 --
 
 CREATE TABLE `history_hints` (
-  `hints_idhints` int(11) NOT NULL,
   `teams_idteams` int(11) NOT NULL,
-  `keterangan` longtext NOT NULL
+  `hints_idhints` int(11) NOT NULL,
+  `keterangan` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -155,6 +170,22 @@ CREATE TABLE `inventory` (
   `stock_barang` int(11) NOT NULL,
   `teams_idteams` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`idinventory`, `nama_barang`, `stock_barang`, `teams_idteams`) VALUES
+(1, 'Maltodekstrin', 1, 1),
+(2, 'Maltodekstrin', 1, 2),
+(3, 'Maltodekstrin', 1, 3),
+(4, 'Maltodekstrin', 1, 4),
+(5, 'Maltodekstrin', 1, 5),
+(6, 'Maltodekstrin', 1, 6),
+(7, 'Maltodekstrin', 1, 7),
+(8, 'Maltodekstrin', 1, 8),
+(9, 'Maltodekstrin', 1, 9),
+(10, 'Maltodekstrin', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -173,12 +204,14 @@ CREATE TABLE `jenis_alat` (
 
 INSERT INTO `jenis_alat` (`idjenis`, `nama_jenis`) VALUES
 (1, 'Pencucian'),
-(2, 'Pemarutan'),
+(2, 'Pengecil Ukuran'),
 (3, 'Pengepresan'),
-(4, 'Pendiaman & Pemisahan'),
-(5, 'Pencampuran & Pengadukan'),
+(4, 'Pendiaman dan Pemisahan'),
+(5, 'Pencampuran dan Pengadukan'),
 (6, 'Pengeringan'),
-(7, 'Pengangkut');
+(7, 'Pengangkut'),
+(8, 'Alat Penyimpanan'),
+(9, 'Pengemas');
 
 -- --------------------------------------------------------
 
@@ -204,20 +237,12 @@ INSERT INTO `market_bahan` (`idmarket_bahan`, `bahan`, `stok`, `harga_beli`, `ha
 (1, 'Daging Kelapa', 100, 50, 40, 1, 'biasa'),
 (2, 'Air', 100, 30, 20, 1, 'biasa'),
 (3, 'Natrium Kaseinat ', 100, 75, 60, 1, 'biasa'),
-(4, 'Air Kelapa', 100, 85, 70, 3, 'biasa'),
-(5, 'Gula', 100, 45, 35, 3, 'biasa'),
-(6, 'Asam Cuka', 100, 60, 45, 3, 'biasa'),
-(7, 'Asam Sitrat', 100, 35, 25, 3, 'biasa'),
-(8, 'Starter ', 100, 95, 80, 3, 'biasa'),
-(9, 'Urea', 100, 40, 30, 3, 'biasa'),
-(10, 'Vanili', 100, 55, 45, 3, 'biasa'),
-(11, 'Daging kelapa', 3, 35, 0, 1, 'flash sale'),
-(12, 'Natrium Kaseinat', 3, 60, 0, 1, 'flash sale'),
-(13, 'Air Kelapa', 3, 70, 0, 3, 'flash sale '),
-(14, 'Gula', 3, 30, 0, 3, 'flash sale '),
-(15, 'Asam Cuka', 3, 45, 0, 3, 'flash sale '),
-(16, 'Starter', 3, 75, 0, 3, 'flash sale '),
-(17, 'Vanili', 3, 40, 0, 3, 'flash sale ');
+(4, 'Daging Kelapa', 1, 35, 0, 1, 'flash sale 1'),
+(5, 'Natrium Kaseinat', 1, 60, 0, 1, 'flash sale 1'),
+(6, 'Daging Kelapa', 1, 35, 0, 1, 'flash sale 2'),
+(7, 'Natrium Kaseinat', 1, 60, 0, 1, 'flash sale 2'),
+(8, 'Daging Kelapa', 1, 35, 0, 1, 'flash sale 3'),
+(9, 'Natrium Kaseinat', 1, 60, 0, 1, 'flash sale 3');
 
 -- --------------------------------------------------------
 
@@ -292,21 +317,51 @@ INSERT INTO `market_downgrade` (`idmarket_downgrade`, `downgrade`, `stok`, `harg
 (39, 'Cooler', 100, 90, 75, 'biasa'),
 (40, 'Termometer', 100, 85, 70, 'biasa'),
 (41, 'Vent', 100, 95, 80, 'biasa'),
-(42, 'Motor', 3, 80, 0, 'flash sale'),
-(43, 'Pisau', 3, 55, 0, 'flash sale'),
-(44, 'Gauge', 3, 45, 0, 'flash sale'),
-(45, 'Piston', 3, 50, 0, 'flash sale'),
-(46, 'Cylinder', 3, 40, 0, 'flash sale'),
-(47, 'Frame', 3, 35, 0, 'flash sale'),
-(48, 'Screw', 3, 55, 0, 'flash sale'),
-(49, 'Kaca', 3, 35, 0, 'flash sale'),
-(50, 'Reboiler', 3, 60, 0, 'flash sale'),
-(51, 'Klem', 3, 40, 0, 'flash sale'),
-(52, 'Drum', 3, 45, 0, 'flash sale'),
-(53, 'Tray Plate', 3, 35, 0, 'flash sale'),
-(54, 'Heater', 3, 45, 0, 'flash sale'),
-(55, 'Chamber', 3, 65, 0, 'flash sale'),
-(56, 'Blower', 3, 45, 0, 'flash sale');
+(42, 'Motor', 1, 80, 0, 'flash sale 1'),
+(43, 'Pisau', 1, 55, 0, 'flash sale 1'),
+(44, 'Gauge', 1, 45, 0, 'flash sale 1'),
+(45, 'Piston', 1, 50, 0, 'flash sale 1'),
+(46, 'Cylinder', 1, 40, 0, 'flash sale 1'),
+(47, 'Frame', 1, 35, 0, 'flash sale 1'),
+(48, 'Screw', 1, 55, 0, 'flash sale 1'),
+(49, 'Kaca', 1, 35, 0, 'flash sale 1'),
+(50, 'Reboiler', 1, 60, 0, 'flash sale 1'),
+(51, 'Klem', 1, 40, 0, 'flash sale 1'),
+(52, 'Drum', 1, 45, 0, 'flash sale 1'),
+(53, 'Tray Plate', 1, 35, 0, 'flash sale 1'),
+(54, 'Heater', 1, 45, 0, 'flash sale 1'),
+(55, 'Chamber', 1, 65, 0, 'flash sale 1'),
+(56, 'Blower', 1, 45, 0, 'flash sale 1'),
+(57, 'Motor', 1, 80, 0, 'flash sale 2'),
+(58, 'Pisau', 1, 55, 0, 'flash sale 2'),
+(59, 'Gauge', 1, 45, 0, 'flash sale 2'),
+(60, 'Piston', 1, 50, 0, 'flash sale 2'),
+(61, 'Cylinder', 1, 40, 0, 'flash sale 2'),
+(62, 'Frame', 1, 35, 0, 'flash sale 2'),
+(63, 'Screw', 1, 55, 0, 'flash sale 2'),
+(64, 'Kaca', 1, 35, 0, 'flash sale 2'),
+(65, 'Reboiler', 1, 60, 0, 'flash sale 2'),
+(66, 'Klem', 1, 40, 0, 'flash sale 2'),
+(67, 'Drum', 1, 45, 0, 'flash sale 2'),
+(68, 'Tray Plate', 1, 35, 0, 'flash sale 2'),
+(69, 'Heater', 1, 45, 0, 'flash sale 2'),
+(70, 'Chamber', 1, 65, 0, 'flash sale 2'),
+(71, 'Blower', 1, 45, 0, 'flash sale 2'),
+(72, 'Motor', 1, 80, 0, 'flash sale 3'),
+(73, 'Pisau', 1, 55, 0, 'flash sale 3'),
+(74, 'Gauge', 1, 45, 0, 'flash sale 3'),
+(75, 'Piston', 1, 50, 0, 'flash sale 3'),
+(76, 'Cylinder', 1, 40, 0, 'flash sale 3'),
+(77, 'Frame', 1, 35, 0, 'flash sale 3'),
+(78, 'Screw', 1, 55, 0, 'flash sale 3'),
+(79, 'Kaca', 1, 35, 0, 'flash sale 3'),
+(80, 'Reboiler', 1, 60, 0, 'flash sale 3'),
+(81, 'Klem', 1, 40, 0, 'flash sale 3'),
+(82, 'Drum', 1, 45, 0, 'flash sale 3'),
+(83, 'Tray Plate', 1, 35, 0, 'flash sale 3'),
+(84, 'Heater', 1, 45, 0, 'flash sale 3'),
+(85, 'Chamber', 1, 65, 0, 'flash sale 3'),
+(86, 'Blower', 1, 45, 0, 'flash sale 3');
 
 -- --------------------------------------------------------
 
@@ -368,16 +423,16 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '680'),
-(2, 'User 2', '1535'),
-(3, 'User 3', '935'),
-(4, 'User 4', '1490'),
-(5, 'User 5', '1135'),
-(6, 'User 6', '825'),
-(7, 'User 7', '950'),
-(8, 'User 8', '1850'),
-(9, 'User 9', '1720'),
-(10, 'User 10', '1200');
+(1, 'User 1', '1500'),
+(2, 'User 2', '1500'),
+(3, 'User 3', '1500'),
+(4, 'User 4', '1500'),
+(5, 'User 5', '1500'),
+(6, 'User 6', '1500'),
+(7, 'User 7', '1500'),
+(8, 'User 8', '1500'),
+(9, 'User 9', '1500'),
+(10, 'User 10', '1500');
 
 -- --------------------------------------------------------
 
@@ -403,28 +458,35 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `teams_idteams`, `role`) VALUES
-(1, 'Tools 1', 'tools1@gmail.com', NULL, '$2y$10$pHEZaic8Xs9n04TA90ArMeYQt5cpO/tjC0Ms6T7yvzi3DEkdJebzS', NULL, '2023-02-21 11:20:57', '2023-02-21 04:16:49', NULL, 'Tool'),
-(2, 'Tools 2', 'tools2@gmail.com', NULL, '$2y$10$ha/n5jiNiekAtLw8Fe3kf.ZLHxhuzb0tcNbdtYOKRXW3hQwLGLpTa', NULL, '2023-02-21 11:20:57', '2023-02-21 04:17:14', NULL, 'Tool'),
-(3, 'Tools 3', 'tools3@gmail.com', NULL, '$2y$10$uJwhW4XwForKbGMMhtep.u4cSjtXOT4gTk3/Uq950J88k6KdEQa8K', NULL, '2023-02-21 11:20:57', '2023-02-21 04:17:37', NULL, 'Tool'),
-(4, 'Tools 4', 'tools4@gmail.com', NULL, '$2y$10$1pLwtLMFqpaZ2Pod5SKKiuDGSSNjikOXfHPU3VpOIun9Y9nsdQ8.G', NULL, '2023-02-21 11:20:57', '2023-02-21 04:18:07', NULL, 'Tool'),
-(5, 'Tools 5', 'tools5@gmail.com', NULL, '$2y$10$glgsQDnEIstmOZq4uoVsiuIdBkLocjTIb6X2m3wWvXEcO3qA4T5Ai', NULL, '2023-02-21 11:20:57', '2023-02-21 04:18:23', NULL, 'Tool'),
-(6, 'Ingredient 1', 'ingredient1@gmail.com', NULL, '$2y$10$.rxCe5Qh1qXKwVSe1fVp/.KIa7XCp/INodbzLA4Ep9sM.q6hRTEVS', NULL, '2023-02-21 11:23:22', '2023-02-21 04:19:31', NULL, 'Ingredient'),
-(7, 'Ingredient 2', 'ingredient2@gmail.com', NULL, '$2y$10$Q3lyQeyhez4Sbclv4XluN.laWj4POBKzvjR2Cx6nZSZhDTF94E002', NULL, '2023-02-21 11:23:22', '2023-02-21 04:20:08', NULL, 'Ingredient'),
-(8, 'Ingredient 3', 'ingredient3@gmail.com', NULL, '$2y$10$A4pM7d36HNCtQD2MgWMXOekDLPnC2V8OXAJ3s5Bk2LFLND.YCrUoC', NULL, '2023-02-21 11:23:22', '2023-02-21 04:22:40', NULL, 'Ingredient'),
-(9, 'Store Bahan', 'storebahan@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-02-22 01:43:26', '2023-02-21 04:29:38', NULL, 'AdminBahan'),
-(10, 'Store Downgrade', 'storedowngrade@gmail.com', NULL, '$2y$10$nRrarkhInT97PB0LXIaOz.AvIkFmrhNfr.3tKlrMXtnavPKl8y.eG', NULL, '2023-02-22 01:43:24', '2023-02-21 04:33:23', NULL, 'AdminDowngrade'),
-(11, 'DnC', 'dnc@gmail.com', NULL, '$2y$10$toloTVmYQsk9OG2t7agtReY1xCmchb2urG4Hug6M4FYKb8KOlsIzu', NULL, '2023-02-21 13:50:22', '2023-02-21 06:48:34', NULL, 'DnC'),
-(12, 'User 1', 'user1@gmail.com', NULL, '$2y$10$0CAL8Cqjwo7665e98V4mQOeSpNVGMP5ZcyTEWB9d6MlJos8xXrjMS', NULL, '2023-02-21 14:00:24', '2023-02-21 06:52:25', 1, 'Player'),
-(13, 'User 2', 'user2@gmail.com', NULL, '$2y$10$RtPi6QZ4ez3muOgPdTnLWOxpSkezStvfuAuJnMsl11qmxT8zc1DcK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:53:12', 2, 'Player'),
-(14, 'User 3', 'user3@gmail.com', NULL, '$2y$10$sScW8ifAEh.9NiSNeNaFvuUyrolc8CqhxVByHTd3fWGGtqNYuR/te', NULL, '2023-02-21 14:00:24', '2023-02-21 06:53:46', 3, 'Player'),
-(15, 'User 4', 'user4@gmail.com', NULL, '$2y$10$0b7OVeykodZSZ23gxlprIe2/VTN2eAwgMLduQdjvuLAGpEc3BgTra', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:08', 4, 'Player'),
-(16, 'User 5', 'user5@gmail.com', NULL, '$2y$10$Y3GuFyJdAVGa5gI3jBYrWuOf5DiyTdb7GRoUgDRQonIuJNzHCKC72', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:30', 5, 'Player'),
-(17, 'User 6', 'user6@gmail.com', NULL, '$2y$10$XmrnJ.Pf1BNN635zAkYiMuAjF5kjpPR.D1v0Vhp6.IMTZXVV2a.2m', NULL, '2023-02-21 14:00:24', '2023-02-21 06:54:53', 6, 'Player'),
-(18, 'User 7', 'user7@gmail.com', NULL, '$2y$10$ue0yhcKjBKqqFXvsNEt.AudwUFsGCDf3uEnLSygjPt.ypQ/ENnuru', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:09', 7, 'Player'),
-(19, 'User 8', 'user8@gmail.com', NULL, '$2y$10$IRQWNRzJK.4SFdTojYPuPep8sGd1Mucm4gfuALifF31dllAiRZVQy', NULL, '2023-02-21 14:00:24', '2023-02-21 06:55:39', 8, 'Player'),
-(20, 'User 9', 'user9@gmail.com', NULL, '$2y$10$qiO7o4pUpUuweI.SCu9SZ.XEVCjQ0xp9lGp/AntKZVYt7nAdJR4FK', NULL, '2023-03-15 16:48:12', '2023-02-21 06:55:59', 9, 'Player'),
-(21, 'User 10', 'user10@gmail.com', NULL, '$2y$10$qiO7o4pUpUuweI.SCu9SZ.XEVCjQ0xp9lGp/AntKZVYt7nAdJR4FK', NULL, '2023-02-21 14:00:24', '2023-02-21 06:56:23', 10, 'Player'),
-(22, 'Admin Hint', 'adminhint@gmail.com', NULL, '$2y$10$xmI8Dijlizxdyws2vPd5ieOhdQKai0G6pj.tkyjfOgldBA839S.jC', NULL, '2023-03-15 16:51:40', NULL, NULL, 'AdminHint');
+(1, 'Pos Pengeringan', 'pengeringan@gmail.com', NULL, '$2y$10$toqTDMW.KB0ZUx4FPfDCS./HT1stMMSqwfz5h/OaGEEE4lU/xTo4y', NULL, '2023-04-01 13:15:14', '2023-04-01 06:07:17', NULL, 'Tool'),
+(2, 'Pos Pencampuran', 'pencampuran@gmail.com', NULL, '$2y$10$xV4Rbr21virxyMNm8pcZSeFiFvdCavMdRq/.t/LYlB1L4BYkvoP1G', NULL, '2023-04-01 13:17:59', '2023-04-01 06:08:38', NULL, 'Tool'),
+(3, 'Pos Pengangkut', 'pengangkut@gmail.com', NULL, '$2y$10$RacHghos/I9Pcauqh.O2A.QKLwz61m1lzb7/OxMmT.zVb.dYoHEFu', NULL, '2023-04-01 13:17:59', '2023-04-01 06:11:25', NULL, 'Tool'),
+(4, 'Pos Pengecil Ukuran', 'pengecilUkuran@gmail.com', NULL, '$2y$10$iT1xcMcwn9UI8ro6b/TwYe6noIicNuN1pTC9QefVAvM2VH3de0xdW', NULL, '2023-04-01 13:17:59', '2023-04-01 06:11:56', NULL, 'Tool'),
+(5, 'Pos Pengepresan', 'pengepresan@gmail.com', NULL, '$2y$10$FZiF6Siwz3kQE4cWbP8JduWklFilFFk5t7MXhdLnKsNSXrF0IuxbS', NULL, '2023-04-01 13:17:59', '2023-04-01 06:12:28', NULL, 'Tool'),
+(6, 'Pos Penyimpanan', 'penyimpanan@gmail.com', NULL, '$2y$10$6koZdT8lqF0Uv3y.Huset.HC.YC55oh6rWu9P2Z4Wfed6Ju8C/oAi', NULL, '2023-04-01 13:17:59', '2023-04-01 06:13:11', NULL, 'Tool'),
+(7, 'Pos Air', 'posair@gmail.com', NULL, '$2y$10$cBoTrecBcIBFCcnkEGnZx.MNzNqpBHIlgGSx39vai6O84.OhVbMaC', NULL, '2023-04-01 13:19:29', '2023-04-01 06:16:13', NULL, 'Ingredient'),
+(8, 'Pos Daging Kelapa', 'posdagingkelapa@gmail.com', NULL, '$2y$10$PgMKUi7I0oKQ8VM8lz.GLuXSVX770MVR1tbhh3M63G9VhYBdzWM4C', NULL, '2023-04-01 13:19:29', '2023-04-01 06:16:52', NULL, 'Ingredient'),
+(9, 'Pos Natrium Kaseinat', 'posnatriumkaseinat@gmail.com', NULL, '$2y$10$BCZDHLPTJhdIe4T.C7Dg4.lNXphwJU1UzWE45owMG31Hsx5HrF6hy', NULL, '2023-04-01 13:19:29', '2023-04-01 06:17:15', NULL, 'Ingredient'),
+(10, 'Store Bahan', 'storebahan@gmail.com', NULL, '$2y$10$zn2xmcIL74zLofiwr4wDZu0vfXRIZw4Q.GTPQBFDGUfr6dO59zHzG', NULL, '2023-04-01 13:20:54', '2023-04-01 06:20:07', NULL, 'AdminBahan'),
+(11, 'Store Downgrade', 'storedowngrade@gmail.com', NULL, '$2y$10$tHnMc3xjrIj.ls4kIWPnPO01ryznkf.nMtmPfMv0Y.fxExxwwU89O', NULL, '2023-04-01 13:21:01', '2023-04-01 06:20:41', NULL, 'AdminDowngrade'),
+(12, 'dnc1', 'dnc1@gmail.com', NULL, '$2y$10$QUqElGeKjkA4Ig46tOVSCOcQc4O3XoLFETd3cEeKLCv9hZlE97FVC', NULL, '2023-04-01 13:23:30', '2023-04-01 06:22:14', NULL, 'DnC'),
+(13, 'dnc2', 'dnc2@gmail.com', NULL, '$2y$10$COh.qHxskJcM0qDq1l9hIuZCmrxoITujgPu8QFki8z/k4BqcnEXTq', NULL, '2023-04-01 13:23:33', '2023-04-01 06:22:29', NULL, 'DnC'),
+(14, 'Pos Hint', 'poshint@gmail.com', NULL, '$2y$10$94YkmXJ409MEc/4mLoPXCum8BAFy09Q9HD9mNyysGQvY2BqZ0nsyW', NULL, '2023-04-01 13:27:37', '2023-04-01 06:24:08', NULL, 'Hint'),
+(15, 'Bonus1', 'posbonus1@gmail.com', NULL, '$2y$10$j/q/Td6KuQ2V/2oIEurR3up5umljbTfEfZUuVeOu2i7tdDP1e8rSq', NULL, '2023-04-01 14:54:03', '2023-04-01 06:25:36', NULL, 'Bonus'),
+(16, 'Bonus2', 'posbonus2@gmail.com', NULL, '$2y$10$UJEdeQm7sPjCcml4RJ4qyu4b.A1M793kDOJl9QNV6wKNMQvBeP192', NULL, '2023-04-01 14:54:07', '2023-04-01 06:25:55', NULL, 'Bonus'),
+(17, 'Consultant', 'consultant@gmail.com', NULL, '$2y$10$Y6g4M089OqaoQ5./50KMzexVMDzvBWME2IT7zXlF2pV8ZyJI/NOFm', NULL, '2023-04-01 14:54:00', '2023-04-01 06:26:19', NULL, 'Consultant'),
+(18, 'User 1', 'user1@gmail.com', NULL, '$2y$10$BhpjTSOUzoNd22MsQYBBx.ie6.I2O2V61ipRIvrxEboMC2i/1c5Oq', NULL, '2023-04-01 13:31:54', '2023-04-01 06:27:02', NULL, 'Player'),
+(19, 'User 2', 'user2@gmail.com', NULL, '$2y$10$y.2LJpDOtWbR5A95audS.u34t.9SawixhnyCmBupewX1TNQkh3/bq', NULL, '2023-04-01 13:31:54', '2023-04-01 06:27:22', NULL, 'Player'),
+(20, 'User 3', 'user3@gmail.com', NULL, '$2y$10$V2ZC1jCybX47nORM0/eS3unh2C5VJAVQyI1KomYz15yBrQ.vwwpVm', NULL, '2023-04-01 13:31:54', '2023-04-01 06:27:50', NULL, 'Player'),
+(21, 'User 4', 'user4@gmail.com', NULL, '$2y$10$ey6nNaOCvCpv9mBFEEPkTutPMXOe1Z3eWHEIKZOWf1F8ulDfUS/tW', NULL, '2023-04-01 13:31:54', '2023-04-01 06:28:06', NULL, 'Player'),
+(22, 'User 5', 'user5@gmail.com', NULL, '$2y$10$1kKbkRwYdMMweO4WqPzmseUge9FqwEVIqa4kuEVaMutZXJJ3D8qhe', NULL, '2023-04-01 13:31:54', '2023-04-01 06:28:34', NULL, 'Player'),
+(23, 'User 6', 'user6@gmail.com', NULL, '$2y$10$Dl9./OAGlxPrGLnzWX9hpulaFRn3GEpig6QofFBs77TWlxQj6pOQ2', NULL, '2023-04-01 13:31:54', '2023-04-01 06:28:50', NULL, 'Player'),
+(24, 'User 7', 'user7@gmail.com', NULL, '$2y$10$iizBn1GrnbCQ5uXtrFu3c.PKIJo37rOVknQxG6P3rd.doJC47yZVK', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:04', NULL, 'Player'),
+(25, 'User 8', 'user8@gmail.com', NULL, '$2y$10$Xg/nAIEsqVxI4h8MY.3YduqJgE7Li02fIFdGqUo3fhtMQpdJYsn8e', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:22', NULL, 'Player'),
+(26, 'User 9', 'user9@gmail.com', NULL, '$2y$10$ozbSa.A2C1cIofN.JAcJg.anEz8HBBJxum29uad6Q3ez536yDJow6', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:34', NULL, 'Player'),
+(27, 'User 10', 'user10@gmail.com', NULL, '$2y$10$hVtuGYLLJ8KzQ1CXyQMr0u.pfVVs0XiOs7Cn0YDqX6beoB.SdTTO2', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:50', NULL, 'Player'),
+(28, 'User 23', 'user23@gmail.com', NULL, '$2y$10$HEqDfi6/qslbbbm8JHpv6ebZfQVOyAaSCOln8YDHmHMc20BjOb816', NULL, '2023-04-01 13:31:54', '2023-04-01 06:30:11', NULL, 'Player'),
+(29, 'User 42', 'user42@gmail.com', NULL, '$2y$10$OLIRAov1nC1zSAtXAdTxiOlLEP42JC40fr7W7kNqlY2d15pUdtabq', NULL, '2023-04-01 13:31:54', '2023-04-01 06:31:03', NULL, 'Player');
 
 --
 -- Indexes for dumped tables
@@ -444,6 +506,13 @@ ALTER TABLE `bahan`
   ADD PRIMARY KEY (`idbahan`);
 
 --
+-- Indexes for table `done_playing`
+--
+ALTER TABLE `done_playing`
+  ADD PRIMARY KEY (`iddone_playing`),
+  ADD KEY `fk_done_playing_teams1_idx` (`teams_idteams`);
+
+--
 -- Indexes for table `hints`
 --
 ALTER TABLE `hints`
@@ -460,9 +529,9 @@ ALTER TABLE `history`
 -- Indexes for table `history_hints`
 --
 ALTER TABLE `history_hints`
-  ADD PRIMARY KEY (`hints_idhints`,`teams_idteams`),
-  ADD KEY `fk_hints_has_teams_teams1_idx` (`teams_idteams`),
-  ADD KEY `fk_hints_has_teams_hints1_idx` (`hints_idhints`);
+  ADD PRIMARY KEY (`teams_idteams`,`hints_idhints`),
+  ADD KEY `fk_teams_has_hints_hints1_idx` (`hints_idhints`),
+  ADD KEY `fk_teams_has_hints_teams1_idx` (`teams_idteams`);
 
 --
 -- Indexes for table `inventory`
@@ -539,13 +608,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alat`
 --
 ALTER TABLE `alat`
-  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `bahan`
 --
 ALTER TABLE `bahan`
-  MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idbahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `done_playing`
+--
+ALTER TABLE `done_playing`
+  MODIFY `iddone_playing` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hints`
@@ -563,25 +638,25 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `jenis_alat`
 --
 ALTER TABLE `jenis_alat`
-  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `market_bahan`
 --
 ALTER TABLE `market_bahan`
-  MODIFY `idmarket_bahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idmarket_bahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `market_downgrade`
 --
 ALTER TABLE `market_downgrade`
-  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -605,7 +680,7 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
@@ -618,6 +693,12 @@ ALTER TABLE `alat`
   ADD CONSTRAINT `fk_alat_jenis1` FOREIGN KEY (`jenis_idjenis`) REFERENCES `jenis_alat` (`idjenis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `done_playing`
+--
+ALTER TABLE `done_playing`
+  ADD CONSTRAINT `fk_done_playing_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `history`
 --
 ALTER TABLE `history`
@@ -627,8 +708,8 @@ ALTER TABLE `history`
 -- Constraints for table `history_hints`
 --
 ALTER TABLE `history_hints`
-  ADD CONSTRAINT `fk_hints_has_teams_hints1` FOREIGN KEY (`hints_idhints`) REFERENCES `hints` (`idhints`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_hints_has_teams_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_teams_has_hints_hints1` FOREIGN KEY (`hints_idhints`) REFERENCES `hints` (`idhints`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_teams_has_hints_teams1` FOREIGN KEY (`teams_idteams`) REFERENCES `teams` (`idteams`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `inventory`
