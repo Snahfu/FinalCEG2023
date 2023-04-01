@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/css/jsplumbtoolkit-defaults.css">
 <script>
@@ -45,83 +46,48 @@
             width: 0%;
         }
 
-        #wrapper {
-            position: relative;
+        #wrapper {   
             display: flex;
-            margin-top: 100px;
-            height: 700px;
-            width: 70%;
-            background-color: lightgray;
-            border-radius: 20px;
-            overflow-x: hidden;
-
-            -webkit-transition: all 0.6s ease;
-            -moz-transition: all 0.6s ease;
-            -o-transition: all 0.6s ease;
-            transition: all 0.6s ease;
-
+            height: 775px; 
         }
-
-        #sidebar-wrapper {
+        #parent { 
+            position: relative;
+            background-color : lightgrey;
+            top: 100px;
+            left: 60px;
+            height: 600px;
+            width: 65%;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        .sidebar-nav {
             z-index: 1000;
             position: relative;
-            width: 200px;
-            height: 120vh;
-            right: 15px;
-            background-color: gray;
-            overflow y: scroll;
-            -webkit-transition: all 0.5s ease;
-            -moz-transition: all 0.5s ease;
-            -o-transition: all 0.5s ease;
-            transition: all 0.5s ease;
-        }
-
-        .sidebar-nav {
-            position: absolute;
-            top: 0;
-            right: 15px;
-            width: 200px;
+            overflow-y: scroll;
+            background-color: lightgray;
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .sidebar-nav li {
-            text-indent: 20px;
-            line-height: 40px;
-        }
-
-        .sidebar-nav li a {
-            display: block;
-            text-decoration: none;
-            color: #999999;
-        }
-
-        .sidebar-nav>.sidebar-brand {
-            padding-left: 140px; 
-            height: 65px;
-            font-size: 18px;
-            line-height: 60px;
-        }
-
-        .sidebar-nav>.sidebar-brand a {
-            color: #999999;
-        }
-
-        .sidebar-nav>.sidebar-brand a:hover {
-            color: #fff;
-            background: none;
+            padding:0;
+            margin-bottom: 10px;
+            top: 100px;
+            border-radius: 20px;
+            left: 90px;
+            width: 200px; 
+            height: 600px;           
         }
         .draggable {
-            position: absolute;
-            width: 100px;
+            position: absolute; 
+            object-fit: contain;
             height: 100px;
+            width: 100px;
             background-color: white;
             border-radius: 10px; 
         }
 
-        #flowchartImage{
-            position: absolute; 
+        .draggable img{
             object-fit: contain;
             padding: 0;
             margin: 0;
@@ -130,49 +96,30 @@
         }
 
         .picture {
+            position : relative;
             display: flex;
             object-fit: contain;
-            justify-content: space-around;
+            padding: 0;
+            left: 15px; 
             margin: 10px;
-            margin-left: 40px;
+            width: 150px;
             height: 120px;
+            border-radius: 20px;
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             z-index: 2;
+            transition: all 0,1s ease-in-out;
+        }
+        .picture:hover{
+            transform: translateY(-5px);
+            box-shadow: 3 3px 7px rgba(0, 0, 0, 0.25);
         }
         
         .picture img{
             object-fit: contain;
+            margin: 0;
+            padding: 0;
             width: 150px; 
-            height: 150px;
-        }
-        #wrapper.toggled #sidebar-wrapper {
-            width: 50px;
-            height: 50px;
-            background-color: transparent;
-        }
-
-        #wrapper.toggled span {
-            visibility: hidden;
-        }
-
-        #wrapper.toggled i {
-            float: right;
-        }
-
-        #wrapper.toggled .picture {
-            visibility: hidden;
-        }
-        #menu-toggle {
-            position: static;
-        }
-        #wrapper.toggled #menu-toggle {
-            padding-left: 30px;
-            padding-top: 20px;
-        }
-
-        #parent { 
-            height: 700px;
-            width: 1000px;
-            position: fixed;
+            height: 120px;
         }
 
         /* Flowchart Style*/
@@ -181,28 +128,34 @@
 
 @section('content')
     <script>
+        const itemMap = new Map();
+
         function allowDrop(ev) {
             ev.preventDefault();
         }
 
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
+        function drag(ev, elementID) {
+            event.dataTransfer.setData("text", elementID);
         }
 
-        function drop(ev) {
-            ev.preventDefault();
+        function drop(event) {
+            event.preventDefault();
 
-            var x = ev.clientX; 
-            var y = ev.clientY; 
+            var x = event.clientX; 
+            var y = event.clientY; 
 
             var newDiv = $("<div>").addClass("draggable").css({
-                left: (x-300) + "px",
-                top: (y-260) + "px"
+                left: (x-550) + "px",
+                top: (y-230) + "px"
             }).appendTo($("#parent"));
-            var data = ev.dataTransfer.getData("text");
+
+            var data = event.dataTransfer.getData("text");
             var newImage = document.createElement("img");
-            newImage.id = "flowchartImage";
-            newImage.setAttribute("src", data);
+            console.log(data);
+            newImage.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
+            newImage.setAttribute("id", data);
+            itemMap.set(data, itemMap.get(data) - 1);
+            displayItems();
             jsPlumb.ready(function() {
                 
                 jsPlumb.draggable($(".draggable"), {
@@ -226,39 +179,56 @@
         }
         function delImg(btn)
         {
-            console.log("Button Pressed");
-            console.log(btn.parentElement);
             jsPlumb.removeAllEndpoints(btn.parentElement);
             btn.parentElement.remove();
+            itemMap.set(btn.previousSibling.id, itemMap.get(btn.previousSibling.id) + 1);
+            displayItems();
+        }
+        function displayItems()
+        {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.innerHTML = "";
+            // const sidebarBrand = "<li class='sidebar-brand'>";
+            // $(sidebarBrand).append('<a class="menu-toggle" style="float:right;" onclick="toggleSidebar()"> <i class="fa fa-bars "></i></a>').appendTo(sidebar);
+            for (const [key, value] of itemMap.entries()) {
+                if(value > 0)
+                {
+                    const item = "<li class='picture' style='background-color: white; color: black; display: flex; flex-direction: column' draggable='true' ondragstart='drag(event, \"" + key + "\")'>";
+                    $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>").appendTo(sidebar);
+                    // $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>", "<span style='text-align: center; padding-right: 20px;'>" + key + "</span>").appendTo(sidebar);
+                }  
+            }
         }
     </script>
+    </div>
     <div class="container" id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-
-                <li class="sidebar-brand">
-                    <a id="menu-toggle" style="float:right;"> <i class="fa fa-bars "></i></a>
-                </li>
-                {{-- <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li>
-                <li class="picture"><img src="{{ 'assets' }}/users/dummy_pic.jpg" draggable="true" ondragstart="drag(event)"></li> --}}
-                @foreach ($inventory_alat as $item)
-                        <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event)">
-                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
-                            <span style="text-align: center; padding-right: 20px;">{{$item->nama_barang}}</span>
-                        </li>
-                @endforeach
-                @foreach ($inventory_bahan as $item)
-                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event)">
-                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
-                        </li>
-                 @endforeach
-            </ul>
-        </div>
-        <div id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <!-- Sidebar -->
+    <ul class="sidebar-nav" id="sidebar">
+        @foreach ($inventory_alat as $item)
+            <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
+                <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                {{-- <span style="text-align: center; padding-right: 20px;">{{$item->nama_barang}}</span> --}}
+            </li>
+            @for ($count = 1; $count <= $item->stock_barang; $count++)     
+                <script>
+                itemMap.set("{{$item->nama_barang}}", {{$count}});
+                console.log(itemMap);
+                </script>
+            @endfor        
+        @endforeach
+        @foreach ($inventory_bahan as $item)
+            <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
+                    <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+            </li>
+            @for ($count = 1; $count <= $item->stock_barang; $count++)     
+                <script>
+                itemMap.set("{{$item->nama_barang}}", {{$count}});
+                console.log(itemMap);
+                </script>
+            @endfor      
+        @endforeach
+    </ul>
+    <div class="container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
 
     <script>
@@ -272,11 +242,7 @@
                 }
             });
         });
-
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
     });
     </script>
 @endsection
+
