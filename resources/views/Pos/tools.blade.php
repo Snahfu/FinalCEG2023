@@ -11,7 +11,7 @@
             justify-content: center;
             margin: 10px;
             transition: all 0.1s ease-in-out;
-            background-image: url({{ asset('assets/hiburan/wednesdaymorning.gif') }});
+            background-image: url({{ asset('assets/hiburan/sabtu.gif') }});
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
