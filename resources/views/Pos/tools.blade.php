@@ -183,8 +183,8 @@
             })
         })
 
-        $("#btnOk").click(function() {
-            location.reload();
-        })
+        // $("#btnOk").click(function() {
+        //     location.reload();
+        // })
     </script>
 @endsection

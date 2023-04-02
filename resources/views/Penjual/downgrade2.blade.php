@@ -17,9 +17,9 @@
         }
 
         /* h1:before {
-            right: 0.5em;
-            margin-left: 1.5%;
-        } */
+                            right: 0.5em;
+                            margin-left: 1.5%;
+                        } */
 
         h1:after {
             left: 0.5em;
@@ -49,12 +49,13 @@
         .cardBuy {
             display: flex;
         }
-        
-        .cardMain{
+
+        .cardMain {
             border: 0px solid black;
             box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
             border-radius: 20px;
         }
+
         .card-container {
             display: grid;
             grid-template-columns: auto auto auto auto auto;
@@ -101,7 +102,7 @@
                         <div class="card-body">
                             {{-- START Baris Pertama --}}
                             <div class="inline-spacing">
-                                <div class="card-container">
+                                <div id="itemsForSale" class="card-container">
                                     @foreach ($market_downgrade as $downgrade)
                                         <div class="card col-2 p-0 cardItems">
                                             {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
@@ -121,7 +122,7 @@
                                                 </div>
 
                                                 <button id="{{ $downgrade->downgrade }}"
-                                                    class="btnAdd btn btn-primary w-100"><i
+                                                    class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
                                                         class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
                                             </div>
                                         </div>
@@ -252,7 +253,7 @@
         })
 
         // jalan waktu btnAdd di klik
-        $(".btnAdd").click(function() {
+        function btnAdd(id) {
             // ambil keranjang di localStorage
             let arrKeranjang = []
             let cek_keranjang = localStorage.getItem("keranjang")
@@ -265,18 +266,18 @@
             $("#keranjang").append(
                 `<tr>
                     <td class="nomortb" width="15%">${arrKeranjang.length + 1}</td>
-                    <td width="70%">${$(this).attr("id")}</td>
+                    <td width="70%">${id}</td>
                     <td><input id="${arrKeranjang.length + 1}" type="number" style="width: 100px" min=0 value=0></td>
-                    <td><button style="border: none; background-color: transparent;" onClick="delItem()"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
+                    <td><button style="border: none; background-color: transparent;" onClick="delItem(${arrKeranjang.length + 1})"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
                 </tr>`)
 
-            arrKeranjang.push([$(this).attr("id")])
+            arrKeranjang.push([id])
 
             console.log(arrKeranjang)
 
             localStorage.setItem("keranjang", JSON.stringify(arrKeranjang))
             num++
-        })
+        }
 
         // jalan waktu btnConfirm (Konfirmasi) di klik
         $("#btnConfirm").click(function() {
@@ -339,6 +340,33 @@
                         'arrayDowngrade': arrayDowngrade,
                     },
                     success: function(data) {
+                        $(`#itemsForSale`).html("")
+                        $.each(data.updatedMarket, function(index, value) {
+                            $(`#itemsForSale`).append(`
+                            <div class="card col-2 p-0 cardItems">
+                                {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
+                                    alt="..."> --}}
+                                <div class="card-body text-center">
+                                    <h6 class="">${value.downgrade}</h6>
+                                    <div class="row my-1">
+                                        <div class="col">
+                                            Stock : <span id="stok_barang"
+                                                class="">${value.stok}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex justify-content-center my-1" style="font-size: 14px">
+
+                                        <span class="badge bg-danger mx-1">${value.harga_beli}</span>
+                                        <span class="badge bg-success mx-1">${value.harga_jual}</span>
+                                    </div>
+
+                                    <button id="${value.downgrade}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                            class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
+                                </div>
+                            </div>`)
+                        })
+
                         let msg = data.msg
                         $("#alert-warning").html(msg)
                         $("#ModalAlert").modal("show")
@@ -365,6 +393,33 @@
                             })
                             $("#ModalAlert").modal("show")
                         } else {
+                            $(`#itemsForSale`).html("")
+                            $.each(data.updatedMarket, function(index, value) {
+                                $(`#itemsForSale`).append(`
+                                <div class="card col-2 p-0 cardItems">
+                                    {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
+                                        alt="..."> --}}
+                                    <div class="card-body text-center">
+                                        <h6 class="">${value.downgrade}</h6>
+                                        <div class="row my-1">
+                                            <div class="col">
+                                                Stock : <span id="stok_barang"
+                                                    class="">${value.stok}</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="d-flex justify-content-center my-1" style="font-size: 14px">
+
+                                            <span class="badge bg-danger mx-1">${value.harga_beli}</span>
+                                            <span class="badge bg-success mx-1">${value.harga_jual}</span>
+                                        </div>
+
+                                        <button id="${value.downgrade}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                                class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
+                                    </div>
+                                </div>`)
+                            })
+
                             $("#alert-warning").html(data.msg)
                             $("#ModalAlert").modal("show")
                         }
@@ -395,7 +450,7 @@
 
             // delete sisa dan tampilkan sisa
             $("#keranjang").html("")
-            $.each(arr_keranjang, function(index, value){
+            $.each(arr_keranjang, function(index, value) {
                 let val = (value[1] != null) ? value[1] : 0
                 $("#keranjang").append(
                     `<tr identifier="${parseInt(index)+1}">
@@ -406,5 +461,57 @@
                     </tr>`)
             })
         }
+
+        // PUSHER
+        var pusher = new Pusher('ee40c583b896ff3cfaa7', {
+            cluster: 'ap1'
+        });
+
+        var sesiPusher = pusher.subscribe('sesiPusher');
+        sesiPusher.bind('sesi', (e) => {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('refreshPenjualBahan') }}",
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'barang': 'downgrade',
+                },
+                success: function(data) {
+                    result = data.data
+
+                    $(`#keranjang`).html("")
+                    localStorage.removeItem("keranjang")
+                    $(`#itemsForSale`).html("")
+
+                    $.each(result, function(index, value) {
+                        $(`#itemsForSale`).append(`
+                        <div class="card col-2 p-0 cardItems">
+                            {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
+                                alt="..."> --}}
+                            <div class="card-body text-center">
+                                <h6 class="">${value.downgrade}</h6>
+                                <div class="row my-1">
+                                    <div class="col">
+                                        Stock : <span class="">${value.stok}</span>
+                                    </div>
+
+                                </div>
+                                <div class="d-flex justify-content-center my-1" style="font-size: 14px">
+
+                                    <span class="badge bg-danger mx-1">${value.harga_beli}</span>
+                                    <span class="badge bg-success mx-1">${value.harga_jual}</span>
+                                </div>
+
+                                <button id="${value.downgrade}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                        class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
+                            </div>
+                        </div>`)
+                    })
+                },
+                error: function() {
+                    alert("error")
+                }
+            })
+        });
     </script>
 @endsection

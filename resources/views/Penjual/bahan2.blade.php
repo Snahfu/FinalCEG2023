@@ -123,7 +123,7 @@
                                                     <span class="badge bg-success mx-1">{{ $bahan->harga_jual }}</span>
                                                 </div>
 
-                                                <button id="{{ $bahan->bahan }}" class="btnAdd btn btn-primary w-100"><i
+                                                <button id="{{ $bahan->bahan }}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
                                                         class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
                                             </div>
                                         </div>
@@ -254,32 +254,6 @@
         })
 
         // jalan waktu btnAdd di klik
-        $(".btnAdd").click(function() {
-            // ambil keranjang di localStorage
-            let arrKeranjang = []
-            let cek_keranjang = localStorage.getItem("keranjang")
-
-            if (cek_keranjang != null) {
-                arrKeranjang = JSON.parse(cek_keranjang)
-            }
-
-            // append ke keranjang
-            $("#keranjang").append(
-                `<tr>
-                    <td class="nomortb" width="15%">${arrKeranjang.length + 1}</td>
-                    <td width="70%">${$(this).attr("id")}</td>
-                    <td><input id="${arrKeranjang.length + 1}" type="number" style="width: 100px" min=0 value=0></td>
-                    <td><button style="border: none; background-color: transparent;" onClick="delItem(${arrKeranjang.length + 1})"><i class="fa-solid fa-xmark" style="color: red;"></i></button></td>
-                </tr>`)
-
-            arrKeranjang.push([$(this).attr("id")])
-
-            console.log(arrKeranjang)
-
-            localStorage.setItem("keranjang", JSON.stringify(arrKeranjang))
-            num++
-        })
-
         function btnAdd(id){
             // ambil keranjang di localStorage
             let arrKeranjang = []

@@ -117,7 +117,7 @@ class PenjualController extends Controller
         $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
         $updatedKoin = $updatedTeam[0]->koin;
 
-        $updatedMarket = DB::table("market_bahan")->select("stok")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
+        $updatedMarket = DB::table("market_bahan")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
 
         event(new Team($idteams, $updatedKoin));
 
@@ -225,9 +225,15 @@ class PenjualController extends Controller
         $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
         $updatedKoin = $updatedTeam[0]->koin;
 
+        $updatedMarket = DB::table("market_bahan")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
+
         event(new Team($idteams, $updatedKoin));
 
-        return response()->json(["status" => "success", "msg" => "Barang berhasil dijual"]);
+        return response()->json([
+            "status" => "success",
+            "msg" => "Barang berhasil dijual",
+            "updatedMarket" => $updatedMarket,
+        ]);
     }
 
     // Pemain beli
@@ -339,9 +345,15 @@ class PenjualController extends Controller
         $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
         $updatedKoin = $updatedTeam[0]->koin;
 
+        $updatedMarket = DB::table("market_downgrade")->where("tipe", $sesi[0]->tipe)->get();
+
         event(new Team($idteams, $updatedKoin));
 
-        return response()->json(["status" => "success", "msg" => "barang berhasil terbeli dan dikirimkan"]);
+        return response()->json([
+            "status" => "success",
+            "msg" => "barang berhasil terbeli dan dikirimkan",
+            "updatedMarket" => $updatedMarket
+        ]);
     }
 
     // Pemain Jual
@@ -437,9 +449,15 @@ class PenjualController extends Controller
         $updatedTeam = DB::table("teams")->where("idteams", $idteams)->get();
         $updatedKoin = $updatedTeam[0]->koin;
 
+        $updatedMarket = DB::table("market_downgrade")->where("tipe", $sesi[0]->tipe)->get();
+
         event(new Team($idteams, $updatedKoin));
 
-        return response()->json(["status" => "success", "msg" => "Barang berhasil dijual"]);
+        return response()->json([
+            "status" => "success",
+            "msg" => "Barang berhasil dijual",
+            "updatedMarket" => $updatedMarket,
+        ]);
     }
 
     // Refresh stock/item
@@ -450,7 +468,7 @@ class PenjualController extends Controller
         if ($request['barang'] == 'bahan') {
             $market_bahan = DB::table("market_bahan")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
         } else if ($request['barang'] == 'downgrade') {
-            $market_bahan = DB::table("market_downgrade")->where("sesi", $sesi[0]->sesi)->where("tipe", $sesi[0]->tipe)->get();
+            $market_bahan = DB::table("market_downgrade")->where("tipe", $sesi[0]->tipe)->get();
         }
 
         return response()->json(["data" => $market_bahan]);

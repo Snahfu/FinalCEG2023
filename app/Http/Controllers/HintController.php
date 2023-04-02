@@ -27,10 +27,9 @@ class HintController extends Controller
         $namaHint = DB::table("hints")->where("idhints", $idhints)->value('name');
 
         //Cek koin
-        if($team[0]->koin > 100){
+        if ($team[0]->koin > 100) {
             // Cek jika tim tersebut belum punya hint
             if (!DB::table("history_hints")->where("hints_idhints", $idhints)->where("teams_idteams", $idteams)->exists()) {
-
 
                 //Keterangan
                 $details = "Team " . $team[0]->namaTeam . " mendapat hint " . $namaHint;
@@ -46,17 +45,13 @@ class HintController extends Controller
                 DB::table("teams")->where("idteams", $idteams)->update([
                     "koin" => DB::raw("`koin` - " . 100)
                 ]);
-
-            } 
-            else {
+                
+            } else {
                 $details = "Team " . $team[0]->namaTeam . " sudah memiliki hint " . $namaHint;
             }
-        }
-        else{
+        } else {
             $details = "Team " . $team[0]->namaTeam . " tidak memiliki koin yang cukup";
         }
-
-
 
         return response()->json(["status" => "success", "msg" => $details]);
     }
@@ -69,9 +64,9 @@ class HintController extends Controller
 
         //Hint yang dimiliki oleh tim tersebut
         $hints = DB::table("hints as h")
-        ->join('history_hints as hh', 'h.idhints', '=', 'hh.hints_idhints')
-        ->join('teams as t', 't.idteams', '=', 'hh.teams_idteams')
-        ->where('t.idteams', '=', $idTeam)->get();
+            ->join('history_hints as hh', 'h.idhints', '=', 'hh.hints_idhints')
+            ->join('teams as t', 't.idteams', '=', 'hh.teams_idteams')
+            ->where('t.idteams', '=', $idTeam)->get();
 
         return view("HintsDashboard.playerHint", compact("hints"));
     }

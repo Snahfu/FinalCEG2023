@@ -24,9 +24,7 @@
                             </div>
 
                         </div>
-                        {{-- <div class="col colDashboard">
-                            <h3 id="username" style="font-weight:bold;">Ini Nama Kelompok </h3>
-                        </div> --}}
+                        
                         <div class="row">
                             <div class="col p-0" id="koinResponsive">
                                 <div class="d-flex" style="">
@@ -37,14 +35,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        {{-- <div class="col colDashboard" style="">
-                            <i class="fa-solid fa-coins" id="icon-coin"></i> 
-                            <div class="koin px-3" style="font-size: 18px;">
-                                {{ $team[0]->koin }} Koin
-                            </div>
-                        </div> --}}
-
+                        
                     </div>
                 </div>
             </div>
@@ -75,8 +66,6 @@
                                 </div>
 
                             </div>
-
-
 
                             <div class="table-responsive">
                                 <table class="table">
@@ -126,7 +115,6 @@
         </div>
     </main>
 
-    <script src="../js/app.js"></script>
     {{-- JQUERY --}}
     <script>
         //  dipakai untuk mengganti inventory (alat, bahan, downgrade)
@@ -288,19 +276,6 @@
 
     {{-- PUSHER --}}
     <script>
-        // window.Echo.channel('teamPusher').listen('.team', (e) => {
-        //     let thisId = "<?php echo $team[0]->idteams; ?>"
-        //     console.log(thisId)
-        //     console.log(e.id)
-
-        //     if (thisId == e.id) {
-        //         $(".koin").html(e.koin)
-        //         console.log('masuk')
-        //     }
-        // })
-
-        // Pusher.logToConsole = true;
-
         var pusher = new Pusher('ee40c583b896ff3cfaa7', {
             cluster: 'ap1'
         });
