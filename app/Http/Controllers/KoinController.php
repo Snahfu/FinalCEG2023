@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class KoinController extends Controller
 {
@@ -10,15 +11,22 @@ class KoinController extends Controller
     {
         $teams = DB::table("teams")->get();
 
+        // get this url
+        $url = url()->full();
+
+        // Regular Expression (RegEx) Pattern
         $pattern = "/.{3}Koin\b/i";
-        $success = preg_match($pattern, Request::url(), $match);
+
+        // check if there is pattern in url and return 0 if false and 1 if true
+        $success = preg_match($pattern, $url, $match);
+
+        // error route
         $route = "/c1]2r'3iw[eop/dl";
 
+        //  if true get the sub url
         if ($success) {
             $route = $match[0];
         }
-
-        echo $pattern, $success, $route;
 
         return view($route, compact("teams"));
     }

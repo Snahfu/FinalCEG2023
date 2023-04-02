@@ -43,12 +43,12 @@
                             </div>
                             <div class="addSection">
                                 <div class="d-flex align-items-center">
-                                    <label>Jumlah </label>
+                                    <label>Jumlah Minus</label>
                                     <input class="form-control" id="jumlahKoin" type="number" inputmode="numeric"
                                         name="koin" id="koin" min="0" placeholder="0">
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <button id="btnAddKoin" class="btn btn-primary" style="margin-left:10px">Add</button>
+                                    <button id="btnMinKoin" class="btn btn-primary" style="margin-left:10px">Min</button>
                                 </div>
                             </div>
                         </div>
@@ -94,14 +94,14 @@
             });
         });
 
-        $("#btnAddKoin").click(function() {
+        $("#btnMinKoin").click(function() {
             if ($(`#team`).find(":selected").val() == "-") {
                 $("#alert-warning").html("Tolong Pilih Team Terlebih Dahulu!!")
                 $("#ModalAlert").modal("show")
             } else {
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('addKoin') }}",
+                    url: "{{ route('minKoin') }}",
                     data: {
                         '_token': '<?php echo csrf_token(); ?>',
                         'idteam': $("#team").val(),

@@ -111,7 +111,6 @@
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
                             </li>
-
                         @elsecan("isAdminBahan")
                             <li class="nav-item">
                                 <a href="{{ route('penjualBahanSell') }}" class="nav-link">Sell</a>
@@ -132,7 +131,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
                             </li>
-                        @elsecan("isTinkerer")
+                        @elsecan("isDnC")
                             <li class="nav-item">
                                 <a href="{{ route('tinkerer') }}" class="nav-link">Dashboard</a>
                             </li>
