@@ -42,6 +42,9 @@ Route::post("/ingredients/add", "IngredientsController@addIngredients")->name("a
 Route::get("/tools", "ToolsController@tools")->name("tools");
 Route::post("/tools/add", "ToolsController@addTools")->name("addTools");
 
+// Tool & Ingredient Done Playing
+Route::get("/done", "DashboardController@done_playing")->name("done_playing");
+
 // Penjual===================================================================================================
 // Bahan
 // Admin Jual, Pemain Beli

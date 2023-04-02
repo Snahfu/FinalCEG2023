@@ -143,11 +143,17 @@
                                 <a href="{{ route('ingredients') }}" class="nav-link">Dashboard</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('done_playing') }}" class="nav-link">Done Playing</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
                             </li>
                         @elsecan("isTool")
                             <li class="nav-item">
                                 <a href="{{ route('tools') }}" class="nav-link">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('done_playing') }}" class="nav-link">Done Playing</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>

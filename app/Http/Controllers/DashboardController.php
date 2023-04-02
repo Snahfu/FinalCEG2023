@@ -90,4 +90,16 @@ class DashboardController extends Controller
 
         return view("ListHarga.listHarga", compact("bahan", "downgrade", "team", "inventory"));
     }
+
+    public function done_playing(){
+        $teams = DB::table("teams")
+            ->whereIn(
+                "idteams",
+                function ($query) {
+                    $query->select("teams_idteams")->from("done_playing");
+                }
+            )->distinct()->get();
+
+        return view("done_playing", compact("teams"));
+    }
 }

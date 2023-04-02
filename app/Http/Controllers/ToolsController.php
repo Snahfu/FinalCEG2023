@@ -10,15 +10,7 @@ class ToolsController extends Controller
 {
     public function tools()
     {
-        $pos = Auth::user();
-
-        // $teams = DB::table("teams")
-        //     ->whereNotIn(
-        //         "idteams",
-        //         function ($query) {
-        //             $query->select("teams_idteams")->from("done_playing");
-        //         }
-        //     )->get();
+        $pos = Auth::user();        
 
         $teams = DB::table("teams")->get();
 
