@@ -18,6 +18,12 @@ class HintController extends Controller
         return view("HintsDashboard.hints", compact("user", "hints", "teams"));
     }
 
+    public function hintHistory(){
+        $histories = DB::table("history_hints")->get();
+
+        return view("HintsDashboard.history", compact("histories"));
+    }
+
     public function addHint(Request $request)
     {
         $idteams = $request['idteams'];
@@ -33,12 +39,12 @@ class HintController extends Controller
 
                 //Keterangan
                 $details = "Team " . $team[0]->namaTeam . " mendapat hint " . $namaHint;
-
+                // $date = date("Y-m-d H:i:s");
                 //Insert
                 DB::table("history_hints")->insert([
                     "hints_idhints" => $idhints,
                     "teams_idteams" => $idteams,
-                    "keterangan" => $details
+                    "keterangan" => $details,
                 ]);
 
                 //Team membayar hint

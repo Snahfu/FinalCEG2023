@@ -72,6 +72,7 @@ Route::post("/penjualDowngradeSell/refresh", "PenjualController@refreshPenjual")
 
 // Admin Hint
 Route::get("/hint", "HintController@hint")->name("hint");
+Route::get("/hinthistory", "HintController@hintHistory")->name("hintHistory");
 Route::post("/hint/add", "HintController@addHint")->name("addHint");
 
 // Admin Tinkerer
