@@ -19,7 +19,7 @@ class HintController extends Controller
     }
 
     public function hintHistory(){
-        $histories = DB::table("history_hints")->get();
+        $histories = DB::table("history_hints")->orderBy("created_at", "desc")->paginate(10);
 
         return view("HintsDashboard.history", compact("histories"));
     }

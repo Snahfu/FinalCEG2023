@@ -42,6 +42,14 @@ class KoinController extends Controller
             "koin" => DB::raw("`koin` + " . $jumlahKoin),
         ]);
 
+        $keterangan = $team[0]->namaTeam . " mendapatkan ". $jumlahKoin . " koin";
+        
+        DB::table("history_koins")->insert([
+            "keterangan" => $keterangan,
+            "jenis_pos" => "Pos Bonus",
+            "teams_idteams" => $idteam,
+        ]);
+
         $detail = "Koin sejumlah " . $jumlahKoin . " berhasil ditambahkan ke " . $team[0]->namaTeam;
 
         return response()->json(["msg" => $detail]);
@@ -58,8 +66,46 @@ class KoinController extends Controller
             "koin" => DB::raw("`koin` - " . $jumlahKoin),
         ]);
 
+        $keterangan = $team[0]->namaTeam . " menggunakan " . $jumlahKoin . " koin";
+
+        DB::table("history_koins")->insert([
+            "keterangan" => $keterangan,
+            "jenis_pos" => "Pos Consultant",
+            "teams_idteams" => $idteam,
+        ]);
+
         $detail = "Koin sejumlah " . $jumlahKoin . " berhasil ditarik dari " . $team[0]->namaTeam;
 
         return response()->json(["msg" => $detail]);
+    }
+
+    public function koinHistory($jenispos)
+    {
+        if($jenispos == "posbonus")
+        {
+            $histories = DB::table("history_koins")
+            ->where("jenis_pos", "Pos Bonus")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+            $pos = "Pos Bonus";
+        }
+        elseif($jenispos == "posconsultant")
+        {
+            $histories = DB::table("history_koins")
+            ->where("jenis_pos", "Pos Consultant")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+            $pos = "Pos Consultant";
+        }
+
+        return view(
+            "historykoins",
+            [
+                "histories" => $histories,
+                "jenispos" => $pos
+            ]
+        );
     }
 }

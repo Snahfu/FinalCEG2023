@@ -90,6 +90,9 @@ Route::post("/addKoin/koin", "KoinController@addKoin")->name("addKoin");
 Route::get("/minKoin", "KoinController@koin")->name("koin");
 Route::post("/minKoin/koin", "KoinController@minKoin")->name("minKoin");
 
+//Add koin / min koin history
+Route::get("/koinhistory/{jenispos}", "KoinController@koinHistory")->name("koinHistory");
+
 // Sesi
 Route::get("/adminSesi", "SesiController@sesi")->name("sesi");
 Route::post("/adminSesi/ganti", "SesiController@gantiSesi")->name("gantiSesi");

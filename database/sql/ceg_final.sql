@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2023 at 06:34 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- Generation Time: Apr 03, 2023 at 08:11 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -155,8 +154,70 @@ CREATE TABLE `history` (
 CREATE TABLE `history_hints` (
   `teams_idteams` int(11) NOT NULL,
   `hints_idhints` int(11) NOT NULL,
-  `keterangan` longtext DEFAULT NULL
+  `keterangan` longtext DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `history_hints`
+--
+
+INSERT INTO `history_hints` (`teams_idteams`, `hints_idhints`, `keterangan`, `created_at`) VALUES
+(1, 1, 'Team User 1 mendapat hint Clue 1', '2023-04-03 16:52:31'),
+(1, 2, 'Team User 1 mendapat hint Clue 2', '2023-04-03 16:52:47'),
+(1, 3, 'Team User 1 mendapat hint Clue 3', '2023-04-03 16:52:51'),
+(1, 4, 'Team User 1 mendapat hint Clue 4', '2023-04-03 16:52:43'),
+(1, 5, 'Team User 1 mendapat hint Clue 5', '2023-04-03 16:52:55'),
+(1, 6, 'Team User 1 mendapat hint Clue 6', '2023-04-03 16:52:59'),
+(1, 7, 'Team User 1 mendapat hint Clue 7', '2023-04-03 16:53:04'),
+(2, 1, 'Team User 2 mendapat hint Clue 1', '2023-04-03 16:53:15'),
+(2, 2, 'Team User 2 mendapat hint Clue 2', '2023-04-03 16:53:11'),
+(2, 5, 'Team User 2 mendapat hint Clue 5', '2023-04-03 16:53:19'),
+(2, 6, 'Team User 2 mendapat hint Clue 6', '2023-04-03 16:53:23'),
+(2, 7, 'Team User 2 mendapat hint Clue 7', '2023-04-03 16:53:08'),
+(10, 2, 'Team User 10 mendapat hint Clue 2', '2023-04-03 17:00:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history_koins`
+--
+
+CREATE TABLE `history_koins` (
+  `idhistory_koins` int(11) NOT NULL,
+  `keterangan` longtext NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `jenis_pos` varchar(45) NOT NULL,
+  `teams_idteams` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `history_koins`
+--
+
+INSERT INTO `history_koins` (`idhistory_koins`, `keterangan`, `created_at`, `jenis_pos`, `teams_idteams`) VALUES
+(1, 'Team 1 Mendapatkan 50 Koin', '2023-04-03 15:03:44', 'Pos Bonus', 1),
+(2, 'Team 2 Mendapatkan 100 Koin', '2023-04-03 15:11:37', 'Pos Bonus', 2),
+(3, 'User 3 mendapatkan 100 koin', '2023-04-03 15:12:56', 'Pos Bonus', 3),
+(4, 'User 9 menggunakan 400 koin', '2023-04-03 15:17:01', 'Pos Consultant', 9),
+(5, 'User 4 mendapatkan 100 koin', '2023-04-03 16:03:51', 'Pos Bonus', 4),
+(6, 'User 4 mendapatkan 100 koin', '2023-04-03 16:04:40', 'Pos Bonus', 4),
+(7, 'User 9 mendapatkan 100 koin', '2023-04-03 16:04:58', 'Pos Bonus', 9),
+(8, 'User 2 mendapatkan 1000 koin', '2023-04-03 16:05:03', 'Pos Bonus', 2),
+(9, 'User 3 mendapatkan 400 koin', '2023-04-03 16:05:08', 'Pos Bonus', 3),
+(10, 'User 5 mendapatkan 2000 koin', '2023-04-03 16:05:14', 'Pos Bonus', 5),
+(11, 'User 9 mendapatkan 1000 koin', '2023-04-03 16:05:19', 'Pos Bonus', 9),
+(12, 'User 2 mendapatkan 300 koin', '2023-04-03 16:05:24', 'Pos Bonus', 2),
+(13, 'User 1 menggunakan 100 koin', '2023-04-03 16:43:26', 'Pos Consultant', 1),
+(14, 'User 2 menggunakan 234 koin', '2023-04-03 16:43:45', 'Pos Consultant', 2),
+(15, 'User 2 menggunakan 1 koin', '2023-04-03 16:49:10', 'Pos Consultant', 2),
+(16, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:17', 'Pos Consultant', 1),
+(17, 'User 5 menggunakan 1 koin', '2023-04-03 16:49:20', 'Pos Consultant', 5),
+(18, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:23', 'Pos Consultant', 1),
+(19, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:29', 'Pos Consultant', 1),
+(20, 'User 1 menggunakan 12 koin', '2023-04-03 16:49:33', 'Pos Consultant', 1),
+(21, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:40', 'Pos Consultant', 1),
+(22, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:46', 'Pos Consultant', 1);
 
 -- --------------------------------------------------------
 
@@ -423,16 +484,16 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '1500'),
-(2, 'User 2', '1500'),
+(1, 'User 1', '483'),
+(2, 'User 2', '2065'),
 (3, 'User 3', '1500'),
-(4, 'User 4', '1500'),
-(5, 'User 5', '1500'),
+(4, 'User 4', '1700'),
+(5, 'User 5', '3499'),
 (6, 'User 6', '1500'),
 (7, 'User 7', '1500'),
 (8, 'User 8', '1500'),
-(9, 'User 9', '1500'),
-(10, 'User 10', '1500');
+(9, 'User 9', '3000'),
+(10, 'User 10', '1400');
 
 -- --------------------------------------------------------
 
@@ -534,6 +595,13 @@ ALTER TABLE `history_hints`
   ADD KEY `fk_teams_has_hints_teams1_idx` (`teams_idteams`);
 
 --
+-- Indexes for table `history_koins`
+--
+ALTER TABLE `history_koins`
+  ADD PRIMARY KEY (`idhistory_koins`),
+  ADD KEY `teams_idteams` (`teams_idteams`);
+
+--
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -633,6 +701,12 @@ ALTER TABLE `hints`
 --
 ALTER TABLE `history`
   MODIFY `idhistory` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `history_koins`
+--
+ALTER TABLE `history_koins`
+  MODIFY `idhistory_koins` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `inventory`

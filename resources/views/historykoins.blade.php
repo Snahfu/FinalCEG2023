@@ -50,7 +50,7 @@
                     @php
                     $timezone = new DateTimeZone('Asia/Jakarta');
                     @endphp
-                    <h1 style="color:rgba(0, 0, 0, 1); font-weight: bold; text-align:center">Hint History</h1>
+                    <h1 style="color:rgba(0, 0, 0, 1); font-weight: bold; text-align:center">{{ $jenispos }} History</h1>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="table-dark">
@@ -85,9 +85,15 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                                <a href="/hint">
-                                    <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-right:10px" value="Hint"> 
+                            @if ($jenispos == "Pos Bonus")
+                                <a href="/addKoin">
+                                    <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-right:10px" value="Add Koin"> 
                                 </a>
+                            @elseif ($jenispos == "Pos Consultant")
+                                <a href="/minKoin">
+                                    <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-right:10px" value="Min Koin"> 
+                                </a>
+                            @endif 
                             {{ $histories->links() }}
                         </div>
                     </div>

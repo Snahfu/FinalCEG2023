@@ -49,6 +49,9 @@
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <button id="btnMinKoin" class="btn btn-primary" style="margin-left:10px">Min</button>
+                                    <a href="{{ route("koinHistory", ['jenispos' => 'posconsultant']) }}">
+                                        <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-left:10px" value="History"> 
+                                    </a>
                                 </div>
                             </div>
                         </div>
