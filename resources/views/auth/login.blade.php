@@ -5,7 +5,7 @@
     body{
         background: url('{{ asset('assets') }}/background/background.png');
         background-repeat:no-repeat;
-        background-position: center center;
+        background-size: cover;
         
     }
     .card{

@@ -72,6 +72,16 @@
             padding: 5px 0px;
             padding-left: 5px;
         }
+
+        @media screen and (max-width:1000px){
+            .nav-link{
+                font-size: 12px;
+            }
+            .nav-item{
+                display: flex;
+                align-items: center;
+            }
+        }
     </style>
     @yield('css')
 </head>
@@ -81,7 +91,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('assets/logo/Kelapa_navbar.png') }}" alt="" style="width: 32px;height:auto;">
+                    <img src="{{ asset('assets/logo/Logo_CEG.png') }}" alt="" style="width: 32px;height:auto;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
