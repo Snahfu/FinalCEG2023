@@ -2,12 +2,10 @@
 
 
 @section('head')
-    <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/3.0.9/umd.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/css/jsplumbtoolkit-defaults.css">
 @endsection
 
@@ -27,7 +25,9 @@
 
         #wrapper {   
             display: flex;
-            height: 775px; 
+            justify-content: center;
+            margin-top: 1vh; 
+            height: 70vh; 
         }
         #parent { 
             position: relative;
@@ -50,36 +50,40 @@
                 80px 80px,
                 80px 80px,
                 80px 80px;
-            margin-left: 160px; 
-            margin-top: 100px;
-            height: 600px;
-            width: 65%;
-            margin-bottom: 10px;
+            margin-left: 5vw; 
+            margin-right: 0vw;
+            height: 69.5vh;
+            width: 50vw;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow-x: hidden;
         }
         #buttonExport {
-            width: 100px;
+            width: 5vw;
             position: relative;
-            left : 1220px;
-            top: -50px; 
+            left : 75vw;
+
         }
-        .header{
-            position: absolute;
-            display: inline-block;
-            top: 95px;
-            left: 210px;
+        #pageName{
+            position: relative;
+            display: flex;
+            font-weight: bold;
+            left: 5vw;
+        }
+        .sourcePoint{
+            fill: red; 
         }
         h1:after {
             background-color: #000;
             content: "";
             display: inline-block;
+            margin-top: auto;
+            margin-bottom: auto; 
             height: 2px;
             position: relative;
             vertical-align: middle;
-            left: 20px;
-            width: 890px;
+            width: 50vw;
+            left: 1rem;
         }
         .sidebar-nav {
             z-index: 1000;
@@ -87,20 +91,16 @@
             overflow-y: scroll;
             background-color: #f2f2f2;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
-            margin: 0;
-            padding:0;
-            margin-bottom: 10px;
-            top: 100px;
+            padding-left: 0;
             border-radius: 20px;
-            left: 90px;
-            width: 200px; 
-            height: 600px;           
+            width: 9vw; 
+            height: 70vh;           
         }
         .draggable {
             position: absolute; 
             object-fit: contain;
-            height: 100px;
-            width: 100px;
+            height:5vw;
+            width: 5vw;
             background-color: white;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             border-radius: 10px; 
@@ -110,18 +110,18 @@
             object-fit: contain;
             padding: 0;
             margin: 0;
-            height: 100px;
-            width: 100px;
+            height: 100%;
+            width: 100%;
         }
 
         .picture {
             position : relative;
             object-fit: contain;
-            padding: 0;
-            left: 15px; 
-            margin: 10px;
-            width: 150px;
-            height: 120px;
+            margin:6%;
+            margin-left: auto;
+            margin-right: auto;
+            width: 7vw;
+            height: 7vw; 
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow: hidden;
@@ -136,8 +136,8 @@
             object-fit: contain;
             margin: 0;
             padding: 0;
-            width: 150px; 
-            height: 120px;
+            width: 100%; 
+            height: 100%;
         }
         .overlay{
             position: absolute;
@@ -218,7 +218,7 @@
                 });
                 
             $(newImage).appendTo(newDiv);
-            $(newDiv).append("<i id='deleteButton' class='fa-solid fa-trash' style='left: -20px; top:-20px; position:relative;' onClick='delImg(this)'></i>");
+            $(newDiv).append("<i id='deleteButton' class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>");
 
             var sourcePointOptions = {
                 anchor: "Continuous",
@@ -241,9 +241,8 @@
             }, targetPointOptions);
 
             var sourcePoint = instance.addEndpoint(newDiv, {
-            }, sourcePointOptions)
-            
-            
+            }, sourcePointOptions);
+
             targetPoint.id = data + itemMap.get(data) + "target"; 
             sourcePoint.id = data + itemMap.get(data) + "source";
 
@@ -280,8 +279,9 @@
 
         function exportPNG()
         {
-            const buttons = document.getElementsByClassName("fa-solid fa-trash");
+            const buttons = document.querySelectorAll("#deleteButton");
             const endPoints = jsPlumb.getSelector(".jtk-endpoint");
+            console.log(buttons);
             endPoints.forEach(endpoint => {
                 endpoint.style.opacity = "0"
             });
@@ -316,40 +316,46 @@
 
 
     </script>
-    <div class="container" id="wrapper">
-    <!-- Header -->
-    <h1 class="header">Pengumpulan</h1>
-    <!-- Sidebar -->
-    <ul class="sidebar-nav" id="sidebar">
-        @foreach ($inventory_alat as $item)
-            <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
-                <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
-                <div class='overlay'>
-                    <div class='text'>{{$item->nama_barang}}
+    <main class="d-block mx-md-4">
+        <div class="container d-flex flex-column sm-p-0">
+            <div class="row my-3">
+                <div class="col">
+                    <h1 class="p-0 m-0" id="pageName">Pengumpulan</h1>
                 </div>
-            </li>
-            @for ($count = 1; $count <= $item->stock_barang; $count++)     
-                <script>
-                itemMap.set("{{$item->nama_barang}}", {{$count}});
-                console.log(itemMap);
-                </script>
-            @endfor        
-        @endforeach
-        @foreach ($inventory_bahan as $item)
-            <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
-                    <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
-            </li>
-            @for ($count = 1; $count <= $item->stock_barang; $count++)     
-                <script>
-                itemMap.set("{{$item->nama_barang}}", {{$count}});
-                console.log(itemMap);
-                </script>
-            @endfor      
-        @endforeach
-    </ul>
-    <div class="container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    </div>
-    <button id="buttonExport" onclick="exportPNG()">Export</button>
-
+            </div>
+            <div class="container" id="wrapper">
+                <ul class="sidebar-nav" id="sidebar">
+                    @foreach ($inventory_alat as $item)
+                        <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
+                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                            <div class='overlay'>
+                                <div class='text'>{{$item->nama_barang}}
+                            </div>
+                        </li>
+                        @for ($count = 1; $count <= $item->stock_barang; $count++)     
+                            <script>
+                            itemMap.set("{{$item->nama_barang}}", {{$count}});
+                            console.log(itemMap);
+                            </script>
+                        @endfor        
+                    @endforeach
+                    @foreach ($inventory_bahan as $item)
+                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
+                                <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                        </li>
+                        @for ($count = 1; $count <= $item->stock_barang; $count++)     
+                            <script>
+                            itemMap.set("{{$item->nama_barang}}", {{$count}});
+                            console.log(itemMap);
+                            </script>
+                        @endfor      
+                    @endforeach
+                </ul>
+            <div class="container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+        </div>
+        <button id="buttonExport" onclick="exportPNG()">Export</button>
+        </div>
+    </main>
 @endsection
 
