@@ -3,33 +3,12 @@
 
 @section('head')
     <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/3.0.9/umd.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/css/jsplumbtoolkit-defaults.css">
-<script>
-    var sourcePointOptions = { 
-                anchor: "Continuous",
-                endpoint: 'Rectangle',
-                isSource:true,
-                connector: "Flowchart",
-                maxConnections: -1,
-                connectorStyle: {strokeWidth:1, stroke:'black'},
-                scope:"blueline",
-                dragAllowedWhenFull: true
-            }; 
-            var targetPointOptions = { 
-                anchor: "Continuous",
-                endpoint: 'Dot',
-                isTarget:true,
-                connector: "Flowchart",
-                maxConnections: -1,
-                connectorStyle: {strokeWidth:1, stroke:'black'},
-                scope:"blueline",
-                dragAllowedWhenFull: true
-            };
-</script>
 @endsection
 
 @section('css')
@@ -52,16 +31,39 @@
         }
         #parent { 
             position: relative;
-            background-color : lightgrey;
-            top: 100px;
-            left: 60px;
+            background:
+                linear-gradient(-90deg, rgba(0,0,0,.05) 1px, transparent 1px),
+                linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), 
+                linear-gradient(-90deg, rgba(0, 0, 0, .04) 1px, transparent 1px),
+                linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+                linear-gradient(transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px),
+                linear-gradient(-90deg, #aaa 1px, transparent 1px),
+                linear-gradient(-90deg, transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px),
+                linear-gradient(#aaa 1px, transparent 1px),
+                #f2f2f2;
+            background-size:
+                16px 16px,
+                16px 16px,
+                80px 80px,
+                80px 80px,
+                80px 80px,
+                80px 80px,
+                80px 80px,
+                80px 80px;
+            margin-left: 160px; 
+            margin-top: 100px;
             height: 600px;
             width: 65%;
             margin-bottom: 10px;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow-x: hidden;
-            overflow-y: scroll;
+        }
+        #buttonExport {
+            width: 100px;
+            position: relative;
+            left : 1220px;
+            top: -50px; 
         }
         .header{
             position: absolute;
@@ -83,7 +85,7 @@
             z-index: 1000;
             position: relative;
             overflow-y: scroll;
-            background-color: lightgray;
+            background-color: #f2f2f2;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             margin: 0;
             padding:0;
@@ -100,6 +102,7 @@
             height: 100px;
             width: 100px;
             background-color: white;
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             border-radius: 10px; 
         }
 
@@ -161,7 +164,22 @@
 
 @section('content')
     <script>
-        const itemMap = new Map();
+        const itemMap = new Map()
+        var instance = jsPlumb.getInstance();
+            instance.importDefaults({
+                Connector: ["Flowchart"],
+                PaintStyle: { stroke: "black", strokeWidth: 1 },
+                Endpoint: "Blank",
+                    ConnectionOverlays: [
+                [ "Arrow", {
+                    location: 1,
+                    visible:true,
+                    width:11,
+                    length:11,
+                    id:"ARROW"
+                } ]]
+            });
+        var divList = [];
 
         function allowDrop(ev) {
             ev.preventDefault();
@@ -184,35 +202,62 @@
 
             var data = event.dataTransfer.getData("text");
             var newImage = document.createElement("img");
-            console.log(data);
             newImage.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
             newImage.setAttribute("id", data);
             itemMap.set(data, itemMap.get(data) - 1);
             displayItems();
             jsPlumb.ready(function() {
                 
-                jsPlumb.draggable($(".draggable"), {
+                instance.draggable($(".draggable"), {
                     containment: "#parent",
-                    grid: [20, 20],
+                    grid: [16, 16],
                     stop: function(event) {
-                        jsPlumb.repaintEverything();
+                        console.log(event.target);
+                        instance.repaintEverything();
                     }
                 });
                 
             $(newImage).appendTo(newDiv);
             $(newDiv).append("<i id='deleteButton' class='fa-solid fa-trash' style='left: -20px; top:-20px; position:relative;' onClick='delImg(this)'></i>");
 
-            jsPlumb.addEndpoint(newDiv,{
+            var sourcePointOptions = {
+                anchor: "Continuous",
+                endpoint: 'Rectangle',
+                isSource:true,
+                maxConnections: -1,
+                scope:"blueline",
+                dragAllowedWhenFull: true
+            }; 
+            var targetPointOptions = { 
+                anchor: "Continuous",
+                endpoint: 'Dot',
+                isTarget:true,
+                maxConnections: -1,
+                scope:"blueline",
+                dragAllowedWhenFull: true
+            };
+
+            var targetPoint = instance.addEndpoint(newDiv,{
             }, targetPointOptions);
 
-            jsPlumb.addEndpoint(newDiv, {
-            }, sourcePointOptions);
-            jsPlumb.repaintEverything();
+            var sourcePoint = instance.addEndpoint(newDiv, {
+            }, sourcePointOptions)
+            
+            
+            targetPoint.id = data + itemMap.get(data) + "target"; 
+            sourcePoint.id = data + itemMap.get(data) + "source";
+
+            instance.repaintEverything();
+
         })
         }
+        instance.bind("connection", function(info) {
+            
+            console.log(info);
+        });
         function delImg(btn)
         {
-            jsPlumb.removeAllEndpoints(btn.parentElement);
+            instance.removeAllEndpoints(btn.parentElement);
             btn.parentElement.remove();
             itemMap.set(btn.previousSibling.id, itemMap.get(btn.previousSibling.id) + 1);
             displayItems();
@@ -229,10 +274,47 @@
                     const item = "<li class='picture' style='background-color: white; color: black; display: flex; flex-direction: column' draggable='true' ondragstart='drag(event, \"" + key + "\")'>";
                     const overlay = "<div class='overlay'><div class='text'>" + key + "</div></div>";
                     $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>",overlay).appendTo(sidebar);
-                    // $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>", "<span style='text-align: center; padding-right: 20px;'>" + key + "</span>").appendTo(sidebar);
                 }  
             }
         }
+
+        function exportPNG()
+        {
+            const buttons = document.getElementsByClassName("fa-solid fa-trash");
+            const endPoints = jsPlumb.getSelector(".jtk-endpoint");
+            endPoints.forEach(endpoint => {
+                endpoint.style.opacity = "0"
+            });
+            buttons.forEach(button => {
+                button.style.opacity = "0"
+            });
+            const element = document.getElementById('parent');
+            htmlToImage.toPng(element,{
+                backgroundColor: '#FFFFFF',
+                style: {
+                    margin: 0,
+                }
+            })
+            .then(function (dataUrl) {
+                var link = document.createElement('a');
+                link.download = 'FlowchartDiagram.png';
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                endPoints.forEach(endpoint => {
+                    endpoint.style.opacity = "1"
+                });
+                buttons.forEach(button => {
+                    button.style.opacity = "1"
+                });
+            })
+            .catch(function (error) {
+                console.error('oops, something went wrong!', error);
+            });
+        }
+
+
     </script>
     <div class="container" id="wrapper">
     <!-- Header -->
@@ -267,19 +349,7 @@
     </ul>
     <div class="container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
+    <button id="buttonExport" onclick="exportPNG()">Export</button>
 
-    <script>
-    $(document).ready(function(){
-        jsPlumb.ready(function() {
-            jsPlumb.draggable($(".draggable"), {
-                containment: "#parent",
-                grid: [20, 20],
-                stop: function(event) {
-                    jsPlumb.repaintEverything();
-                }
-            });
-        });
-    });
-    </script>
 @endsection
 
