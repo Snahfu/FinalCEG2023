@@ -28,9 +28,9 @@
                         <div class="row">
                             <div class="col p-0" id="koinResponsive">
                                 <div class="d-flex" style="">
-                                    <i class="fa-solid fa-coins" id="icon-coin"></i>
-                                    <div class="koin px-3" style="font-size: 18px;">
-                                        {{ $team[0]->koin }} Koin
+                                    <i class="bi bi-coin icon" id="icon-coin"></i>
+                                    <div class="koin px-3 d-flex align-items-center" style="font-size: 18px;">
+                                        {{ $team[0]->koin }}
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
 
             <div class="row my-2 my-md-3">
                 <div class="col">
-                    <h1 class="p-0 m-0">Dashboard</h1>
+                    <h1 class="p-0 m-0" id="page-name">Dashboard</h1>
                 </div>
 
             </div>
@@ -69,7 +69,7 @@
 
                             <div class="table-responsive">
                                 <table class="table">
-                                    <thead class="table-dark">
+                                    <thead class="table-dark" id="thead-sticky">
                                         <tr>
                                             <th scope="col" width="15%">
                                                 No.

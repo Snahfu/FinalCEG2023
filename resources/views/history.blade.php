@@ -12,7 +12,7 @@
 
             <div class="row my-2 my-md-3">
                 <div class="col">
-                    <h1 class="p-0 m-0">History</h1>
+                    <h1 class="p-0 m-0" id="page-name">History</h1>
                 </div>
                 
             </div>

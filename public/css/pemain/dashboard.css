@@ -42,6 +42,7 @@ h1:after {
     border-radius: 20px;
     box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
     border: 0 solid;
+
 }
 .img-container{
     clip-path: circle(50% at 50% 50%);
@@ -108,7 +109,21 @@ h1:after {
     
     color: #fff;
 }
+
+.table-responsive{
+
+    overflow-x:auto;
+    min-height: 250px;
+    max-height: 600px;
+}
+
+#thead-sticky{
+    position: sticky;
+    top: 0;
+}
 /* End of Card */
+
+
 
 
 @media screen and (max-width:1000px){
