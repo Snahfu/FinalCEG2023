@@ -32,7 +32,12 @@ Route::get("/playerHint", "HintController@playerHint")->name("playerHint");
 
 Route::get("/history", "HistoryController@history")->name("history");
 
-Route::get("/pengumpulan", "PengumpulanController@webPage")->name("pengumpulan");
+Route::get("/pengumpulan", "PengumpulanController@pengumpulan")->name("pengumpulan");
+
+Route::get("/pengumpulanppt", function () {
+    return view('pengumpulanppt');
+})->name("pengumpulanppt");
+Route::post("/pengumpulanppt/upload", "PengumpulanController@pengumpulanppt")->name("uploadppt");
 
 // Admin Ingredients
 Route::get("/ingredients", "IngredientsController@ingredients")->name("ingredients");

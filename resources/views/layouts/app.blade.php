@@ -21,7 +21,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -42,6 +43,10 @@
     <!---- Pusher ---->
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
+    <!---- Dropzone ---->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
     @yield('head')
 
     <!-- Styles -->
@@ -55,7 +60,7 @@
             height: 100px;
         }
 
-        .navbar{
+        .navbar {
             background-color: #dfe2be;
         }
 
@@ -77,17 +82,19 @@
             padding: 5px 0px;
             padding-left: 5px;
         }
-        #page-name{
-            
+
+        #page-name {
+
             font-weight: bold;
 
         }
 
-        @media screen and (max-width:1000px){
-            .nav-link{
+        @media screen and (max-width:1000px) {
+            .nav-link {
                 font-size: 12px;
             }
-            .nav-item{
+
+            .nav-item {
                 display: flex;
                 align-items: center;
             }
@@ -101,7 +108,8 @@
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ asset('assets/logo/Kelapa_navbar.png') }}" alt="" style="width: 32px;height:auto;">
+                    <img src="{{ asset('assets/logo/Kelapa_navbar.png') }}" alt=""
+                        style="width: 32px;height:auto;">
                     <img src="{{ asset('assets/logo/Logo_CEG.png') }}" alt="" style="width: 32px;height:auto;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -128,6 +136,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('pengumpulan') }}" class="nav-link">Pengumpulan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('pengumpulanppt') }}" class="nav-link">Pengumpulan PPT</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
