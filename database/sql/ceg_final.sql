@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2023 at 08:11 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Generation Time: Apr 08, 2023 at 04:13 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -158,25 +159,6 @@ CREATE TABLE `history_hints` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `history_hints`
---
-
-INSERT INTO `history_hints` (`teams_idteams`, `hints_idhints`, `keterangan`, `created_at`) VALUES
-(1, 1, 'Team User 1 mendapat hint Clue 1', '2023-04-03 16:52:31'),
-(1, 2, 'Team User 1 mendapat hint Clue 2', '2023-04-03 16:52:47'),
-(1, 3, 'Team User 1 mendapat hint Clue 3', '2023-04-03 16:52:51'),
-(1, 4, 'Team User 1 mendapat hint Clue 4', '2023-04-03 16:52:43'),
-(1, 5, 'Team User 1 mendapat hint Clue 5', '2023-04-03 16:52:55'),
-(1, 6, 'Team User 1 mendapat hint Clue 6', '2023-04-03 16:52:59'),
-(1, 7, 'Team User 1 mendapat hint Clue 7', '2023-04-03 16:53:04'),
-(2, 1, 'Team User 2 mendapat hint Clue 1', '2023-04-03 16:53:15'),
-(2, 2, 'Team User 2 mendapat hint Clue 2', '2023-04-03 16:53:11'),
-(2, 5, 'Team User 2 mendapat hint Clue 5', '2023-04-03 16:53:19'),
-(2, 6, 'Team User 2 mendapat hint Clue 6', '2023-04-03 16:53:23'),
-(2, 7, 'Team User 2 mendapat hint Clue 7', '2023-04-03 16:53:08'),
-(10, 2, 'Team User 10 mendapat hint Clue 2', '2023-04-03 17:00:09');
-
 -- --------------------------------------------------------
 
 --
@@ -190,34 +172,6 @@ CREATE TABLE `history_koins` (
   `jenis_pos` varchar(45) NOT NULL,
   `teams_idteams` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `history_koins`
---
-
-INSERT INTO `history_koins` (`idhistory_koins`, `keterangan`, `created_at`, `jenis_pos`, `teams_idteams`) VALUES
-(1, 'Team 1 Mendapatkan 50 Koin', '2023-04-03 15:03:44', 'Pos Bonus', 1),
-(2, 'Team 2 Mendapatkan 100 Koin', '2023-04-03 15:11:37', 'Pos Bonus', 2),
-(3, 'User 3 mendapatkan 100 koin', '2023-04-03 15:12:56', 'Pos Bonus', 3),
-(4, 'User 9 menggunakan 400 koin', '2023-04-03 15:17:01', 'Pos Consultant', 9),
-(5, 'User 4 mendapatkan 100 koin', '2023-04-03 16:03:51', 'Pos Bonus', 4),
-(6, 'User 4 mendapatkan 100 koin', '2023-04-03 16:04:40', 'Pos Bonus', 4),
-(7, 'User 9 mendapatkan 100 koin', '2023-04-03 16:04:58', 'Pos Bonus', 9),
-(8, 'User 2 mendapatkan 1000 koin', '2023-04-03 16:05:03', 'Pos Bonus', 2),
-(9, 'User 3 mendapatkan 400 koin', '2023-04-03 16:05:08', 'Pos Bonus', 3),
-(10, 'User 5 mendapatkan 2000 koin', '2023-04-03 16:05:14', 'Pos Bonus', 5),
-(11, 'User 9 mendapatkan 1000 koin', '2023-04-03 16:05:19', 'Pos Bonus', 9),
-(12, 'User 2 mendapatkan 300 koin', '2023-04-03 16:05:24', 'Pos Bonus', 2),
-(13, 'User 1 menggunakan 100 koin', '2023-04-03 16:43:26', 'Pos Consultant', 1),
-(14, 'User 2 menggunakan 234 koin', '2023-04-03 16:43:45', 'Pos Consultant', 2),
-(15, 'User 2 menggunakan 1 koin', '2023-04-03 16:49:10', 'Pos Consultant', 2),
-(16, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:17', 'Pos Consultant', 1),
-(17, 'User 5 menggunakan 1 koin', '2023-04-03 16:49:20', 'Pos Consultant', 5),
-(18, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:23', 'Pos Consultant', 1),
-(19, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:29', 'Pos Consultant', 1),
-(20, 'User 1 menggunakan 12 koin', '2023-04-03 16:49:33', 'Pos Consultant', 1),
-(21, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:40', 'Pos Consultant', 1),
-(22, 'User 1 menggunakan 1 koin', '2023-04-03 16:49:46', 'Pos Consultant', 1);
 
 -- --------------------------------------------------------
 
@@ -484,16 +438,18 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '483'),
-(2, 'User 2', '2065'),
+(1, 'User 1', '1500'),
+(2, 'User 2', '1500'),
 (3, 'User 3', '1500'),
-(4, 'User 4', '1700'),
-(5, 'User 5', '3499'),
+(4, 'User 4', '1500'),
+(5, 'User 5', '1500'),
 (6, 'User 6', '1500'),
 (7, 'User 7', '1500'),
 (8, 'User 8', '1500'),
-(9, 'User 9', '3000'),
-(10, 'User 10', '1400');
+(9, 'User 9', '1500'),
+(10, 'User 10', '1500'),
+(11, 'User 23', '1000000'),
+(12, 'User 42', '1000000');
 
 -- --------------------------------------------------------
 
@@ -536,18 +492,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (15, 'Bonus1', 'posbonus1@gmail.com', NULL, '$2y$10$j/q/Td6KuQ2V/2oIEurR3up5umljbTfEfZUuVeOu2i7tdDP1e8rSq', NULL, '2023-04-01 14:54:03', '2023-04-01 06:25:36', NULL, 'Bonus'),
 (16, 'Bonus2', 'posbonus2@gmail.com', NULL, '$2y$10$UJEdeQm7sPjCcml4RJ4qyu4b.A1M793kDOJl9QNV6wKNMQvBeP192', NULL, '2023-04-01 14:54:07', '2023-04-01 06:25:55', NULL, 'Bonus'),
 (17, 'Consultant', 'consultant@gmail.com', NULL, '$2y$10$Y6g4M089OqaoQ5./50KMzexVMDzvBWME2IT7zXlF2pV8ZyJI/NOFm', NULL, '2023-04-01 14:54:00', '2023-04-01 06:26:19', NULL, 'Consultant'),
-(18, 'User 1', 'user1@gmail.com', NULL, '$2y$10$BhpjTSOUzoNd22MsQYBBx.ie6.I2O2V61ipRIvrxEboMC2i/1c5Oq', NULL, '2023-04-01 13:31:54', '2023-04-01 06:27:02', NULL, 'Player'),
-(19, 'User 2', 'user2@gmail.com', NULL, '$2y$10$y.2LJpDOtWbR5A95audS.u34t.9SawixhnyCmBupewX1TNQkh3/bq', NULL, '2023-04-01 13:31:54', '2023-04-01 06:27:22', NULL, 'Player'),
-(20, 'User 3', 'user3@gmail.com', NULL, '$2y$10$V2ZC1jCybX47nORM0/eS3unh2C5VJAVQyI1KomYz15yBrQ.vwwpVm', NULL, '2023-04-01 13:31:54', '2023-04-01 06:27:50', NULL, 'Player'),
-(21, 'User 4', 'user4@gmail.com', NULL, '$2y$10$ey6nNaOCvCpv9mBFEEPkTutPMXOe1Z3eWHEIKZOWf1F8ulDfUS/tW', NULL, '2023-04-01 13:31:54', '2023-04-01 06:28:06', NULL, 'Player'),
-(22, 'User 5', 'user5@gmail.com', NULL, '$2y$10$1kKbkRwYdMMweO4WqPzmseUge9FqwEVIqa4kuEVaMutZXJJ3D8qhe', NULL, '2023-04-01 13:31:54', '2023-04-01 06:28:34', NULL, 'Player'),
-(23, 'User 6', 'user6@gmail.com', NULL, '$2y$10$Dl9./OAGlxPrGLnzWX9hpulaFRn3GEpig6QofFBs77TWlxQj6pOQ2', NULL, '2023-04-01 13:31:54', '2023-04-01 06:28:50', NULL, 'Player'),
-(24, 'User 7', 'user7@gmail.com', NULL, '$2y$10$iizBn1GrnbCQ5uXtrFu3c.PKIJo37rOVknQxG6P3rd.doJC47yZVK', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:04', NULL, 'Player'),
-(25, 'User 8', 'user8@gmail.com', NULL, '$2y$10$Xg/nAIEsqVxI4h8MY.3YduqJgE7Li02fIFdGqUo3fhtMQpdJYsn8e', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:22', NULL, 'Player'),
-(26, 'User 9', 'user9@gmail.com', NULL, '$2y$10$ozbSa.A2C1cIofN.JAcJg.anEz8HBBJxum29uad6Q3ez536yDJow6', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:34', NULL, 'Player'),
-(27, 'User 10', 'user10@gmail.com', NULL, '$2y$10$hVtuGYLLJ8KzQ1CXyQMr0u.pfVVs0XiOs7Cn0YDqX6beoB.SdTTO2', NULL, '2023-04-01 13:31:54', '2023-04-01 06:29:50', NULL, 'Player'),
-(28, 'User 23', 'user23@gmail.com', NULL, '$2y$10$HEqDfi6/qslbbbm8JHpv6ebZfQVOyAaSCOln8YDHmHMc20BjOb816', NULL, '2023-04-01 13:31:54', '2023-04-01 06:30:11', NULL, 'Player'),
-(29, 'User 42', 'user42@gmail.com', NULL, '$2y$10$OLIRAov1nC1zSAtXAdTxiOlLEP42JC40fr7W7kNqlY2d15pUdtabq', NULL, '2023-04-01 13:31:54', '2023-04-01 06:31:03', NULL, 'Player');
+(18, 'User 1', 'user1@gmail.com', NULL, '$2y$10$BhpjTSOUzoNd22MsQYBBx.ie6.I2O2V61ipRIvrxEboMC2i/1c5Oq', NULL, '2023-04-08 01:47:22', '2023-04-01 06:27:02', 1, 'Player'),
+(19, 'User 2', 'user2@gmail.com', NULL, '$2y$10$y.2LJpDOtWbR5A95audS.u34t.9SawixhnyCmBupewX1TNQkh3/bq', NULL, '2023-04-08 01:47:24', '2023-04-01 06:27:22', 2, 'Player'),
+(20, 'User 3', 'user3@gmail.com', NULL, '$2y$10$V2ZC1jCybX47nORM0/eS3unh2C5VJAVQyI1KomYz15yBrQ.vwwpVm', NULL, '2023-04-08 01:47:26', '2023-04-01 06:27:50', 3, 'Player'),
+(21, 'User 4', 'user4@gmail.com', NULL, '$2y$10$ey6nNaOCvCpv9mBFEEPkTutPMXOe1Z3eWHEIKZOWf1F8ulDfUS/tW', NULL, '2023-04-08 01:47:27', '2023-04-01 06:28:06', 4, 'Player'),
+(22, 'User 5', 'user5@gmail.com', NULL, '$2y$10$1kKbkRwYdMMweO4WqPzmseUge9FqwEVIqa4kuEVaMutZXJJ3D8qhe', NULL, '2023-04-08 01:47:28', '2023-04-01 06:28:34', 5, 'Player'),
+(23, 'User 6', 'user6@gmail.com', NULL, '$2y$10$Dl9./OAGlxPrGLnzWX9hpulaFRn3GEpig6QofFBs77TWlxQj6pOQ2', NULL, '2023-04-08 01:47:29', '2023-04-01 06:28:50', 6, 'Player'),
+(24, 'User 7', 'user7@gmail.com', NULL, '$2y$10$iizBn1GrnbCQ5uXtrFu3c.PKIJo37rOVknQxG6P3rd.doJC47yZVK', NULL, '2023-04-08 01:47:31', '2023-04-01 06:29:04', 7, 'Player'),
+(25, 'User 8', 'user8@gmail.com', NULL, '$2y$10$Xg/nAIEsqVxI4h8MY.3YduqJgE7Li02fIFdGqUo3fhtMQpdJYsn8e', NULL, '2023-04-08 01:47:32', '2023-04-01 06:29:22', 8, 'Player'),
+(26, 'User 9', 'user9@gmail.com', NULL, '$2y$10$ozbSa.A2C1cIofN.JAcJg.anEz8HBBJxum29uad6Q3ez536yDJow6', NULL, '2023-04-08 01:47:34', '2023-04-01 06:29:34', 9, 'Player'),
+(27, 'User 10', 'user10@gmail.com', NULL, '$2y$10$hVtuGYLLJ8KzQ1CXyQMr0u.pfVVs0XiOs7Cn0YDqX6beoB.SdTTO2', NULL, '2023-04-08 01:47:35', '2023-04-01 06:29:50', 10, 'Player'),
+(28, 'User 23', 'user23@gmail.com', NULL, '$2y$10$HEqDfi6/qslbbbm8JHpv6ebZfQVOyAaSCOln8YDHmHMc20BjOb816', NULL, '2023-04-08 01:47:37', '2023-04-01 06:30:11', 11, 'Player'),
+(29, 'User 42', 'user42@gmail.com', NULL, '$2y$10$OLIRAov1nC1zSAtXAdTxiOlLEP42JC40fr7W7kNqlY2d15pUdtabq', NULL, '2023-04-08 01:47:38', '2023-04-01 06:31:03', 12, 'Player');
 
 --
 -- Indexes for dumped tables
@@ -706,7 +662,7 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT for table `history_koins`
 --
 ALTER TABLE `history_koins`
-  MODIFY `idhistory_koins` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idhistory_koins` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -748,7 +704,7 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
