@@ -164,7 +164,7 @@
 
 @section('content')
     <script>
-        const itemMap = new Map()
+        const itemMap = new Map();
         let count = 1; 
         let usedId = [];
 
@@ -182,6 +182,22 @@
                     id:"ARROW"
                 } ]]
             });
+        var sourcePointOptions = {
+            anchor: "Continuous",
+            endpoint: 'Rectangle',
+            isSource:true,
+            maxConnections: -1,
+            scope:"blueline",
+            dragAllowedWhenFull: true
+        }; 
+        var targetPointOptions = { 
+            anchor: "Continuous",
+            endpoint: 'Dot',
+            isTarget:true,
+            maxConnections: -1,
+            scope:"blueline",
+            dragAllowedWhenFull: true
+        };
 
         function allowDrop(ev) {
             ev.preventDefault();
@@ -221,30 +237,13 @@
                     containment: "#parent",
                     grid: [16, 16],
                     stop: function(event) {
-                        console.log(event.element.id);
                         instance.repaintEverything();
+                        saveJSON();
                     }
                 });
                 
             $(newImage).appendTo(newDiv);
-            $(newDiv).append("<i id='deleteButton' class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>");
-
-            var sourcePointOptions = {
-                anchor: "Continuous",
-                endpoint: 'Rectangle',
-                isSource:true,
-                maxConnections: -1,
-                scope:"blueline",
-                dragAllowedWhenFull: true
-            }; 
-            var targetPointOptions = { 
-                anchor: "Continuous",
-                endpoint: 'Dot',
-                isTarget:true,
-                maxConnections: -1,
-                scope:"blueline",
-                dragAllowedWhenFull: true
-            };
+            $(newDiv).append("<i class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>");
 
             var targetPoint = instance.addEndpoint(newDiv,{
             }, targetPointOptions);
@@ -253,6 +252,7 @@
             }, sourcePointOptions);
 
             instance.repaintEverything();
+            saveJSON();
 
         })
         }
@@ -264,7 +264,9 @@
             usedId.splice(indexToRemove, 1);
             instance.remove(btn.parentElement);
             itemMap.set(btn.previousSibling.id, itemMap.get(btn.previousSibling.id) + 1);
+            console.log(btn.previousSibling.id);
             displayItems();
+            saveJSON();
         }
         function displayItems()
         {
@@ -284,7 +286,7 @@
 
         function exportPNG()
         {
-            const buttons = document.querySelectorAll("#deleteButton");
+            const buttons = document.getElementsByClassName('fa-trash');
             const endPoints = jsPlumb.getSelector(".jtk-endpoint");
             console.log(buttons);
             endPoints.forEach(endpoint => {
@@ -323,11 +325,11 @@
             var listDraggable = [];
             var listConnection = [];
             $(".draggable").each(function() {
-                var id = $(this).attr('id');
-                var left = $(this).css('left');
-                var top = $(this).css('top');
-                var source= $(this).find("img").attr('src');
-                var draggableData = {
+                let id = $(this).attr('id');
+                let left = $(this).css('left');
+                let top = $(this).css('top');
+                let source= $(this).find("img").attr('src');
+                let draggableData = {
                     "id": id,
                     "left": left,
                     "top": top,
@@ -335,26 +337,82 @@
                 }
                 listDraggable.push(draggableData);
             });
-            var connections = instance.getAllConnections();
+            let connections = instance.getAllConnections();
             connections.forEach(connection => {
-                var source = connection.sourceId;
-                var target = connection.targetId;
-                var connectionData = {
+                let source = connection.sourceId;
+                let target = connection.targetId;
+                let connectionData = {
                     "source": source,
                     "target": target,
                 }
                 listConnection.push(connectionData);
             });
-            var draggableStr = JSON.stringify(listDraggable);
-            var connectionStr = JSON.stringify(listConnection);
-            console.log(draggableStr);
-            console.log(connectionStr);
+            let draggableStr = JSON.stringify(listDraggable);
+            let connectionStr = JSON.stringify(listConnection);
+            localStorage.setItem("draggable", draggableStr);
+            localStorage.setItem("connection", connectionStr);
         }
         function loadJSON()
         {
-            
-        }
+            $(".fa-trash").each(function() {
+                delImg(this);
+            });
+            let draggableStr = localStorage.getItem("draggable");
+            let connectionStr = localStorage.getItem("connection");
+            let listDraggable = JSON.parse(draggableStr);
+            let listConnection = JSON.parse(connectionStr);
+            listDraggable.forEach(draggable => {
+                let id = draggable.id;
+                let left = draggable.left;
+                let top = draggable.top;
+                let source = draggable.source;
 
+                var newDiv = $("<div>").addClass("draggable").css({
+                    left: left,
+                    top: top
+                }).attr("id", id).appendTo($("#parent"));
+
+                var newImage = document.createElement("img");
+                newImage.setAttribute("src", source);
+                newImage.setAttribute("id", id.substring(0,id.length-1));
+                $(newImage).appendTo(newDiv);
+                $(newDiv).append("<i class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>");
+
+                usedId.push(parseInt(id.substr(-1, 1)));
+
+                var targetPoint = instance.addEndpoint(newDiv,{
+                }, targetPointOptions);
+
+                var sourcePoint = instance.addEndpoint(newDiv, {
+                }, sourcePointOptions);
+
+                instance.draggable($(".draggable"), {
+                    containment: "#parent",
+                    grid: [16, 16],
+                    stop: function(event) {
+                        instance.repaintEverything();
+                        saveJSON();
+                    }
+                });
+                
+                instance.repaintEverything();
+                itemMap.set(id.substring(0,id.length-1), itemMap.get(id.substring(0,id.length-1)) - 1);
+                displayItems();
+                });
+            listConnection.forEach(connection => {
+                let source = connection.source;
+                let target = connection.target;
+                let sourceEndpoint = instance.getEndpoints(source)[1];
+                let targetEndpoint = instance.getEndpoints(target)[0];
+                instance.connect({ source: sourceEndpoint, target: targetEndpoint });
+            });
+        }
+        window.onload = function() {
+            loadJSON();
+        }
+        instance.bind("connection", function() {
+            saveJSON();
+        });
 
     </script>
     <main class="d-block mx-md-4">
@@ -376,7 +434,6 @@
                         @for ($count = 1; $count <= $item->stock_barang; $count++)     
                             <script>
                             itemMap.set("{{$item->nama_barang}}", {{$count}});
-                            console.log(itemMap);
                             </script>
                         @endfor        
                     @endforeach
@@ -387,7 +444,6 @@
                         @for ($count = 1; $count <= $item->stock_barang; $count++)     
                             <script>
                             itemMap.set("{{$item->nama_barang}}", {{$count}});
-                            console.log(itemMap);
                             </script>
                         @endfor      
                     @endforeach
@@ -396,7 +452,6 @@
             </div>
         </div>
         <button id="buttonExport" onclick="exportPNG()">Export</button>
-        <button id="buttonSave" onclick="saveJSON()">Save</button>
         </div>
     </main>
 @endsection
