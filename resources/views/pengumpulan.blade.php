@@ -165,6 +165,9 @@
 @section('content')
     <script>
         const itemMap = new Map()
+        let count = 1; 
+        let usedId = [];
+
         var instance = jsPlumb.getInstance();
             instance.importDefaults({
                 Connector: ["Flowchart"],
@@ -179,7 +182,6 @@
                     id:"ARROW"
                 } ]]
             });
-        var divList = [];
 
         function allowDrop(ev) {
             ev.preventDefault();
@@ -205,6 +207,13 @@
             newImage.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
             newImage.setAttribute("id", data);
             itemMap.set(data, itemMap.get(data) - 1);
+            while (usedId.includes(count)) {
+                count++;
+            }
+            usedId.push(count);
+            $(newDiv).attr("id", data + count);
+            console.log(data + count);
+            count++; 
             displayItems();
             jsPlumb.ready(function() {
                 
@@ -212,7 +221,7 @@
                     containment: "#parent",
                     grid: [16, 16],
                     stop: function(event) {
-                        console.log(event.target);
+                        console.log(event.element.id);
                         instance.repaintEverything();
                     }
                 });
@@ -243,21 +252,17 @@
             var sourcePoint = instance.addEndpoint(newDiv, {
             }, sourcePointOptions);
 
-            targetPoint.id = data + itemMap.get(data) + "target"; 
-            sourcePoint.id = data + itemMap.get(data) + "source";
-
             instance.repaintEverything();
 
         })
         }
-        instance.bind("connection", function(info) {
-            
-            console.log(info);
-        });
         function delImg(btn)
         {
-            instance.removeAllEndpoints(btn.parentElement);
-            btn.parentElement.remove();
+            count = 1; 
+            let id = btn.parentElement.id.substr(-1, 1);
+            let indexToRemove = usedId.indexOf(parseInt(id));
+            usedId.splice(indexToRemove, 1);
+            instance.remove(btn.parentElement);
             itemMap.set(btn.previousSibling.id, itemMap.get(btn.previousSibling.id) + 1);
             displayItems();
         }
@@ -313,6 +318,42 @@
                 console.error('oops, something went wrong!', error);
             });
         }
+        function saveJSON()
+        {
+            var listDraggable = [];
+            var listConnection = [];
+            $(".draggable").each(function() {
+                var id = $(this).attr('id');
+                var left = $(this).css('left');
+                var top = $(this).css('top');
+                var source= $(this).find("img").attr('src');
+                var draggableData = {
+                    "id": id,
+                    "left": left,
+                    "top": top,
+                    "source": source
+                }
+                listDraggable.push(draggableData);
+            });
+            var connections = instance.getAllConnections();
+            connections.forEach(connection => {
+                var source = connection.sourceId;
+                var target = connection.targetId;
+                var connectionData = {
+                    "source": source,
+                    "target": target,
+                }
+                listConnection.push(connectionData);
+            });
+            var draggableStr = JSON.stringify(listDraggable);
+            var connectionStr = JSON.stringify(listConnection);
+            console.log(draggableStr);
+            console.log(connectionStr);
+        }
+        function loadJSON()
+        {
+            
+        }
 
 
     </script>
@@ -355,6 +396,7 @@
             </div>
         </div>
         <button id="buttonExport" onclick="exportPNG()">Export</button>
+        <button id="buttonSave" onclick="saveJSON()">Save</button>
         </div>
     </main>
 @endsection
