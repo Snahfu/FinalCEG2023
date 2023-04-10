@@ -51,6 +51,14 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define("isHint", function ($user) {
+            if ($user->role == "AdminHint") {
+                return Response::allow();
+            } else {
+                return Response::deny("Hanya untuk Pos Hint");
+            }
+        });
+
         Gate::define("isDnC", function ($user) {
             if ($user->role == "DnC") {
                 return Response::allow();
@@ -72,14 +80,6 @@ class AuthServiceProvider extends ServiceProvider
                 return Response::allow();
             } else {
                 return Response::deny("Hanya untuk Pos Tool");
-            }
-        });
-
-        Gate::define("isHint", function ($user) {
-            if ($user->role == "AdminHint") {
-                return Response::allow();
-            } else {
-                return Response::deny("Hanya untuk Pos Hint");
             }
         });
     }
