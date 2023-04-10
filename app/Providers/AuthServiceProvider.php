@@ -76,7 +76,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define("isHint", function ($user) {
-            if ($user->role == "Hint") {
+            if ($user->role == "AdminHint") {
                 return Response::allow();
             } else {
                 return Response::deny("Hanya untuk Pos Hint");

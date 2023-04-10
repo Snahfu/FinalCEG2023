@@ -190,6 +190,10 @@
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
                             </li>
+                        @elsecan("isHint")
+                            <li class="nav-item">
+                                <a href="{{ route('hint') }}" class="nav-link">History</a>
+                            </li>
                         @endcan
                     </ul>
 
