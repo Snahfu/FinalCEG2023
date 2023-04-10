@@ -50,7 +50,7 @@ class HintController extends Controller
 
                 //Team membayar hint
                 DB::table("teams")->where("idteams", $idteams)->update([
-                    "koin" => DB::raw("`koin` - " . 100)
+                    "koin" => DB::raw("`koin` - " . 200)
                 ]);
             } else {
                 $details = "Team " . $team[0]->namaTeam . " sudah memiliki hint " . $namaHint;
