@@ -240,6 +240,7 @@
                         });
                     }
                 });
+                
                 jsPlumb.draggable($(".draggable"), {
                     containment: "#parent",
                     grid: [20, 20],
@@ -247,6 +248,7 @@
                         jsPlumb.repaintEverything();
                     }
                 });
+
                 var sourcePointOptions = {
                     anchor: "Continuous",
                     endpoint: 'Rectangle',
@@ -260,6 +262,7 @@
                     scope: "blueline",
                     dragAllowedWhenFull: true
                 };
+
                 var targetPointOptions = {
                     anchor: "Continuous",
                     endpoint: 'Dot',

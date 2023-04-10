@@ -17,9 +17,9 @@
         }
 
         /* h1:before {
-                                                                right: 0.5em;
-                                                                margin-left: 1.5%;
-                                                            } */
+                                                                                right: 0.5em;
+                                                                                margin-left: 1.5%;
+                                                                            } */
 
         h1:after {
             left: 0.5em;
@@ -106,8 +106,8 @@
                                 <div id="itemsForSale" class="card-container">
                                     @foreach ($market_bahan as $bahan)
                                         <div class="card col-2 p-0 cardItems">
-                                            {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
-                                                alt="..."> --}}
+                                            <img src="{{ asset('assets/items/' . str_replace(' ', '_', $bahan->bahan) . '.png') }}"
+                                                class="card-img-top" alt="{{ $bahan->bahan }}">
                                             <div class="card-body text-center">
                                                 <h6 class="">{{ $bahan->bahan }}</h6>
                                                 <div class="row my-1">

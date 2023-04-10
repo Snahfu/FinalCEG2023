@@ -135,10 +135,10 @@
                                 <a href="{{ route('playerHint') }}" class="nav-link">Hint</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('pengumpulan') }}" class="nav-link">Pengumpulan</a>
+                                <a href="{{ route('pengumpulan') }}" class="nav-link">Flowsheet</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('pengumpulanppt') }}" class="nav-link">Pengumpulan PPT</a>
+                                <a href="{{ route('pengumpulanppt') }}" class="nav-link">Submit</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
