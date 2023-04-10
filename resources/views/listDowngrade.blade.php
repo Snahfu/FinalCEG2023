@@ -53,9 +53,11 @@
         .listDowngrade {
             width: 60%;
         }
-        .dropdown-menu{
+
+        .dropdown-menu {
             max-height: 250px;
         }
+
         .downgrade {
             height: 150px;
             font-size: 24px;
@@ -130,7 +132,8 @@
                         </select>
                     </div>
 
-                    <div class="text-center mt-3 border border-dark" style="background-color: #dddddd; border-radius: 100px;">Downgrade</div>
+                    <div class="text-center mt-3 border border-dark"
+                        style="background-color: #dddddd; border-radius: 100px;">Downgrade</div>
                     <div class="row">
                         <div class="col downgrade" id="downgrade_1">
 

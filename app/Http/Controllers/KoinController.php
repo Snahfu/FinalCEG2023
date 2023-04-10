@@ -42,8 +42,8 @@ class KoinController extends Controller
             "koin" => DB::raw("`koin` + " . $jumlahKoin),
         ]);
 
-        $keterangan = $team[0]->namaTeam . " mendapatkan ". $jumlahKoin . " koin";
-        
+        $keterangan = $team[0]->namaTeam . " mendapatkan " . $jumlahKoin . " koin";
+
         DB::table("history_koins")->insert([
             "keterangan" => $keterangan,
             "jenis_pos" => "Pos Bonus",
@@ -81,21 +81,18 @@ class KoinController extends Controller
 
     public function koinHistory($jenispos)
     {
-        if($jenispos == "posbonus")
-        {
+        if ($jenispos == "posbonus") {
             $histories = DB::table("history_koins")
-            ->where("jenis_pos", "Pos Bonus")
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+                ->where("jenis_pos", "Pos Bonus")
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
 
             $pos = "Pos Bonus";
-        }
-        elseif($jenispos == "posconsultant")
-        {
+        } elseif ($jenispos == "posconsultant") {
             $histories = DB::table("history_koins")
-            ->where("jenis_pos", "Pos Consultant")
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+                ->where("jenis_pos", "Pos Consultant")
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
 
             $pos = "Pos Consultant";
         }

@@ -2,7 +2,6 @@
 
 @section('css')
     <style>
-
         th {
             text-align: center;
             padding: 0 15px;
@@ -12,16 +11,17 @@
             padding: 10px 15px;
             height: 54px;
         }
-        button{
+
+        button {
             margin-left: 8px;
         }
 
-        .dropdown-menu{
+        .dropdown-menu {
             max-width: 350px;
             max-height: 200px;
         }
 
-        .card{
+        .card {
             height: 363px;
             box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
             border: 0px solid black;
@@ -36,7 +36,7 @@
 
             <div class="row my-2 my-md-3 d-flex justify-content-center">
                 <div class="col">
-                    
+
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <div class="">
                                 <table class="table">
                                     <thead class="table-dark">
@@ -71,14 +71,18 @@
                                         <tr>
                                             <td>
                                                 <div class="selection">
-                                                    <select name="downgrade_1" id="downgrade_1" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                    <select name="downgrade_1" id="downgrade_1"
+                                                        class="form-control selectpicker selectDowngrade bordered"
+                                                        data-live-search="true" tabindex="-1" aria-label="downgrade">
                                                         <option value="-" selected disabled>-- Pilih Item --</option>
                                                         @foreach ($downgrade as $dg)
-                                                            <option value="{{ $dg }}" data-tokens="{{$dg}}">{{ $dg }}</option>
+                                                            <option value="{{ $dg }}"
+                                                                data-tokens="{{ $dg }}">{{ $dg }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                
+
                                             </td>
                                             <td rowspan="3" style="text-align: center;vertical-align : middle;">
                                                 <h3 id="hasil_alat">None</h3>
@@ -88,10 +92,14 @@
                                             <td>
 
                                                 <div class="selection">
-                                                    <select name="downgrade_2" id="downgrade_2" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                    <select name="downgrade_2" id="downgrade_2"
+                                                        class="form-control selectpicker selectDowngrade bordered"
+                                                        data-live-search="true" tabindex="-1" aria-label="downgrade">
                                                         <option value="-" selected disabled>-- Pilih Item --</option>
                                                         @foreach ($downgrade as $dg)
-                                                            <option value="{{ $dg }}" data-tokens="{{$dg}}">{{ $dg }}</option>
+                                                            <option value="{{ $dg }}"
+                                                                data-tokens="{{ $dg }}">{{ $dg }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -106,10 +114,14 @@
                                         <tr>
                                             <td>
                                                 <div class="selection">
-                                                    <select name="downgrade_3" id="downgrade_3" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                    <select name="downgrade_3" id="downgrade_3"
+                                                        class="form-control selectpicker selectDowngrade bordered"
+                                                        data-live-search="true" tabindex="-1" aria-label="downgrade">
                                                         <option value="-" selected disabled>-- Pilih Item --</option>
                                                         @foreach ($downgrade as $dg)
-                                                            <option value="{{ $dg }}" data-tokens="{{$dg}}">{{ $dg }}</option>
+                                                            <option value="{{ $dg }}"
+                                                                data-tokens="{{ $dg }}">{{ $dg }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -124,9 +136,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                                                     
-                            <button id="btnCraft" class="btn btn-success"><i class="fa-solid fa-hammer" style="margin-right: 8px;"></i>Craft</button>
-  
+
+                            <button id="btnCraft" class="btn btn-success"><i class="fa-solid fa-hammer"
+                                    style="margin-right: 8px;"></i>Craft</button>
+
                         </div>
                     </div>
                 </div>
@@ -135,7 +148,7 @@
                     <h1 id="tipe" class="p-0 m-0">Dismantle</h1>
                     <div class="card">
                         <div class="card-body">
-                            
+
                             {{-- Selection Team --}}
                             <div class="selection mb-3">
                                 <label class="text">Nama Team :</label>
@@ -161,14 +174,18 @@
                                         <tr>
                                             <td rowspan="3" style="vertical-align : middle;">
                                                 <div class="selection">
-                                                    <select name="alat" id="alat" class="form-control selectpicker selectDowngrade bordered" data-live-search="true" tabindex="-1" aria-label="downgrade">
+                                                    <select name="alat" id="alat"
+                                                        class="form-control selectpicker selectDowngrade bordered"
+                                                        data-live-search="true" tabindex="-1" aria-label="downgrade">
                                                         <option value="-" selected disabled>-- Pilih Alat --</option>
                                                         @foreach ($alat as $a)
-                                                            <option value="{{ $a->idalat }}" data-tokens="{{ $a->idalat }}">{{ $a->nama_alat }}</option>
+                                                            <option value="{{ $a->idalat }}"
+                                                                data-tokens="{{ $a->idalat }}">{{ $a->nama_alat }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                
+
                                             </td>
                                             <td id="dismantle_1">
                                                 -
@@ -187,13 +204,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button id="btnDismantle" class="btn btn-danger"><i class="fa-solid fa-wrench" style="margin-right: 8px;"></i>Dismantle</button>
+                            <button id="btnDismantle" class="btn btn-danger"><i class="fa-solid fa-wrench"
+                                    style="margin-right: 8px;"></i>Dismantle</button>
                         </div>
                     </div>
                 </div>
 
             </div>
-            
+
             <div class="spacing"></div>
 
             {{-- Dismantling
@@ -277,7 +295,8 @@
                     {{-- button No --}}
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                     {{-- button Yes --}}
-                    <button id="confirmSubmit" type="button" class="btn btn-success" data-bs-dismiss="modal">YES</button>
+                    <button id="confirmSubmit" type="button" class="btn btn-success"
+                        data-bs-dismiss="modal">YES</button>
                 </div>
             </div>
         </div>

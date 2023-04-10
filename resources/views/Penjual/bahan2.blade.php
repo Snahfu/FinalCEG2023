@@ -17,9 +17,9 @@
         }
 
         /* h1:before {
-                                                            right: 0.5em;
-                                                            margin-left: 1.5%;
-                                                        } */
+                                                                right: 0.5em;
+                                                                margin-left: 1.5%;
+                                                            } */
 
         h1:after {
             left: 0.5em;
@@ -123,7 +123,8 @@
                                                     <span class="badge bg-success mx-1">{{ $bahan->harga_jual }}</span>
                                                 </div>
 
-                                                <button id="{{ $bahan->bahan }}" class="btnAdd btn btn-primary w-100" onClick="btnAdd(this.id)"><i
+                                                <button id="{{ $bahan->bahan }}" class="btnAdd btn btn-primary w-100"
+                                                    onClick="btnAdd(this.id)"><i
                                                         class="fa-solid fa-cart-shopping mx-1"></i>Add</button>
                                             </div>
                                         </div>
@@ -254,7 +255,7 @@
         })
 
         // jalan waktu btnAdd di klik
-        function btnAdd(id){
+        function btnAdd(id) {
             // ambil keranjang di localStorage
             let arrKeranjang = []
             let cek_keranjang = localStorage.getItem("keranjang")

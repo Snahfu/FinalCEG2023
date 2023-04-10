@@ -24,7 +24,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="row">
                             <div class="col p-0" id="koinResponsive">
                                 <div class="d-flex" style="">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

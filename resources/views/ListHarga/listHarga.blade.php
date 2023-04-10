@@ -22,7 +22,8 @@
 
                         <div class="col">
                             <div class="d-flex flex-row " style="margin-bottom: 0px;">
-                                <div class="btnItems tab d-flex align-items-center  justify-content-center activeTab" id="btnBahan">
+                                <div class="btnItems tab d-flex align-items-center  justify-content-center activeTab"
+                                    id="btnBahan">
                                     <a href="#">Bahan</a>
                                 </div>
                                 <div class="btnItems tab d-flex align-items-center  justify-content-center"
@@ -59,8 +60,10 @@
                                             <tr>
                                                 <td style="text-align: center;" scope="row"><?php echo $no; ?></td>
                                                 <td scope="row">{{ $eachBahan->bahan }}</td>
-                                                <td  style="text-align: center;" scope="row">{{ $eachBahan->harga_jual }}</td>
-                                                <td  style="text-align: center;" scope="row">{{ $eachBahan->harga_beli }}</td>
+                                                <td style="text-align: center;" scope="row">{{ $eachBahan->harga_jual }}
+                                                </td>
+                                                <td style="text-align: center;" scope="row">{{ $eachBahan->harga_beli }}
+                                                </td>
                                                 <?php $helper = true; ?>
                                             </tr>
                                             <?php $no++; ?>

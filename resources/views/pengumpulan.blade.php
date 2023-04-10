@@ -11,8 +11,8 @@
 
 @section('css')
     <style>
-        :root{
-            --listHeight: 20vh; 
+        :root {
+            --listHeight: 20vh;
         }
 
         body {
@@ -23,19 +23,20 @@
             width: 0%;
         }
 
-        #wrapper {   
+        #wrapper {
             display: flex;
             justify-content: center;
-            margin-top: 1vh; 
-            height: 70vh; 
+            margin-top: 1vh;
+            height: 70vh;
         }
-        #parent { 
+
+        #parent {
             position: relative;
             background:
-                linear-gradient(-90deg, rgba(0,0,0,.05) 1px, transparent 1px),
-                linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), 
+                linear-gradient(-90deg, rgba(0, 0, 0, .05) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, .05) 1px, transparent 1px),
                 linear-gradient(-90deg, rgba(0, 0, 0, .04) 1px, transparent 1px),
-                linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, .04) 1px, transparent 1px),
                 linear-gradient(transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px),
                 linear-gradient(-90deg, #aaa 1px, transparent 1px),
                 linear-gradient(-90deg, transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px),
@@ -50,7 +51,7 @@
                 80px 80px,
                 80px 80px,
                 80px 80px;
-            margin-left: 5vw; 
+            margin-left: 5vw;
             margin-right: 0vw;
             height: 69.5vh;
             width: 50vw;
@@ -58,33 +59,38 @@
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow-x: hidden;
         }
+
         #buttonExport {
             width: 5vw;
             position: relative;
-            left : 75vw;
+            left: 75vw;
 
         }
-        #pageName{
+
+        #pageName {
             position: relative;
             display: flex;
             font-weight: bold;
             left: 5vw;
         }
-        .sourcePoint{
-            fill: red; 
+
+        .sourcePoint {
+            fill: red;
         }
+
         h1:after {
             background-color: #000;
             content: "";
             display: inline-block;
             margin-top: auto;
-            margin-bottom: auto; 
+            margin-bottom: auto;
             height: 2px;
             position: relative;
             vertical-align: middle;
             width: 50vw;
             left: 1rem;
         }
+
         .sidebar-nav {
             z-index: 1000;
             position: relative;
@@ -93,20 +99,21 @@
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             padding-left: 0;
             border-radius: 20px;
-            width: 9vw; 
-            height: 70vh;           
+            width: 9vw;
+            height: 70vh;
         }
+
         .draggable {
-            position: absolute; 
+            position: absolute;
             object-fit: contain;
-            height:5vw;
+            height: 5vw;
             width: 5vw;
             background-color: white;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
-            border-radius: 10px; 
+            border-radius: 10px;
         }
 
-        .draggable img{
+        .draggable img {
             object-fit: contain;
             padding: 0;
             margin: 0;
@@ -115,40 +122,44 @@
         }
 
         .picture {
-            position : relative;
+            position: relative;
             object-fit: contain;
-            margin:6%;
+            margin: 6%;
             margin-left: auto;
             margin-right: auto;
             width: 7vw;
-            height: 7vw; 
+            height: 7vw;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow: hidden;
             z-index: 2;
-            transition: all 0,1s ease-in-out;
+            transition: all 0, 1s ease-in-out;
         }
-        .picture:hover{
+
+        .picture:hover {
             transform: translateY(-5px);
             box-shadow: 3 3px 7px rgba(0, 0, 0, 0.25);
         }
-        .picture img{
+
+        .picture img {
             object-fit: contain;
             margin: 0;
             padding: 0;
-            width: 100%; 
+            width: 100%;
             height: 100%;
         }
-        .overlay{
+
+        .overlay {
             position: absolute;
             text-align: center;
             width: 100%;
             height: 100%;
             color: white;
             background-color: #515940;
-            opacity: 0; 
+            opacity: 0;
         }
-        .text{
+
+        .text {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -156,8 +167,9 @@
             font-size: 20px;
             font-weight: bold;
         }
-        .picture:hover .overlay{
-            opacity: 90%; 
+
+        .picture:hover .overlay {
+            opacity: 90%;
         }
     </style>
 @endsection
@@ -165,37 +177,41 @@
 @section('content')
     <script>
         const itemMap = new Map();
-        let count = 1; 
+        let count = 1;
         let usedId = [];
 
         var instance = jsPlumb.getInstance();
-            instance.importDefaults({
-                Connector: ["Flowchart"],
-                PaintStyle: { stroke: "black", strokeWidth: 1 },
-                Endpoint: "Blank",
-                    ConnectionOverlays: [
-                [ "Arrow", {
+        instance.importDefaults({
+            Connector: ["Flowchart"],
+            PaintStyle: {
+                stroke: "black",
+                strokeWidth: 1
+            },
+            Endpoint: "Blank",
+            ConnectionOverlays: [
+                ["Arrow", {
                     location: 1,
-                    visible:true,
-                    width:11,
-                    length:11,
-                    id:"ARROW"
-                } ]]
-            });
+                    visible: true,
+                    width: 11,
+                    length: 11,
+                    id: "ARROW"
+                }]
+            ]
+        });
         var sourcePointOptions = {
             anchor: "Continuous",
             endpoint: 'Rectangle',
-            isSource:true,
+            isSource: true,
             maxConnections: -1,
-            scope:"blueline",
+            scope: "blueline",
             dragAllowedWhenFull: true
-        }; 
-        var targetPointOptions = { 
+        };
+        var targetPointOptions = {
             anchor: "Continuous",
             endpoint: 'Dot',
-            isTarget:true,
+            isTarget: true,
             maxConnections: -1,
-            scope:"blueline",
+            scope: "blueline",
             dragAllowedWhenFull: true
         };
 
@@ -210,12 +226,12 @@
         function drop(event) {
             event.preventDefault();
 
-            var x = event.clientX; 
-            var y = event.clientY; 
+            var x = event.clientX;
+            var y = event.clientY;
 
             var newDiv = $("<div>").addClass("draggable").css({
-                left: (x-550) + "px",
-                top: (y-230) + "px"
+                left: (x - 550) + "px",
+                top: (y - 230) + "px"
             }).appendTo($("#parent"));
 
             var data = event.dataTransfer.getData("text");
@@ -229,10 +245,10 @@
             usedId.push(count);
             $(newDiv).attr("id", data + count);
             console.log(data + count);
-            count++; 
+            count++;
             displayItems();
             jsPlumb.ready(function() {
-                
+
                 instance.draggable($(".draggable"), {
                     containment: "#parent",
                     grid: [16, 16],
@@ -241,24 +257,24 @@
                         saveJSON();
                     }
                 });
-                
-            $(newImage).appendTo(newDiv);
-            $(newDiv).append("<i class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>");
 
-            var targetPoint = instance.addEndpoint(newDiv,{
-            }, targetPointOptions);
+                $(newImage).appendTo(newDiv);
+                $(newDiv).append(
+                    "<i class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>"
+                    );
 
-            var sourcePoint = instance.addEndpoint(newDiv, {
-            }, sourcePointOptions);
+                var targetPoint = instance.addEndpoint(newDiv, {}, targetPointOptions);
 
-            instance.repaintEverything();
-            saveJSON();
+                var sourcePoint = instance.addEndpoint(newDiv, {}, sourcePointOptions);
 
-        })
+                instance.repaintEverything();
+                saveJSON();
+
+            })
         }
-        function delImg(btn)
-        {
-            count = 1; 
+
+        function delImg(btn) {
+            count = 1;
             let id = btn.parentElement.id.substr(-1, 1);
             let indexToRemove = usedId.indexOf(parseInt(id));
             usedId.splice(indexToRemove, 1);
@@ -268,24 +284,25 @@
             displayItems();
             saveJSON();
         }
-        function displayItems()
-        {
+
+        function displayItems() {
             const sidebar = document.getElementById("sidebar");
             sidebar.innerHTML = "";
             // const sidebarBrand = "<li class='sidebar-brand'>";
             // $(sidebarBrand).append('<a class="menu-toggle" style="float:right;" onclick="toggleSidebar()"> <i class="fa fa-bars "></i></a>').appendTo(sidebar);
             for (const [key, value] of itemMap.entries()) {
-                if(value > 0)
-                {
-                    const item = "<li class='picture' style='background-color: white; color: black; display: flex; flex-direction: column' draggable='true' ondragstart='drag(event, \"" + key + "\")'>";
+                if (value > 0) {
+                    const item =
+                        "<li class='picture' style='background-color: white; color: black; display: flex; flex-direction: column' draggable='true' ondragstart='drag(event, \"" +
+                        key + "\")'>";
                     const overlay = "<div class='overlay'><div class='text'>" + key + "</div></div>";
-                    $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>",overlay).appendTo(sidebar);
-                }  
+                    $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>", overlay).appendTo(
+                        sidebar);
+                }
             }
         }
 
-        function exportPNG()
-        {
+        function exportPNG() {
             const buttons = document.getElementsByClassName('fa-trash');
             const endPoints = jsPlumb.getSelector(".jtk-endpoint");
             console.log(buttons);
@@ -296,39 +313,39 @@
                 button.style.opacity = "0"
             });
             const element = document.getElementById('parent');
-            htmlToImage.toPng(element,{
-                backgroundColor: '#FFFFFF',
-                style: {
-                    margin: 0,
-                }
-            })
-            .then(function (dataUrl) {
-                var link = document.createElement('a');
-                link.download = 'FlowchartDiagram.png';
-                link.href = dataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                endPoints.forEach(endpoint => {
-                    endpoint.style.opacity = "1"
+            htmlToImage.toPng(element, {
+                    backgroundColor: '#FFFFFF',
+                    style: {
+                        margin: 0,
+                    }
+                })
+                .then(function(dataUrl) {
+                    var link = document.createElement('a');
+                    link.download = 'FlowchartDiagram.png';
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    endPoints.forEach(endpoint => {
+                        endpoint.style.opacity = "1"
+                    });
+                    buttons.forEach(button => {
+                        button.style.opacity = "1"
+                    });
+                })
+                .catch(function(error) {
+                    console.error('oops, something went wrong!', error);
                 });
-                buttons.forEach(button => {
-                    button.style.opacity = "1"
-                });
-            })
-            .catch(function (error) {
-                console.error('oops, something went wrong!', error);
-            });
         }
-        function saveJSON()
-        {
+
+        function saveJSON() {
             var listDraggable = [];
             var listConnection = [];
             $(".draggable").each(function() {
                 let id = $(this).attr('id');
                 let left = $(this).css('left');
                 let top = $(this).css('top');
-                let source= $(this).find("img").attr('src');
+                let source = $(this).find("img").attr('src');
                 let draggableData = {
                     "id": id,
                     "left": left,
@@ -352,8 +369,8 @@
             localStorage.setItem("draggable", draggableStr);
             localStorage.setItem("connection", connectionStr);
         }
-        function loadJSON()
-        {
+
+        function loadJSON() {
             $(".fa-trash").each(function() {
                 delImg(this);
             });
@@ -374,17 +391,17 @@
 
                 var newImage = document.createElement("img");
                 newImage.setAttribute("src", source);
-                newImage.setAttribute("id", id.substring(0,id.length-1));
+                newImage.setAttribute("id", id.substring(0, id.length - 1));
                 $(newImage).appendTo(newDiv);
-                $(newDiv).append("<i class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>");
+                $(newDiv).append(
+                    "<i class='fa-solid fa-trash' style='left: -1vw; top:-1vh; position:relative;' onClick='delImg(this)'></i>"
+                    );
 
                 usedId.push(parseInt(id.substr(-1, 1)));
 
-                var targetPoint = instance.addEndpoint(newDiv,{
-                }, targetPointOptions);
+                var targetPoint = instance.addEndpoint(newDiv, {}, targetPointOptions);
 
-                var sourcePoint = instance.addEndpoint(newDiv, {
-                }, sourcePointOptions);
+                var sourcePoint = instance.addEndpoint(newDiv, {}, sourcePointOptions);
 
                 instance.draggable($(".draggable"), {
                     containment: "#parent",
@@ -394,17 +411,20 @@
                         saveJSON();
                     }
                 });
-                
+
                 instance.repaintEverything();
-                itemMap.set(id.substring(0,id.length-1), itemMap.get(id.substring(0,id.length-1)) - 1);
+                itemMap.set(id.substring(0, id.length - 1), itemMap.get(id.substring(0, id.length - 1)) - 1);
                 displayItems();
-                });
+            });
             listConnection.forEach(connection => {
                 let source = connection.source;
                 let target = connection.target;
                 let sourceEndpoint = instance.getEndpoints(source)[1];
                 let targetEndpoint = instance.getEndpoints(target)[0];
-                instance.connect({ source: sourceEndpoint, target: targetEndpoint });
+                instance.connect({
+                    source: sourceEndpoint,
+                    target: targetEndpoint
+                });
             });
         }
         window.onload = function() {
@@ -413,7 +433,6 @@
         instance.bind("connection", function() {
             saveJSON();
         });
-
     </script>
     <main class="d-block mx-md-4">
         <div class="container d-flex flex-column sm-p-0">
@@ -425,34 +444,36 @@
             <div class="container" id="wrapper">
                 <ul class="sidebar-nav" id="sidebar">
                     @foreach ($inventory_alat as $item)
-                        <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
-                            <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                        <li class="picture"
+                            style="background-color: white; color: black; display: flex; flex-direction: column"
+                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                            <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
                             <div class='overlay'>
-                                <div class='text'>{{$item->nama_barang}}
-                            </div>
+                                <div class='text'>{{ $item->nama_barang }}
+                                </div>
                         </li>
-                        @for ($count = 1; $count <= $item->stock_barang; $count++)     
+                        @for ($count = 1; $count <= $item->stock_barang; $count++)
                             <script>
-                            itemMap.set("{{$item->nama_barang}}", {{$count}});
+                                itemMap.set("{{ $item->nama_barang }}", {{ $count }});
                             </script>
-                        @endfor        
+                        @endfor
                     @endforeach
                     @foreach ($inventory_bahan as $item)
-                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
-                                <img src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
+                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                            <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
                         </li>
-                        @for ($count = 1; $count <= $item->stock_barang; $count++)     
+                        @for ($count = 1; $count <= $item->stock_barang; $count++)
                             <script>
-                            itemMap.set("{{$item->nama_barang}}", {{$count}});
+                                itemMap.set("{{ $item->nama_barang }}", {{ $count }});
                             </script>
-                        @endfor      
+                        @endfor
                     @endforeach
                 </ul>
-            <div class="container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div class="container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
         </div>
         <button id="buttonExport" onclick="exportPNG()">Export</button>
         </div>
     </main>
 @endsection
-

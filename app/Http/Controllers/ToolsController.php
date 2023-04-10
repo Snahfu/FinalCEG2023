@@ -10,7 +10,7 @@ class ToolsController extends Controller
 {
     public function tools()
     {
-        $pos = Auth::user();        
+        $pos = Auth::user();
 
         $teams = DB::table("teams")->get();
 

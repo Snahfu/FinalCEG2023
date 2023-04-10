@@ -30,7 +30,7 @@
             background-image: url({{ asset('assets/hiburan/melastnight.gif') }});
         }
 
-        .scale-img{
+        .scale-img {
             /* transform: scale(0.5); */
             width: 300px;
             height: auto;
@@ -39,24 +39,25 @@
 @endsection
 
 @section('content')
-    @if($hints->count())
+    @if ($hints->count())
         {{-- <p class="text-center fs-4">Tim Anda Memiliki Hint</p> --}}
-            <div class="container">
-                <div class="row">
-                    @foreach ($hints as $hint)
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div>
-                                    <img src="{{$hint->url_hint }}" class="card-img-top scale-img rounded mx-auto d-block" alt="{{ $hint->name }}">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $hint->name }}</h5>
-                                </div>
+        <div class="container">
+            <div class="row">
+                @foreach ($hints as $hint)
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div>
+                                <img src="{{ $hint->url_hint }}" class="card-img-top scale-img rounded mx-auto d-block"
+                                    alt="{{ $hint->name }}">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $hint->name }}</h5>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
+        </div>
     @else
         <p class="text-center fs-4">Tim Anda Belum Memiliki Hint</p>
     @endif

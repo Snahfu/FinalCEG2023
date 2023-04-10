@@ -17,9 +17,9 @@
         }
 
         /* h1:before {
-                            right: 0.5em;
-                            margin-left: 1.5%;
-                        } */
+                                right: 0.5em;
+                                margin-left: 1.5%;
+                            } */
 
         h1:after {
             left: 0.5em;

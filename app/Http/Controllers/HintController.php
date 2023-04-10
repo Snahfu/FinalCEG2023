@@ -18,7 +18,8 @@ class HintController extends Controller
         return view("HintsDashboard.hints", compact("user", "hints", "teams"));
     }
 
-    public function hintHistory(){
+    public function hintHistory()
+    {
         $histories = DB::table("history_hints")->orderBy("created_at", "desc")->paginate(10);
 
         return view("HintsDashboard.history", compact("histories"));
@@ -51,7 +52,6 @@ class HintController extends Controller
                 DB::table("teams")->where("idteams", $idteams)->update([
                     "koin" => DB::raw("`koin` - " . 100)
                 ]);
-                
             } else {
                 $details = "Team " . $team[0]->namaTeam . " sudah memiliki hint " . $namaHint;
             }

@@ -15,8 +15,10 @@
             <h2>Sesi <span id="sesiNow">{{ $sesi[0]->sesi }}</span></h2>
             <h3 id="tipeNow">{{ $sesi[0]->tipe }}</h3>
             <div class="d-flex mb-2">
-                <button id="back" class="btn btn-primary btnSesi" disabled><i class="fa-solid fa-chevron-left"></i></button>
-                <button id="next" class="btn btn-primary btnSesi mx-2" disabled><i class="fa-solid fa-chevron-right"></i></button>
+                <button id="back" class="btn btn-primary btnSesi" disabled><i
+                        class="fa-solid fa-chevron-left"></i></button>
+                <button id="next" class="btn btn-primary btnSesi mx-2" disabled><i
+                        class="fa-solid fa-chevron-right"></i></button>
             </div>
             <div class="d-flex mb-2">
                 <button id="biasa" class="btn btn-primary btnSesi" value="biasa">Biasa</button>

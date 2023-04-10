@@ -3,7 +3,7 @@
 @section('content')
 
     <style>
-        .card{
+        .card {
             box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
             border: 0px solid black;
             border-radius: 20px;
@@ -15,15 +15,15 @@
 
                 <!--Header-->
                 <div class="card-header pt-3" style="background-color: white;text-align: center;">
-                {{-- <div class="card-header pt-3" style="background-color: white;text-align: center;">
+                    {{-- <div class="card-header pt-3" style="background-color: white;text-align: center;">
                     <h1 style="color:rgba(0, 0, 0, 0.704); font-weight: bold">Histori</h1>
                 </div>
                 </div> --}}
-                <!--End Header-->
+                    <!--End Header-->
 
-                <!--Card Body-->
-                <div class="card-body mt-2">
-                    {{-- <table class="table table-striped">
+                    <!--Card Body-->
+                    <div class="card-body mt-2">
+                        {{-- <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
@@ -47,54 +47,57 @@
                         </tbody>
                     </table> --}}
 
-                    @php
-                    $timezone = new DateTimeZone('Asia/Jakarta');
-                    @endphp
-                    <h1 style="color:rgba(0, 0, 0, 1); font-weight: bold; text-align:center">{{ $jenispos }} History</h1>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Keterangan</th>
-                                    <th scope="col">Jam</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($histories->count())
-                                    @php
-                                        $no = ($histories->currentPage() - 1) * $histories->perPage() + 1;
-                                    @endphp
-                                    @foreach ($histories as $history)
-                                        <tr>
-                                            <td>{{ $no }}</td>
-                                            <td>{{ $history->keterangan}}</td>
-                                            @php
-                                                $date_time = DateTime::createFromFormat('Y-m-d H:i:s', $history->created_at, $timezone);
-                                                $formatted_date = $date_time->format('H:i');
-                                            @endphp
-                                            <td>{{  $formatted_date }}</td>
-                                        </tr>
+                        @php
+                            $timezone = new DateTimeZone('Asia/Jakarta');
+                        @endphp
+                        <h1 style="color:rgba(0, 0, 0, 1); font-weight: bold; text-align:center">{{ $jenispos }} History
+                        </h1>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Keterangan</th>
+                                        <th scope="col">Jam</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($histories->count())
                                         @php
-                                            $no +=1;
+                                            $no = ($histories->currentPage() - 1) * $histories->perPage() + 1;
                                         @endphp
-                                    @endforeach
-                                @else
-                                    <p class="text-center fs-4">No History Found</p>
+                                        @foreach ($histories as $history)
+                                            <tr>
+                                                <td>{{ $no }}</td>
+                                                <td>{{ $history->keterangan }}</td>
+                                                @php
+                                                    $date_time = DateTime::createFromFormat('Y-m-d H:i:s', $history->created_at, $timezone);
+                                                    $formatted_date = $date_time->format('H:i');
+                                                @endphp
+                                                <td>{{ $formatted_date }}</td>
+                                            </tr>
+                                            @php
+                                                $no += 1;
+                                            @endphp
+                                        @endforeach
+                                    @else
+                                        <p class="text-center fs-4">No History Found</p>
+                                    @endif
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end">
+                                @if ($jenispos == 'Pos Bonus')
+                                    <a href="/addKoin">
+                                        <input type="button" id="btnHistory" class="btn btn-primary"
+                                            style="margin-right:10px" value="Add Koin">
+                                    </a>
+                                @elseif ($jenispos == 'Pos Consultant')
+                                    <a href="/minKoin">
+                                        <input type="button" id="btnHistory" class="btn btn-primary"
+                                            style="margin-right:10px" value="Min Koin">
+                                    </a>
                                 @endif
-                            </tbody>
-                        </table>
-                        <div class="d-flex justify-content-end">
-                            @if ($jenispos == "Pos Bonus")
-                                <a href="/addKoin">
-                                    <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-right:10px" value="Add Koin"> 
-                                </a>
-                            @elseif ($jenispos == "Pos Consultant")
-                                <a href="/minKoin">
-                                    <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-right:10px" value="Min Koin"> 
-                                </a>
-                            @endif 
-                            {{ $histories->links() }}
+                                {{ $histories->links() }}
+                            </div>
                         </div>
-                    </div>
-@endsection
+                    @endsection

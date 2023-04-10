@@ -59,7 +59,5 @@
     </main>
 
     {{-- JQUERY --}}
-    <script>
-
-    </script>
+    <script></script>
 @endsection

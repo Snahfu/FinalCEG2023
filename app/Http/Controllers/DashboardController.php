@@ -65,7 +65,7 @@ class DashboardController extends Controller
         switch ($itemType) {
             case "alat":
                 $data = DB::table("alat")
-                ->orderBy("nama_alat", "asc")
+                    ->orderBy("nama_alat", "asc")
                     ->get();
                 break;
             case "bahan":
@@ -91,7 +91,8 @@ class DashboardController extends Controller
         return view("ListHarga.listHarga", compact("bahan", "downgrade", "team", "inventory"));
     }
 
-    public function done_playing(){
+    public function done_playing()
+    {
         $teams = DB::table("teams")
             ->whereIn(
                 "idteams",

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('css')
-
     <!-- Styles -->
     <link href="{{ asset('css/pemain/history.css') }}" rel="stylesheet">
 @endsection
@@ -14,7 +13,7 @@
                 <div class="col">
                     <h1 class="p-0 m-0" id="page-name">History</h1>
                 </div>
-                
+
             </div>
 
             <div class="card">
@@ -42,7 +41,7 @@
                         </table>
                     </div>
                 </div>
-                
+
             </div>
             <div class="row d-flex justify-content-end">
                 <div class="HeartAnimation d-flex justify-content-end"></div>

@@ -78,8 +78,9 @@
                                 </div> --}}
                                 <div class="d-flex align-items-center">
                                     <button id="btnAdd" class="btn btn-primary" style="margin-left:10px">Add</button>
-                                    <a href="{{ route("hintHistory") }}">
-                                        <input  type="button" id="btnHistory" class="btn btn-primary" style="margin-left:10px" value="History"> 
+                                    <a href="{{ route('hintHistory') }}">
+                                        <input type="button" id="btnHistory" class="btn btn-primary"
+                                            style="margin-left:10px" value="History">
                                     </a>
                                 </div>
                             </div>
