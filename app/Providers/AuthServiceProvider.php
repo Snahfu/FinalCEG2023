@@ -74,5 +74,13 @@ class AuthServiceProvider extends ServiceProvider
                 return Response::deny("Hanya untuk Pos Tool");
             }
         });
+
+        Gate::define("isHint", function ($user) {
+            if ($user->role == "Hint") {
+                return Response::allow();
+            } else {
+                return Response::deny("Hanya untuk Pos Hint");
+            }
+        });
     }
 }
