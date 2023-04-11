@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2023 at 04:31 PM
+-- Generation Time: Apr 11, 2023 at 01:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -40,9 +40,9 @@ CREATE TABLE `alat` (
 --
 
 INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
-(1, 'Washer', 'Motor;Pipe;Tub', 1),
-(2, 'Grater', 'Motor;Pisau;Gear', 2),
-(3, 'Cutter', 'Pisau;Motor;Skirtboard', 2),
+(1, 'Washer', 'Motor;Pipe;Tube', 1),
+(2, 'Grater', 'Motor;Blade;Gear', 2),
+(3, 'Cutter', 'Blade;Motor;Skirtboard', 2),
 (4, 'Ball Mill', 'Gauge;Cylinder;Gear', 2),
 (5, 'Roll Crusher', 'Frame;Gear;Culinder', 2),
 (6, 'Cone Crusher', 'Screw;Frame;Motor', 2),
@@ -50,10 +50,10 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (8, 'Bingkai Roll', 'Cylinder;Pipe;Frame', 3),
 (9, 'Screw Press', 'Screw;Gear;Motor', 3),
 (10, 'Bench Frame', 'Frame;Gear;Screw', 3),
-(11, 'Corong Pemisah', 'Kaca;Katup', 4),
-(12, 'Kolom Distilasi', 'Kolom;Kondensor;Reboiler', 4),
-(13, 'Kolom Ekstraktor', 'Klem;Kondensor;Selang', 4),
-(14, 'Rotary Drum Filter', 'Pipe;Pisau;Drum', 4),
+(11, 'Seperating Funnel', 'Glass;Katup', 4),
+(12, 'Distillation Column', 'Column;Condenser;Reboiler', 4),
+(13, 'Extraction Column', 'Klem;Condenser;Selang', 4),
+(14, 'Rotary Drum Filter', 'Pipe;Blade;Drum', 4),
 (15, 'Ribbon Blenders', 'Motor;Gear;Cover', 5),
 (16, 'Mixer', 'Motor;Nozzle;Gear', 5),
 (17, 'High Viscosity Batch Mixing', 'Screw;Stirrer;Motor', 5),
@@ -61,7 +61,7 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (19, 'Tray Dryer', 'Tray Plate;Heater;Roller', 6),
 (20, 'Spray Dryer', 'Chamber;Heater;Pipe', 6),
 (21, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
-(22, 'Flash Dryer', 'Pisau;Cyllinder;Tower Cap', 6),
+(22, 'Flash Dryer', 'Blade;Cyllinder;Tower Cap', 6),
 (23, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
 (24, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
 (25, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
@@ -72,7 +72,8 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (30, 'Tank Storage', 'Cover;Pipe;Gauge', 8),
 (31, 'Hopper', 'Blower;Cover;Cylinder', 8),
 (32, 'Intermediate Bulk Container (IBC)', 'Katup;Cover;Frame', 8),
-(33, 'Packager', 'Roller;Pisau;Skirtboard', 9);
+(33, 'Packager', 'Roller;Blade;Skirtboard', 9),
+(34, 'Medium Bulk Storage', 'Frame;Handle;Cover', 9);
 
 -- --------------------------------------------------------
 
@@ -634,7 +635,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alat`
 --
 ALTER TABLE `alat`
-  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `bahan`
