@@ -180,65 +180,67 @@
         const itemMap = new Map();
         let count = 1;
         let usedId = [];
-        var arrowStatus = false; 
-        var canvas; 
+        var arrowStatus = false;
+        var canvas;
         //Class Arrow
         fabric.LineArrow = fabric.util.createClass(fabric.Line, {
 
             type: 'lineArrow',
 
             initialize: function(element, options) {
-            options || (options = {});
-            this.callSuper('initialize', element, options);
+                options || (options = {});
+                this.callSuper('initialize', element, options);
             },
 
             toObject: function() {
-            return fabric.util.object.extend(this.callSuper('toObject'));
+                return fabric.util.object.extend(this.callSuper('toObject'));
             },
 
             _render: function(ctx) {
-            this.ctx = ctx;
-            this.callSuper('_render', ctx);
-            let p = this.calcLinePoints();
-            let xDiff = this.x2 - this.x1;
-            let yDiff = this.y2 - this.y1;
-            let angle = Math.atan2(yDiff, xDiff);
-            this.drawArrow(angle, p.x2, p.y2, this.heads[0]);
-            ctx.save();
-            xDiff = -this.x2 + this.x1;
-            yDiff = -this.y2 + this.y1;
-            angle = Math.atan2(yDiff, xDiff);
-            this.drawArrow(angle, p.x1, p.y1,this.heads[1]);
+                this.ctx = ctx;
+                this.callSuper('_render', ctx);
+                let p = this.calcLinePoints();
+                // right arrow head
+                let xDiff = this.x2 - this.x1;
+                let yDiff = this.y2 - this.y1;
+                let angle = Math.atan2(yDiff, xDiff);
+                this.drawArrow(angle, p.x2, p.y2, this.heads[0]);
+                ctx.save();
+                // left arrow head
+                xDiff = -this.x2 + this.x1;
+                yDiff = -this.y2 + this.y1;
+                angle = Math.atan2(yDiff, xDiff);
+                this.drawArrow(angle, p.x1, p.y1, this.heads[1]);
             },
 
             drawArrow: function(angle, xPos, yPos, head) {
-            this.ctx.save();
-            
-            if (head) {
-                this.ctx.translate(xPos, yPos);
-                this.ctx.rotate(angle);
-                this.ctx.beginPath();
+                this.ctx.save();
 
-                this.ctx.moveTo(this.strokeWidth, 0);
-                this.ctx.lineTo(-this.strokeWidth*2, this.strokeWidth*2);
-                this.ctx.lineTo(-this.strokeWidth*2, -this.strokeWidth*2);
-                this.ctx.closePath();
-            }
-            
-            this.ctx.fillStyle = this.stroke;
-            this.ctx.fill();
-            this.ctx.restore();
-            }
-            });
+                if (head) {
+                    this.ctx.translate(xPos, yPos);
+                    this.ctx.rotate(angle);
+                    this.ctx.beginPath();
 
-            fabric.LineArrow.fromObject = function(object, callback) {
+                    this.ctx.moveTo(this.strokeWidth, 0);
+                    this.ctx.lineTo(-this.strokeWidth * 2, this.strokeWidth * 2);
+                    this.ctx.lineTo(-this.strokeWidth * 2, -this.strokeWidth * 2);
+                    this.ctx.closePath();
+                }
+
+                this.ctx.fillStyle = this.stroke;
+                this.ctx.fill();
+                this.ctx.restore();
+            }
+        });
+
+        fabric.LineArrow.fromObject = function(object, callback) {
             callback && callback(new fabric.LineArrow([object.x1, object.y1, object.x2, object.y2], object));
-            };
+        };
 
-            fabric.LineArrow.async = true;
+        fabric.LineArrow.async = true;
 
 
-            var Arrow = (function() {
+        var Arrow = (function() {
             function Arrow(canvas) {
                 this.canvas = canvas;
                 this.className = 'Arrow';
@@ -306,6 +308,7 @@
                     hasBorders: false,
                     hasControls: false,
                     perPixelTargetFind: true,
+                    // call 1 head arrow [1,0] || 2 head arrow [1,1]
                     heads: [1, 0]
                 });
 
@@ -327,21 +330,23 @@
 
             return Arrow;
         }());
-        var arrow;
-        $(document).ready(function(){
 
-            var parent  = document.getElementById('parent');
+        var arrow;
+
+        $(document).ready(function() {
+
+            var parent = document.getElementById('parent');
             var width = parent.clientWidth;
             var height = parent.clientHeight;
 
             canvas = new fabric.Canvas('parent')
             canvas.setWidth(width);
             canvas.setHeight(height);
-            var upperCanvas = canvas.upperCanvasEl; 
+            var upperCanvas = canvas.upperCanvasEl;
 
             upperCanvas.style.left = "40px";
             //Object Arrow
-            // arrow = new Arrow(canvas);
+            arrow = new Arrow(canvas);
 
             canvas.on("drop", (ev) => {
                 var data = event.dataTransfer.getData("id");
@@ -349,19 +354,19 @@
                 const parent = document.getElementById("parent");
                 img.setAttribute("id", data);
                 img.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
-                    img.onload = function() {
-                        const fabricImg = new fabric.Image(img);
-                        fabricImg.left = ev.e.clientX - parent.getBoundingClientRect().left - 50;
-                        fabricImg.top = ev.e.clientY- parent.getBoundingClientRect().top - 20;
-                        fabricImg.scaleToWidth(50);
-                        fabricImg.scaleToHeight(50);
-                        fabricImg.id = data; 
-                        canvas.add(fabricImg);
-                        itemMap.set(data, itemMap.get(data) - 1);
-                        displayItems();
-                    };
-                });
-             });
+                img.onload = function() {
+                    const fabricImg = new fabric.Image(img);
+                    fabricImg.left = ev.e.clientX - parent.getBoundingClientRect().left - 50;
+                    fabricImg.top = ev.e.clientY - parent.getBoundingClientRect().top - 20;
+                    fabricImg.scaleToWidth(50);
+                    fabricImg.scaleToHeight(50);
+                    fabricImg.id = data;
+                    canvas.add(fabricImg);
+                    itemMap.set(data, itemMap.get(data) - 1);
+                    displayItems();
+                };
+            });
+        });
 
         function allowDrop(ev) {
             ev.preventDefault();
@@ -371,8 +376,7 @@
             event.dataTransfer.setData("id", elementID);
         }
 
-        function delImg()
-        {
+        function delImg() {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.remove(activeObject);
@@ -397,8 +401,7 @@
             }
         }
 
-        function addTextBox()
-        {
+        function addTextBox() {
             var text = new fabric.IText('Enter text here', {
                 left: 100,
                 top: 100,
@@ -411,50 +414,64 @@
             canvas.add(text);
         }
 
-        function addArrow()
-        {
+        function addArrow() {
             arrow.disable();
         }
 
-        function addLine()
-        {
-
-        }
-
-        function exportPNG()
-        {
-            const element = document.getElementById('parent');
-            htmlToImage.toPng(element,{
-                backgroundColor: '#FFFFFF',
-                style: {
-                    margin: 0,
-                }
-            })
-            .then(function (dataUrl) {
-                var link = document.createElement('a');
-                link.download = 'FlowchartDiagram.png';
-                link.href = dataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            })
-            .catch(function (error) {
-                console.error('oops, something went wrong!', error);
+        function addLine() {
+            var line = new fabric.Line([100, 100, 200, 100], {
+                stroke: 'black',
+                strokeWidth: 5,
             });
-        }
-        function saveJSON()
-        {
-           var JSONstr = JSON.stringify(canvas);
-           localStorage.setItem("JSON", JSONstr);
-           console.log(JSONstr);
-        }
-        function loadJSON()
-        {
-           var JSONStr = localStorage.getItem("JSON");
-           console.log(JSONStr);
-           canvas.loadFromJSON(JSONStr);
+            canvas.add(line);
         }
 
+        function exportPNG() {
+            const element = document.getElementById('parent');
+            htmlToImage.toPng(element, {
+                    backgroundColor: '#FFFFFF',
+                    style: {
+                        margin: 0,
+                    }
+                })
+                .then(function(dataUrl) {
+                    var link = document.createElement('a');
+                    link.download = 'FlowchartDiagram.png';
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+                .catch(function(error) {
+                    console.error('oops, something went wrong!', error);
+                });
+        }
+
+        function saveJSON() {
+            var JSONstr = JSON.stringify(canvas);
+            localStorage.setItem("JSON", JSONstr);
+            console.log(JSONstr);
+
+            // $.ajax({
+            //     type: "POST"
+            //     url: "{{route('')}}",
+            //     data:{
+
+            //     },
+            //     success: function(){
+            //         alert('success')
+            //     },
+            //     error: function(){
+            //         alert('error')
+            //     }
+            // })
+        }
+
+        function loadJSON() {
+            var JSONStr = localStorage.getItem("JSON");
+            console.log(JSONStr);
+            canvas.loadFromJSON(JSONStr);
+        }
     </script>
     <main class="d-block mx-md-4">
         <div class="container d-flex flex-column sm-p-0">
@@ -465,9 +482,15 @@
             </div>
             <div class="container" id="wrapper">
                 <ul class="sidebar-nav" id="sidebar">
+                    {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
+                        <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                    </li> --}}
                     @foreach ($inventory_alat as $item)
-                        <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
-                            <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                        <li class="picture"
+                            style="background-color: white; color: black; display: flex; flex-direction: column"
+                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                            <img id="{{ $item->nama_barang }}"
+                                src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
                             <div class='overlay'>
                                 <div class='text'>{{ $item->nama_barang }}
                                 </div>
@@ -482,8 +505,10 @@
                         {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
                             draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
                             <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}"> --}}
-                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
-                                <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
+                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
+                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                            <img id="{{ $item->nama_barang }}"
+                                src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
                         </li>
                         @for ($count = 1; $count <= $item->stock_barang; $count++)
                             <script>
@@ -492,7 +517,7 @@
                         @endfor
                     @endforeach
                 </ul>
-            <canvas class="canvas-container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></canvas>
+                <canvas class="canvas-container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></canvas>
             </div>
         </div>
         <button id="buttonExport" onclick="exportPNG()">Export</button>
@@ -502,6 +527,6 @@
         <button id="buttonAddArrow" onclick="addArrow()">Add Arrow</button>
         <button id="buttonAddLine" onclick="addLine()">Add Line</button>
         <button id="buttonDelImg" onclick="delImg()">Delete</button>
-            
+
     </main>
 @endsection
