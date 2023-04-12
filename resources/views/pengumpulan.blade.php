@@ -239,7 +239,6 @@
 
         fabric.LineArrow.async = true;
 
-
         var Arrow = (function() {
             function Arrow(canvas) {
                 this.canvas = canvas;
@@ -346,7 +345,7 @@
 
             upperCanvas.style.left = "40px";
             //Object Arrow
-            arrow = new Arrow(canvas);
+            // arrow = new Arrow(canvas);
 
             canvas.on("drop", (ev) => {
                 var data = event.dataTransfer.getData("id");
@@ -382,6 +381,7 @@
                 canvas.remove(activeObject);
                 itemMap.set(activeObject.id, itemMap.get(activeObject.id) + 1);
                 console.log(activeObject.id);
+                console.log(itemMap)
                 displayItems();
             }
         }
@@ -405,7 +405,6 @@
             var text = new fabric.IText('Enter text here', {
                 left: 100,
                 top: 100,
-                fontFamily: 'arial',
                 fill: '#000000',
                 scaleX: 1,
                 scaleY: 1,
@@ -452,19 +451,31 @@
             localStorage.setItem("JSON", JSONstr);
             console.log(JSONstr);
 
-            // $.ajax({
-            //     type: "POST"
-            //     url: "{{route('')}}",
-            //     data:{
+            let arrItemNow = []
 
-            //     },
-            //     success: function(){
-            //         alert('success')
-            //     },
-            //     error: function(){
-            //         alert('error')
-            //     }
-            // })
+            for (const [key, value] of itemMap.entries()) {
+                if (value > 0) {
+                    arrItemNow.push([key, value])
+                }
+            }
+
+            console.log(arrItemNow)
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('saveFlowsheet') }}",
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'itemMap': arrItemNow,
+                    'test': "test",
+                },
+                success: function(data) {
+                    alert(data.msg)
+                },
+                error: function() {
+                    alert('error')
+                }
+            })
         }
 
         function loadJSON() {

@@ -32,7 +32,9 @@ Route::get("/playerHint", "HintController@playerHint")->name("playerHint");
 
 Route::get("/history", "HistoryController@history")->name("history");
 
+// Flowsheet
 Route::get("/pengumpulan", "PengumpulanController@pengumpulan")->name("pengumpulan");
+Route::post("/pengumpulan/save", "PengumpulanController@saveFlowsheet")->name("saveFlowsheet");
 
 Route::get("/pengumpulanppt", function () {
     return view('pengumpulanppt');

@@ -33,6 +33,34 @@ class PengumpulanController extends Controller
         return view('pengumpulan', compact('inventory_bahan', 'inventory_alat'));
     }
 
+    public function saveFlowsheet(Request $request)
+    {
+        $user = Auth::user();
+        $itemMap = $request->get("itemMap");
+        foreach ($itemMap as $item) {
+            // cek apakah barang ada di database
+            if (DB::table("inventory")->where("nama_barang", $item[0])->where("teams_idteams", $user->teams_idteams)->exists()) {
+                // ambil banyak stok barang
+                $amount = DB::table("inventory")
+                    ->where("nama_barang", $item[0])
+                    ->where("teams_idteams", $user->teams_idteams)
+                    ->get();
+                    
+                // update stok kalau berbeda
+                if ($amount[0]->stock_barang != $item[1]) {
+                    DB::table("inventory")
+                        ->where("nama_barang", $item[0])
+                        ->where("teams_idteams", $user->teams_idteams)
+                        ->update([
+                            "stock_barang" => $item[1]
+                        ]);
+                }
+            }
+        }
+
+        return response()->json(["status" => "success", "msg" => "Canvas Saved Successfully"]);
+    }
+
     public function pengumpulanppt(Request $request)
     {
         $data = [];
