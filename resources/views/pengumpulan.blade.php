@@ -5,6 +5,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/css/jsplumbtoolkit-defaults.css">
 @endsection
@@ -340,7 +341,7 @@
 
             upperCanvas.style.left = "40px";
             //Object Arrow
-            arrow = new Arrow(canvas);
+            // arrow = new Arrow(canvas);
 
             canvas.on("drop", (ev) => {
                 var data = event.dataTransfer.getData("id");
@@ -348,7 +349,6 @@
                 const parent = document.getElementById("parent");
                 img.setAttribute("id", data);
                 img.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
-                img.classList.add("draggable");
                     img.onload = function() {
                         const fabricImg = new fabric.Image(img);
                         fabricImg.left = ev.e.clientX - parent.getBoundingClientRect().left - 50;
@@ -437,12 +437,6 @@
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                endPoints.forEach(endpoint => {
-                    endpoint.style.opacity = "1"
-                });
-                buttons.forEach(button => {
-                    button.style.opacity = "1"
-                });
             })
             .catch(function (error) {
                 console.error('oops, something went wrong!', error);
@@ -460,9 +454,6 @@
            console.log(JSONStr);
            canvas.loadFromJSON(JSONStr);
         }
-        instance.bind("connection", function() {
-            saveJSON();
-        });
 
     </script>
     <main class="d-block mx-md-4">
@@ -475,10 +466,6 @@
             <div class="container" id="wrapper">
                 <ul class="sidebar-nav" id="sidebar">
                     @foreach ($inventory_alat as $item)
-                        <li class="picture"
-                            style="background-color: white; color: black; display: flex; flex-direction: column"
-                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
-                            <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
                         <li class="picture" style="background-color: white; color: black; display: flex; flex-direction: column" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
                             <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
                             <div class='overlay'>
@@ -492,9 +479,9 @@
                         @endfor
                     @endforeach
                     @foreach ($inventory_bahan as $item)
-                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
+                        {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
                             draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
-                            <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
+                            <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}"> --}}
                         <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
                                 <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
                         </li>
@@ -509,187 +496,12 @@
             </div>
         </div>
         <button id="buttonExport" onclick="exportPNG()">Export</button>
-<<<<<<<Updatedupstream
-  e
-        };
-=======
-            type: 'lineArrow',
-
-            initialize: function(element, options) {
-            options || (options = {});
-            this.callSuper('initializ', element, options);    ,
-
-            toObject: function() {
-            return fabric.util.object.extend(this.callSuper('toObject'))
-            },
-
-            _render: function(ctx) {
-            this.ctx = ctx;
-            this.callSuper('_render', ctx);
-            let p = this.calcLinePoints();
-            let xDiff = this.x2 - this.x1;
-            let yDiff = this.y2 - this.y1;
-            let angle = Math.atan2(yDiff, xDiff);
-            this.drawArrow(angle, p.x2, p.y2, this.heads[0]);
-            ctx.save();
-            xDiff = -this.x2 + this.x1;
-            yDiff = -this.y2 + this.y1;
-            angle = Math.atan2(yDiff, xDiff);
-            this.drawArrow(angle, p.x1, p.y1,this.heads[1]);
-            },
-
-            drawArrow: function(angle, xPos, yPos, head) {
-            this.ctx.save();
+        <button id="buttonSave" onclick="saveJSON()">Save</button>
+        <button id="buttonLoad" onclick="loadJSON()">Load</button>
+        <button id="buttonAddTextBox" onclick="addTextBox()">Add Text Box</button>
+        <button id="buttonAddArrow" onclick="addArrow()">Add Arrow</button>
+        <button id="buttonAddLine" onclick="addLine()">Add Line</button>
+        <button id="buttonDelImg" onclick="delImg()">Delete</button>
             
-            if (head) {
-                this.ctx.translate(xPos, yPos);
-                this.ctx.rotate(angle);
-                this.ctx.beginPath();
-
-                this.ctx.moveTo(this.strokeWidth, 0);
-                this.ctx.lineTo(-this.strokeWidth*2, this.strokeWidth*2);
-                this.ctx.lineTo(-this.strokeWidth*2, -this.strokeWidth*2);
-                this.ctx.closePath();
-            }
-            
-            this.ctx.fillStyle = this.stroke;
-            this.ctx.fill();
-            this.ctx.restore();
-            }
-            });
-
-            fabric.LineArrow.fromObject = function(object, callback) {
-            callback && callback(new fabric.LineArrow([object.x1, object.y1, object.x2, object.y2], object));
-            };
-
-            fabric.LineArrow.async = true;
-
-
-            var Arrow = (function() {
-            function Arrow(canvas) {
-                this.canvas = canvas;
-                this.className = 'Arrow';
-                this.isDrawing = false;
-                this.bindEvents();
-            }
-
-            Arrow.prototype.bindEvents = function() {
-                var inst = this;
-                inst.canvas.on('mouse:down', function(o) {
-                    inst.onMouseDown(o);
-                });
-                inst.canvas.on('mouse:move', function(o) {
-                    inst.onMouseMove(o);
-                });
-                inst.canvas.on('mouse:up', function(o) {
-                    inst.onMouseUp(o);
-                });
-                inst.canvas.on('object:moving', function(o) {
-                    inst.disable();
-                })
-            }
-
-            Arrow.prototype.onMouseUp = function(o) {
-                console.log("Mouse up");
-                var inst = this;
-                this.line.set({
-                    dirty: true,
-                    objectCaching: true
-                });
-                inst.canvas.renderAll();
-                inst.disable();
-            };
-
-            Arrow.prototype.onMouseMove = function(o) {
-                var inst = this;
-                if (!inst.isEnable()) {
-                    return;
-                }
-
-                var pointer = inst.canvas.getPointer(o.e);
-                var activeObj = inst.canvas.getActiveObject();
-                activeObj.set({
-                    x2: pointer.x,
-                    y2: pointer.y
-                });
-                activeObj.setCoords();
-                inst.canvas.renderAll();
-            };
-
-            Arrow.prototype.onMouseDown = function(o) {
-                var inst = this;
-                inst.enable();
-                console.log("Mouse down");
-                var pointer = inst.canvas.getPointer(o.e);
-
-                var points = [pointer.x, pointer.y, pointer.x, pointer.y];
-                this.line = new fabric.LineArrow(points, {
-                    strokeWidth: 5,
-                    fill: 'black',
-                    stroke: 'black',
-                    originX: 'center',
-                    originY: 'center',
-                    objectCaching: false,
-                    hasBorders: false,
-                    hasControls: false,
-                    perPixelTargetFind: true,
-                    heads: [1, 0]
-                });
-
-                inst.canvas.add(this.line).setActiveObject(this.line);
-            };
-
-            Arrow.prototype.isEnable = function() {
-                return this.isDrawing;
-            }
-
-            Arrow.prototype.enable = function() {
-                this.isDrawing = true;
-            }
-
-            Arrow.prototype.disable = function() {
-                console.log("Disabled");
-                this.isDrawing = false;
-            }
-
-            return Arrow;
-        }());
-        var arrow;
-        $(document).ready(function(){
-
-            var parent  = document.getElementById('parent');
-            var width = parent.clientWidth;
-            var height = parent.clientHeight;
-
-            canvas = new fabric.Canvas('parent')
-            canvas.setWidth(width);
-            canvas.setHeight(height);
-            var upperCanvas = canvas.upperCanvasEl; 
-
-            upperCanvas.style.left = "40px";
-            //Object Arrow
-            arrow = new Arrow(canvas);
-
-            canvas.on("drop", (ev) => {
-                var data = event.dataTransfer.getData("id");
-                var img = document.createElement("img");
-                const parent = document.getElementById("parent");
-                img.setAttribute("id", data);
-                img.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
-                img.classList.add("draggable");
-                    img.onload = function() {
-                        const fabricImg = new fabric.Image(img);
-                        fabricImg.left = ev.e.clientX - parent.getBoundingClientRect().left - 50;
-                        fabricImg.top = ev.e.clientY- parent.getBoundingClientRect().top - 20;
-                        fabricImg.scaleToWidth(50);
-                        fabricImg.scaleToHeight(50);
-                        fabricImg.id = data; 
-                        canvas.add(fabricImg);
-                        itemMap.set(data, itemMap.get(data) - 1);
-                        displayItems();
-                    };
-                });
-             });
->>>>>>> Stashed changes        </div>
     </main>
 @endsection

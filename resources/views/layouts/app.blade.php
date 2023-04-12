@@ -146,7 +146,7 @@
                                 <a href="{{ route('pengumpulan') }}" class="nav-link">Flowsheet</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('pengumpulanppt') }}" class="nav-link">Submit</a>
+                                <a href="{{ route('pengumpulanppt') }}" class="nav-link">Submission</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('history') }}" class="nav-link">History</a>
