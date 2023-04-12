@@ -89,7 +89,7 @@
 
         }
 
-        @media screen and (max-width:1000px) {
+        @media screen and (max-width:968px) {
             .nav-link {
                 font-size: 12px;
             }
@@ -97,6 +97,14 @@
             .nav-item {
                 display: flex;
                 align-items: center;
+            }
+
+            .nav-link:hover{
+                padding: 5px 5px;
+            }
+            .nav-link,
+            .nav-link:focus{
+                padding: 5px 5px;
             }
         }
     </style>
