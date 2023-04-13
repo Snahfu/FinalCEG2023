@@ -43,7 +43,7 @@ class DashboardController extends Controller
                 $data = [
                     "Motor", "Pipe", "Tub", "Pisau", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
                     "Kaca", "Katup", "Kolom", "Kondensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
-                    "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Heater", "Roller", "Chamber", "Exhaust System",
+                    "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Fan Heater", "Roller", "Chamber", "Exhaust System",
                     "Tower Cap", "Blower", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet", "Board", "Hinge",
                     "Cooler", "Termometer", "Vent"
                 ];
