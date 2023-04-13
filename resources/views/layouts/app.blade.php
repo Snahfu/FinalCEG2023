@@ -64,6 +64,11 @@
             background-color: #dfe2be;
         }
 
+        .navbar-nav{
+            display: flex;
+            align-items: center;
+        }
+
         .nav-link,
         .nav-link:focus {
             font-weight: bold;
