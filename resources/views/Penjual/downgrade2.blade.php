@@ -56,9 +56,15 @@
             border-radius: 20px;
         }
 
+        .cardMain .card-body{
+            
+        }
+
         .card-container {
             display: grid;
             grid-template-columns: auto auto auto auto auto;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .cardItems {
@@ -78,11 +84,16 @@
             padding: 8px 12px 16px 12px;
         }
 
-
-
         .nomortb {
             text-align: center;
         }
+
+        @media screen and (max-width:576px){
+            .card-container{
+                grid-template-columns: auto auto;
+            }
+        }
+        
     </style>
 @endsection
 
