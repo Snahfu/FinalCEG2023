@@ -513,7 +513,7 @@
         }());
 
         var arrow;
-        var line; 
+        var line;
 
         $(document).ready(function() {
 
@@ -541,6 +541,15 @@
                 const parent = document.getElementById("parent");
                 img.setAttribute("id", data);
                 img.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
+                
+                fabric.Image.prototype.toObject = (function(toObject) {
+                    return function() {
+                        return fabric.util.object.extend(toObject.call(this), {
+                            id: this.id
+                        });
+                    };
+                })(fabric.Image.prototype.toObject);
+
                 img.onload = function() {
                     const fabricImg = new fabric.Image(img);
                     fabricImg.left = ev.e.clientX - parent.getBoundingClientRect().left - 50;
@@ -625,7 +634,7 @@
         }
 
         function addLine() {
-            if(lineStatus == false){
+            if (lineStatus == false) {
                 arrow.unbindEvents();
                 arrowStatus = false;
                 canvas.discardActiveObject();
