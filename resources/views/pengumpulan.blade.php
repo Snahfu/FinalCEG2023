@@ -576,10 +576,12 @@
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.remove(activeObject);
+                console.log(itemMap)
                 itemMap.set(activeObject.id, itemMap.get(activeObject.id) + 1);
                 console.log(activeObject.id);
                 console.log(itemMap)
                 displayItems();
+                saveJSON("delete")
             }
         }
 
@@ -675,7 +677,7 @@
                 });
         }
 
-        function saveJSON() {
+        function saveJSON(param) {
             var JSONstr = JSON.stringify(canvas);
             localStorage.setItem("JSON", JSONstr);
             console.log(JSONstr);
@@ -699,7 +701,9 @@
                     'test': "test",
                 },
                 success: function(data) {
-                    alert(data.msg)
+                    if (param != "delete"){
+                        alert(data.msg)
+                    }
                 },
                 error: function() {
                     alert('error')
@@ -761,7 +765,7 @@
             </div>
         </div>
         <button id="buttonExport" onclick="exportPNG()">Export</button>
-        <button id="buttonSave" onclick="saveJSON()">Save</button>
+        <button id="buttonSave" onclick="saveJSON('save')">Save</button>
         <button id="buttonLoad" onclick="loadJSON()">Load</button>
         <button id="buttonAddTextBox" onclick="addTextBox()">Add Text Box</button>
         <button id="buttonAddArrow" onclick="addArrow()">Add Arrow</button>
