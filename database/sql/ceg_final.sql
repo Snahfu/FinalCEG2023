@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 02:17 PM
+-- Generation Time: Apr 13, 2023 at 06:47 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -50,7 +50,7 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (8, 'Bingkai Roll', 'Cylinder;Pipe;Frame', 3),
 (9, 'Screw Press', 'Screw;Gear;Motor', 3),
 (10, 'Bench Frame', 'Frame;Gear;Screw', 3),
-(11, 'Seperating Funnel', 'Glass;Katup', 4),
+(11, 'Decanter', 'Screw;Frame;', 4),
 (12, 'Distillation Column', 'Column;Condenser;Reboiler', 4),
 (13, 'Extraction Column', 'Klem;Condenser;Selang', 4),
 (14, 'Rotary Drum Filter', 'Pipe;Blade;Drum', 4),
@@ -58,22 +58,24 @@ INSERT INTO `alat` (`idalat`, `nama_alat`, `downgrade`, `jenis_idjenis`) VALUES
 (16, 'Mixer', 'Motor;Nozzle;Gear', 5),
 (17, 'High Viscosity Batch Mixing', 'Screw;Stirrer;Motor', 5),
 (18, 'Double Planetary Mixing', 'Bowl;Beater;Handle', 5),
-(19, 'Tray Dryer', 'Tray Plate;Heater;Roller', 6),
-(20, 'Spray Dryer', 'Chamber;Heater;Pipe', 6),
-(21, 'Rotary Dryer', 'Heater;Gear;Exhaust System', 6),
+(19, 'Tray Dryer', 'Tray Plate;Fan Heater;Roller', 6),
+(20, 'Spray Dryer', 'Chamber;Fan Heater;Pipe', 6),
+(21, 'Rotary Dryer', 'Fan Heater;Gear;Exhaust System', 6),
 (22, 'Flash Dryer', 'Blade;Cyllinder;Tower Cap', 6),
 (23, 'Fluidized Bed Dryer', 'Blower;Chamber;Cyclone', 6),
 (24, 'Pump', 'Cylinder;Nozzle;Impeller', 7),
 (25, 'Belt Conveyor', 'Roller;Motor;Skirtboard', 7),
 (26, 'Screw Conveyor', 'Screw;Cover;Motor', 7),
 (27, 'Bucket Elevator', 'Bucket;Inlet;Motor', 7),
-(28, 'Silo', 'Cylinder;Pipe;Cover', 8),
-(29, 'Drum Storage', 'Handle;Cover;Cylinder', 8),
-(30, 'Tank Storage', 'Cover;Pipe;Gauge', 8),
-(31, 'Hopper', 'Blower;Cover;Cylinder', 8),
-(32, 'Intermediate Bulk Container (IBC)', 'Katup;Cover;Frame', 8),
-(33, 'Packager', 'Roller;Blade;Skirtboard', 9),
-(34, 'Medium Bulk Storage', 'Frame;Handle;Cover', 9);
+(28, 'Compressor', 'Motor ;Gauge;Frame', 7),
+(29, 'Silo', 'Cylinder;Pipe;Cover', 8),
+(30, 'Drum Storage', 'Handle;Cover;Cylinder', 8),
+(31, 'Tank Storage', 'Cover;Pipe;Gauge', 8),
+(32, 'Hopper', 'Blower;Cover;Cylinder', 8),
+(33, 'Intermediate Bulk Container (IBC)', 'Katup;Cover;Frame', 8),
+(34, 'Medium Bulk Storage', 'Frame;Handle;Cover', 8),
+(35, 'Packager', 'Roller;Blade;Skirtboard', 9),
+(36, 'Air Heater', 'Pipe;Motor;Katup', 10);
 
 -- --------------------------------------------------------
 
@@ -212,7 +214,7 @@ INSERT INTO `inventory` (`idinventory`, `nama_barang`, `stock_barang`, `teams_id
 (18, 'Bingkai Roll', 3, 11),
 (19, 'Screw Press', 3, 11),
 (20, 'Bench Frame', 3, 11),
-(21, 'Seperating Funnel', 3, 11),
+(21, 'Decanter', 3, 11),
 (22, 'Distillation Column', 3, 11),
 (23, 'Extraction Column', 3, 11),
 (24, 'Rotary Drum Filter', 3, 11),
@@ -229,13 +231,87 @@ INSERT INTO `inventory` (`idinventory`, `nama_barang`, `stock_barang`, `teams_id
 (35, 'Belt Conveyor', 3, 11),
 (36, 'Screw Conveyor', 3, 11),
 (37, 'Bucket Elevator', 3, 11),
-(38, 'Silo', 3, 11),
-(39, 'Drum Storage', 3, 11),
-(40, 'Tank Storage', 3, 11),
-(41, 'Hopper', 3, 11),
-(42, 'Intermediate Bulk Container (IBC)', 3, 11),
-(43, 'Packager', 3, 11),
-(44, 'Medium Bulk Storage', 3, 11);
+(38, 'Compressor', 3, 11),
+(39, 'Silo', 3, 11),
+(40, 'Drum Storage', 3, 11),
+(41, 'Tank Storage', 3, 11),
+(42, 'Hopper', 3, 11),
+(43, 'Intermediate Bulk Container (IBC)', 3, 11),
+(44, 'Medium Bulk Storage', 3, 11),
+(45, 'Packager', 3, 11),
+(46, 'Air Heater', 3, 11),
+(47, 'Washer', 3, 12),
+(48, 'Grater', 3, 12),
+(49, 'Cutter', 3, 12),
+(50, 'Ball Mill', 3, 12),
+(51, 'Roll Crusher', 3, 12),
+(52, 'Cone Crusher', 3, 12),
+(53, 'Coconut Hydraulic Press Machine', 3, 12),
+(54, 'Bingkai Roll', 3, 12),
+(55, 'Screw Press', 3, 12),
+(56, 'Bench Frame', 3, 12),
+(57, 'Decanter', 3, 12),
+(58, 'Distillation Column', 3, 12),
+(59, 'Extraction Column', 3, 12),
+(60, 'Rotary Drum Filter', 3, 12),
+(61, 'Ribbon Blenders', 3, 12),
+(62, 'Mixer', 3, 12),
+(63, 'High Viscosity Batch Mixing', 3, 12),
+(64, 'Double Planetary Mixing', 3, 12),
+(65, 'Tray Dryer', 3, 12),
+(66, 'Spray Dryer', 3, 12),
+(67, 'Rotary Dryer', 3, 12),
+(68, 'Flash Dryer', 3, 12),
+(69, 'Fluidized Bed Dryer', 3, 12),
+(70, 'Pump', 3, 12),
+(71, 'Belt Conveyor', 3, 12),
+(72, 'Screw Conveyor', 3, 12),
+(73, 'Bucket Elevator', 3, 12),
+(74, 'Compressor', 3, 12),
+(75, 'Silo', 3, 12),
+(76, 'Drum Storage', 3, 12),
+(77, 'Tank Storage', 3, 12),
+(78, 'Hopper', 3, 12),
+(79, 'Intermediate Bulk Container (IBC)', 3, 12),
+(80, 'Medium Bulk Storage', 3, 12),
+(81, 'Packager', 3, 12),
+(82, 'Air Heater', 3, 12),
+(83, 'Washer', 3, 13),
+(84, 'Grater', 3, 13),
+(85, 'Cutter', 3, 13),
+(86, 'Ball Mill', 3, 13),
+(87, 'Roll Crusher', 3, 13),
+(88, 'Cone Crusher', 3, 13),
+(89, 'Coconut Hydraulic Press Machine', 3, 13),
+(90, 'Bingkai Roll', 3, 13),
+(91, 'Screw Press', 3, 13),
+(92, 'Bench Frame', 3, 13),
+(93, 'Decanter', 3, 13),
+(94, 'Distillation Column', 3, 13),
+(95, 'Extraction Column', 3, 13),
+(96, 'Rotary Drum Filter', 3, 13),
+(97, 'Ribbon Blenders', 3, 13),
+(98, 'Mixer', 3, 13),
+(99, 'High Viscosity Batch Mixing', 3, 13),
+(100, 'Double Planetary Mixing', 3, 13),
+(101, 'Tray Dryer', 3, 13),
+(102, 'Spray Dryer', 3, 13),
+(103, 'Rotary Dryer', 3, 13),
+(104, 'Flash Dryer', 3, 13),
+(105, 'Fluidized Bed Dryer', 3, 13),
+(106, 'Pump', 3, 13),
+(107, 'Belt Conveyor', 3, 13),
+(108, 'Screw Conveyor', 3, 13),
+(109, 'Bucket Elevator', 3, 13),
+(110, 'Compressor', 3, 13),
+(111, 'Silo', 3, 13),
+(112, 'Drum Storage', 3, 13),
+(113, 'Tank Storage', 3, 13),
+(114, 'Hopper', 3, 13),
+(115, 'Intermediate Bulk Container (IBC)', 3, 13),
+(116, 'Medium Bulk Storage', 3, 13),
+(117, 'Packager', 3, 13),
+(118, 'Air Heater', 3, 13);
 
 -- --------------------------------------------------------
 
@@ -261,7 +337,8 @@ INSERT INTO `jenis_alat` (`idjenis`, `nama_jenis`) VALUES
 (6, 'Pengeringan'),
 (7, 'Pengangkut'),
 (8, 'Alat Penyimpanan'),
-(9, 'Pengemas');
+(9, 'Pengemas'),
+(10, 'Pemanas');
 
 -- --------------------------------------------------------
 
@@ -328,7 +405,7 @@ CREATE TABLE `market_downgrade` (
 INSERT INTO `market_downgrade` (`idmarket_downgrade`, `downgrade`, `stok`, `harga_beli`, `harga_jual`, `tipe`) VALUES
 (1, 'Motor', 200, 100, 85, 'biasa'),
 (2, 'Pipe', 200, 50, 40, 'biasa'),
-(3, 'Tubee', 200, 35, 30, 'biasa'),
+(3, 'Tube', 200, 35, 30, 'biasa'),
 (4, 'Blade', 200, 75, 60, 'biasa'),
 (5, 'Gear', 200, 45, 35, 'biasa'),
 (6, 'Gauge', 200, 65, 55, 'biasa'),
@@ -411,8 +488,7 @@ INSERT INTO `market_downgrade` (`idmarket_downgrade`, `downgrade`, `stok`, `harg
 (83, 'Tray Plate', 2, 35, 0, 'flash sale 3'),
 (84, 'Heater', 2, 45, 0, 'flash sale 3'),
 (85, 'Chamber', 2, 65, 0, 'flash sale 3'),
-(86, 'Blower', 2, 45, 0, 'flash sale 3'),
-(87, 'downgrade', 0, 0, 0, 'tipe');
+(86, 'Blower', 2, 45, 0, 'flash sale 3');
 
 -- --------------------------------------------------------
 
@@ -485,7 +561,8 @@ INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
 (9, 'User 9', '1500'),
 (10, 'User 10', '1500'),
 (11, 'User 23', '1000000'),
-(12, 'User 42', '1000000');
+(12, 'User 42', '1000000'),
+(13, 'User 52', '1000000');
 
 -- --------------------------------------------------------
 
@@ -541,7 +618,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (28, 'User 9', 'user9@gmail.com', NULL, '$2y$10$ozbSa.A2C1cIofN.JAcJg.anEz8HBBJxum29uad6Q3ez536yDJow6', NULL, '2023-04-10 12:32:27', '2023-04-01 06:29:34', 9, 'Player'),
 (29, 'User 10', 'user10@gmail.com', NULL, '$2y$10$hVtuGYLLJ8KzQ1CXyQMr0u.pfVVs0XiOs7Cn0YDqX6beoB.SdTTO2', NULL, '2023-04-10 12:32:21', '2023-04-01 06:29:50', 10, 'Player'),
 (30, 'User 23', 'user23@gmail.com', NULL, '$2y$10$HEqDfi6/qslbbbm8JHpv6ebZfQVOyAaSCOln8YDHmHMc20BjOb816', NULL, '2023-04-10 12:32:17', '2023-04-01 06:30:11', 11, 'Player'),
-(31, 'User 42', 'user42@gmail.com', NULL, '$2y$10$OLIRAov1nC1zSAtXAdTxiOlLEP42JC40fr7W7kNqlY2d15pUdtabq', NULL, '2023-04-10 12:32:11', '2023-04-01 06:31:03', 12, 'Player');
+(31, 'User 42', 'user42@gmail.com', NULL, '$2y$10$OLIRAov1nC1zSAtXAdTxiOlLEP42JC40fr7W7kNqlY2d15pUdtabq', NULL, '2023-04-10 12:32:11', '2023-04-01 06:31:03', 12, 'Player'),
+(34, 'User 53', 'user53@gmail.com', NULL, '$2y$10$t/2Q5M8hBrLJMZbHKeze/.V2iueBomkviUnwT2E58Up/3AgMMzjLm', NULL, '2023-04-13 13:19:16', '2023-04-13 06:18:34', 13, 'Player');
 
 --
 -- Indexes for dumped tables
@@ -670,7 +748,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alat`
 --
 ALTER TABLE `alat`
-  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idalat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `bahan`
@@ -706,13 +784,13 @@ ALTER TABLE `history_koins`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `idinventory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `jenis_alat`
 --
 ALTER TABLE `jenis_alat`
-  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `market_bahan`
@@ -724,7 +802,7 @@ ALTER TABLE `market_bahan`
 -- AUTO_INCREMENT for table `market_downgrade`
 --
 ALTER TABLE `market_downgrade`
-  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -742,13 +820,13 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
