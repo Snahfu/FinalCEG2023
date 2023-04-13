@@ -44,17 +44,24 @@ h1:after {
     border: 0 solid;
 
 }
+#username-wrap{
+    display: flex;
+    flex-direction: row;
+}
 .img-container{
-    clip-path: circle(50% at 50% 50%);
+
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: fit-content;
     height: auto;
     display: flex;
     align-content: center;
+    border-radius: 50%;
 }
 .userPic{
-    max-width: 100px;
+    max-width: 125px;
     height: auto;
+    aspect-ratio: 1/1;
+    object-fit: contain;
 }
 #icon-coin{
     font-size: 24px;
@@ -154,7 +161,7 @@ h1:after {
     }
 }
 
-@media screen and (max-width:575px){
+@media screen and (max-width:576px){
     h1:after {
         background-color: #000;
         content: "";
@@ -164,9 +171,21 @@ h1:after {
         vertical-align: middle;
         width: 40%;
     }
+    #username-wrap{
+        display: flex;
+        flex-direction: column;
+    }
+    .img-container{
+        clip-path: circle(50% at 50% 50%);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-content: center;
+    }
     
     .userPic{
-        width: 75px;
+        width: 100px;
     }
     .dashboard{
         width: 100%;

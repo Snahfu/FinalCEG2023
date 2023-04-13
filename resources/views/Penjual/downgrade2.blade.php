@@ -75,8 +75,10 @@
         }
 
         .card-container .card-body {
-            padding: 16px 12px 16px 12px;
+            padding: 8px 12px 16px 12px;
         }
+
+
 
         .nomortb {
             text-align: center;
@@ -107,6 +109,8 @@
                                         <div class="card col-2 p-0 cardItems">
                                             {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
                                                 alt="..."> --}}
+                                            <img src="{{ asset('assets/tools/'.$downgrade->downgrade.'.png') }}" class="card-img-top"
+                                            alt="...">
                                             <div class="card-body text-center">
                                                 <h6 class="">{{ $downgrade->downgrade }}</h6>
                                                 <div class="row my-1">

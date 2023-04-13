@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ url('css/kelapa-favicon.png') }}">
+    <link rel="icon" href="{{ url('css/favicon.png') }}">
     <title>{{ config('app.name', 'Final CEG 2023') }}</title>
 
 

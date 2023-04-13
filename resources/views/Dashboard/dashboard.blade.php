@@ -13,19 +13,19 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-4 col-sm-3 d-flex justify-content-center p-0">
                         <div class="img-container">
-                            <img src="{{ asset('assets/users/dummy_pic2.jpg') }}" id="user_Picture" class="userPic">
+                            <img src="{{ asset('assets/users/mascot-head.png') }}" id="user_Picture" class="userPic">
                         </div>
 
                     </div>
                     <div class="col-12 col-sm py-2">
                         <div class="row">
-                            <div class="col p-0">
-                                <h3 id="username" style="font-weight:bold;">{{ $team[0]->namaTeam }}</h3>
+                            <div class="col p-0 d-flex align-items-center" id="username-wrap">
+                                <h3 id="username" style="font-weight:bold;margin:0;">{{ $team[0]->namaTeam }}</h3>
                             </div>
 
                         </div>
 
-                        <div class="row">
+                        <div class="row my-sm-3">
                             <div class="col p-0" id="koinResponsive">
                                 <div class="d-flex" style="">
                                     <i class="bi bi-coin icon" id="icon-coin"></i>
