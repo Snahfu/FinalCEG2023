@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 01:40 PM
+-- Generation Time: Apr 13, 2023 at 02:17 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -328,7 +328,7 @@ CREATE TABLE `market_downgrade` (
 INSERT INTO `market_downgrade` (`idmarket_downgrade`, `downgrade`, `stok`, `harga_beli`, `harga_jual`, `tipe`) VALUES
 (1, 'Motor', 200, 100, 85, 'biasa'),
 (2, 'Pipe', 200, 50, 40, 'biasa'),
-(3, 'Tube', 200, 35, 30, 'biasa'),
+(3, 'Tubee', 200, 35, 30, 'biasa'),
 (4, 'Blade', 200, 75, 60, 'biasa'),
 (5, 'Gear', 200, 45, 35, 'biasa'),
 (6, 'Gauge', 200, 65, 55, 'biasa'),
@@ -411,7 +411,8 @@ INSERT INTO `market_downgrade` (`idmarket_downgrade`, `downgrade`, `stok`, `harg
 (83, 'Tray Plate', 2, 35, 0, 'flash sale 3'),
 (84, 'Heater', 2, 45, 0, 'flash sale 3'),
 (85, 'Chamber', 2, 65, 0, 'flash sale 3'),
-(86, 'Blower', 2, 45, 0, 'flash sale 3');
+(86, 'Blower', 2, 45, 0, 'flash sale 3'),
+(87, 'downgrade', 0, 0, 0, 'tipe');
 
 -- --------------------------------------------------------
 
@@ -723,7 +724,7 @@ ALTER TABLE `market_bahan`
 -- AUTO_INCREMENT for table `market_downgrade`
 --
 ALTER TABLE `market_downgrade`
-  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `idmarket_downgrade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `migrations`
