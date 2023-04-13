@@ -92,15 +92,15 @@
 
             <div class="row my-2 my-md-3 d-flex justify-content-center">
                 <div class="col">
-                    <h1 id="tipe" class="p-0 m-0">{{ $tipe }}</h1>
+                    <h1 id="tipe" class="px-2 m-0" style="font-weight: bold">{{ $tipe }}</h1>
                 </div>
-
             </div>
 
             <div class="row">
                 {{-- Sisi Display --}}
                 <div class="col-lg-8 col-12">
                     <div class="card cardMain">
+                        
                         <div class="card-body">
                             {{-- START Baris Pertama --}}
                             <div class="inline-spacing">
