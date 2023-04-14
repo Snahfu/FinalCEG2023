@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 06:47 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- Generation Time: Apr 14, 2023 at 08:40 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -127,13 +126,13 @@ CREATE TABLE `hints` (
 --
 
 INSERT INTO `hints` (`idhints`, `name`, `url_hint`) VALUES
-(1, 'Clue 1', 'https://i.ibb.co/47LVs1c/Clue-1.jpg'),
-(2, 'Clue 2', 'https://i.ibb.co/vYpp7Nj/Clue-2.jpg'),
-(3, 'Clue 3', 'https://i.ibb.co/gWFqTB5/Clue-3.jpg'),
-(4, 'Clue 4', 'https://i.ibb.co/xgjzYgK/Clue-4.jpg'),
-(5, 'Clue 5', 'https://i.ibb.co/f98pcjp/Clue-5.jpg'),
-(6, 'Clue 6', 'https://i.ibb.co/68DvGLz/Clue-6.jpg'),
-(7, 'Clue 7', 'https://i.ibb.co/PjMsSr2/Clue-7.jpg');
+(1, 'Pengecil Ukuran', 'https://i.ibb.co/Nn1cj9b/1-Pengecil-Ukuran.jpg'),
+(2, 'Pengangkut', 'https://i.ibb.co/hLtY4dj/2-Pengangkut.jpg'),
+(3, 'Pengpressan', 'https://i.ibb.co/QMXGM6k/3-Pengepressan.jpg'),
+(4, 'Pengeringan', 'https://i.ibb.co/Kjbd7j8/4-Pengeringan.jpg'),
+(5, 'Pencampuran 2', 'https://i.ibb.co/BrGwXd2/5-Pencampuran-2.jpg'),
+(6, 'Penyimpanan', 'https://i.ibb.co/1GbfZmj/6-Penyimpanan.jpg'),
+(7, 'Pencampuran 1', 'https://i.ibb.co/8YKP64X/7-Pencampuran-1.jpg');
 
 -- --------------------------------------------------------
 
@@ -161,6 +160,23 @@ CREATE TABLE `history_hints` (
   `keterangan` longtext DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `history_hints`
+--
+
+INSERT INTO `history_hints` (`teams_idteams`, `hints_idhints`, `keterangan`, `created_at`) VALUES
+(1, 1, 'Team User 1 mendapat hint Clue 1', '2023-04-14 01:45:27'),
+(1, 2, 'Team User 1 mendapat hint Clue 2', '2023-04-14 01:45:48'),
+(1, 3, 'Team User 1 mendapat hint Pengpressan', '2023-04-14 01:54:14'),
+(1, 4, 'Team User 1 mendapat hint Pengeringan', '2023-04-14 01:54:19'),
+(1, 5, 'Team User 1 mendapat hint Pencampuran 2', '2023-04-14 01:54:26'),
+(1, 6, 'Team User 1 mendapat hint Penyimpanan', '2023-04-14 01:54:31'),
+(1, 7, 'Team User 1 mendapat hint Pencampuran 1', '2023-04-14 01:54:38'),
+(2, 1, 'Team User 2 mendapat hint Pengecil Ukuran', '2023-04-14 01:55:13'),
+(2, 2, 'Team User 2 mendapat hint Pengangkut', '2023-04-14 01:55:19'),
+(2, 5, 'Team User 2 mendapat hint Pencampuran 2', '2023-04-14 01:55:46'),
+(2, 6, 'Team User 2 mendapat hint Penyimpanan', '2023-04-14 01:55:37');
 
 -- --------------------------------------------------------
 
@@ -550,8 +566,8 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
-(1, 'User 1', '1500'),
-(2, 'User 2', '1500'),
+(1, 'User 1', '100'),
+(2, 'User 2', '700'),
 (3, 'User 3', '1500'),
 (4, 'User 4', '1500'),
 (5, 'User 5', '1500'),
@@ -588,7 +604,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `teams_idteams`, `role`) VALUES
-(1, 'Pos Pengeringan', 'pengeringan@gmail.com', NULL, '$2y$10$toqTDMW.KB0ZUx4FPfDCS./HT1stMMSqwfz5h/OaGEEE4lU/xTo4y', NULL, '2023-04-01 13:15:14', '2023-04-01 06:07:17', NULL, 'Tool'),
+(1, 'Pos Pengeringan', 'pengeringan@gmail.com', NULL, '$2y$10$igHlHCatjMcN/lK3sbtUSOQ5Ihg3wc7IK9QSWpTOdnnVCrhwlcQYa', NULL, '2023-04-14 01:39:46', '2023-04-13 18:39:46', NULL, 'Tool'),
 (2, 'Pos Pencampuran', 'pencampuran@gmail.com', NULL, '$2y$10$xV4Rbr21virxyMNm8pcZSeFiFvdCavMdRq/.t/LYlB1L4BYkvoP1G', NULL, '2023-04-01 13:17:59', '2023-04-01 06:08:38', NULL, 'Tool'),
 (3, 'Pos Pengangkut', 'pengangkut@gmail.com', NULL, '$2y$10$RacHghos/I9Pcauqh.O2A.QKLwz61m1lzb7/OxMmT.zVb.dYoHEFu', NULL, '2023-04-01 13:17:59', '2023-04-01 06:11:25', NULL, 'Tool'),
 (4, 'Pos Pengecil Ukuran', 'pengecilUkuran@gmail.com', NULL, '$2y$10$iT1xcMcwn9UI8ro6b/TwYe6noIicNuN1pTC9QefVAvM2VH3de0xdW', NULL, '2023-04-01 13:17:59', '2023-04-01 06:11:56', NULL, 'Tool'),
@@ -603,11 +619,11 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (13, 'Store Downgrade2', 'storedowngrade2@gmail.com', NULL, '$2y$10$Z6BHrguQojSBAPyWk.1rtOsGcL6qISB5BVC3t0f0Ux.KV16A5nnTO', NULL, '2023-04-10 12:36:54', '2023-04-10 05:34:45', NULL, 'AdminDowngrade'),
 (14, 'dnc1', 'dnc1@gmail.com', NULL, '$2y$10$QUqElGeKjkA4Ig46tOVSCOcQc4O3XoLFETd3cEeKLCv9hZlE97FVC', NULL, '2023-04-10 12:35:13', '2023-04-01 06:22:14', NULL, 'DnC'),
 (15, 'dnc2', 'dnc2@gmail.com', NULL, '$2y$10$COh.qHxskJcM0qDq1l9hIuZCmrxoITujgPu8QFki8z/k4BqcnEXTq', NULL, '2023-04-10 12:35:10', '2023-04-01 06:22:29', NULL, 'DnC'),
-(16, 'Pos Hint', 'poshint@gmail.com', NULL, '$2y$10$94YkmXJ409MEc/4mLoPXCum8BAFy09Q9HD9mNyysGQvY2BqZ0nsyW', NULL, '2023-04-10 12:35:08', '2023-04-01 06:24:08', NULL, 'AdminHint'),
+(16, 'Pos Hint', 'poshint@gmail.com', NULL, '$2y$10$c8DgGNipd8/DJ70ihsTeUub9Dp0jdEgyuMdhWgiehZgE9Bhx./BSC', NULL, '2023-04-14 01:54:00', '2023-04-13 18:54:00', NULL, 'AdminHint'),
 (17, 'Bonus1', 'posbonus1@gmail.com', NULL, '$2y$10$j/q/Td6KuQ2V/2oIEurR3up5umljbTfEfZUuVeOu2i7tdDP1e8rSq', NULL, '2023-04-10 12:35:06', '2023-04-01 06:25:36', NULL, 'Bonus'),
 (18, 'Bonus2', 'posbonus2@gmail.com', NULL, '$2y$10$UJEdeQm7sPjCcml4RJ4qyu4b.A1M793kDOJl9QNV6wKNMQvBeP192', NULL, '2023-04-10 12:35:04', '2023-04-01 06:25:55', NULL, 'Bonus'),
-(19, 'Consultant', 'consultant@gmail.com', NULL, '$2y$10$Y6g4M089OqaoQ5./50KMzexVMDzvBWME2IT7zXlF2pV8ZyJI/NOFm', NULL, '2023-04-10 12:35:01', '2023-04-01 06:26:19', NULL, 'Consultant'),
-(20, 'User 1', 'user1@gmail.com', NULL, '$2y$10$BhpjTSOUzoNd22MsQYBBx.ie6.I2O2V61ipRIvrxEboMC2i/1c5Oq', NULL, '2023-04-10 12:32:51', '2023-04-01 06:27:02', 1, 'Player'),
+(19, 'Consultant', 'consultant@gmail.com', NULL, '$2y$10$5chhwmwp555oF5FGWqcC1OlE9QXO.YdyKjkfcedHQjAU7Le5myzBS', NULL, '2023-04-14 01:43:24', '2023-04-13 18:43:24', NULL, 'Consultant'),
+(20, 'User 1', 'user1@gmail.com', NULL, '$2y$10$Lnm9kRm9Jmq/gSREZgu1duZZkLywOrNCBnp4YOKt9ZmKXfjPswreu', NULL, '2023-04-14 01:56:27', '2023-04-13 18:56:27', 1, 'Player'),
 (21, 'User 2', 'user2@gmail.com', NULL, '$2y$10$y.2LJpDOtWbR5A95audS.u34t.9SawixhnyCmBupewX1TNQkh3/bq', NULL, '2023-04-10 12:32:49', '2023-04-01 06:27:22', 2, 'Player'),
 (22, 'User 3', 'user3@gmail.com', NULL, '$2y$10$V2ZC1jCybX47nORM0/eS3unh2C5VJAVQyI1KomYz15yBrQ.vwwpVm', NULL, '2023-04-10 12:32:47', '2023-04-01 06:27:50', 3, 'Player'),
 (23, 'User 4', 'user4@gmail.com', NULL, '$2y$10$ey6nNaOCvCpv9mBFEEPkTutPMXOe1Z3eWHEIKZOWf1F8ulDfUS/tW', NULL, '2023-04-10 12:32:46', '2023-04-01 06:28:06', 4, 'Player'),

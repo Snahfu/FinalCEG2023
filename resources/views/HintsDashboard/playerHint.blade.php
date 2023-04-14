@@ -47,10 +47,10 @@
                     <div class="col-md-4 mb-3">
                         <div class="card">
                             <div>
-                                <img src="{{ $hint->url_hint }}" class="card-img-top scale-img rounded mx-auto d-block"
+                                <img src="{{ $hint->url_hint }}" class="card-img-top scale-img rounded mx-auto d-block mt-3"
                                     alt="{{ $hint->name }}">
                             </div>
-                            <div class="card-body">
+                            <div class="card-body center" style="text-align: center">
                                 <h5 class="card-title">{{ $hint->name }}</h5>
                             </div>
                         </div>
