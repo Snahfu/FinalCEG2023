@@ -20,10 +20,6 @@
             overflow-x: hidden;
         }
 
-        ::-webkit-scrollbar {
-            width: 0%;
-        }
-
         #wrapper {
             display: flex;
             flex-direction: column;
@@ -117,7 +113,7 @@
             margin: 0;
             height: 5vw;
             width: 1000vw;
-            max-width: 1000vw;
+            max-width: 250vw;
         }
 
         .draggable {
@@ -166,10 +162,20 @@
             height: 100%;
         }
 
+        button {
+            border-radius: 10px;
+            font-weight: 300;
+        }
+
+        button:hover {
+            background-color: #515940;
+            color: white;
+        }
+
         .overlay {
             position: absolute;
             text-align: center;
-            width: 100%;
+            width: 5vw;
             height: 100%;
             color: white;
             background-color: #515940;
@@ -179,7 +185,6 @@
         .text {
             position: absolute;
             margin: auto;
-            width: 90%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -198,6 +203,8 @@
         const itemMap = new Map();
         let count = 1;
         let usedId = [];
+        const sidebar = document.getElementById('sidebarWrapper');
+        let totalWidth = 0;
         var arrowStatus = false;
         var lineStatus = false;
         var canvas;
@@ -306,6 +313,7 @@
                     objectCaching: true
                 });
                 inst.canvas.renderAll();
+                saveJSON("add");
                 inst.disable();
             };
 
@@ -470,6 +478,7 @@
                     objectCaching: true
                 });
                 inst.canvas.renderAll();
+                saveJSON("add");
                 inst.disable();
             };
 
@@ -578,8 +587,10 @@
                     canvas.add(fabricImg);
                     itemMap.set(data, itemMap.get(data) - 1);
                     displayItems();
+                    saveJSON("add");
                 };
             });
+            loadJSON();
         });
 
         function allowDrop(ev) {
@@ -591,16 +602,20 @@
         }
 
         function delImg() {
-            var activeObject = canvas.getActiveObject();
-            if (activeObject) {
-                canvas.remove(activeObject);
-                console.log(itemMap)
-                itemMap.set(activeObject.id, itemMap.get(activeObject.id) + 1);
-                console.log(activeObject.id);
-                console.log(itemMap)
-                displayItems();
-                saveJSON("delete")
+            var activeObjects = canvas.getActiveObjects();
+            for (var i = 0; i < activeObjects.length; i++) {
+                activeObject = activeObjects[i];
+                if (activeObject) {
+                    canvas.remove(activeObject);
+                    console.log(itemMap)
+                    itemMap.set(activeObject.id, itemMap.get(activeObject.id) + 1);
+                    console.log(activeObject.id);
+                    console.log(itemMap)
+                    displayItems();
+                    saveJSON("delete")
+                }
             }
+            canvas.discardActiveObject();
         }
 
         function displayItems() {
@@ -637,6 +652,11 @@
             if (arrowStatus == false) {
                 line.unbindEvents();
                 lineStatus = false;
+
+                document.getElementById("buttonAddLine").innerHTML = "Add Line";
+                document.getElementById("buttonAddLine").style.backgroundColor = "";
+                document.getElementById("buttonAddLine").style.color = "";
+
                 canvas.discardActiveObject();
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = false;
@@ -644,6 +664,9 @@
                 });
                 arrow.bindEvents();
                 arrowStatus = true;
+                document.getElementById("buttonAddArrow").innerHTML = "Stop Arrow";
+                document.getElementById("buttonAddArrow").style.backgroundColor = "#515940";
+                document.getElementById("buttonAddArrow").style.color = "white";
             } else {
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = true;
@@ -651,6 +674,9 @@
                 });
                 arrow.unbindEvents();
                 arrowStatus = false;
+                document.getElementById("buttonAddArrow").innerHTML = "Add Arrow";
+                document.getElementById("buttonAddArrow").style.backgroundColor = "";
+                document.getElementById("buttonAddArrow").style.color = "";
             }
         }
 
@@ -658,6 +684,9 @@
             if (lineStatus == false) {
                 arrow.unbindEvents();
                 arrowStatus = false;
+                document.getElementById("buttonAddArrow").innerHTML = "Add Arrow";
+                document.getElementById("buttonAddArrow").style.backgroundColor = "";
+                document.getElementById("buttonAddArrow").style.color = "";
                 canvas.discardActiveObject();
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = false;
@@ -665,6 +694,9 @@
                 });
                 line.bindEvents();
                 lineStatus = true;
+                document.getElementById("buttonAddLine").innerHTML = "Stop Line";
+                document.getElementById("buttonAddLine").style.backgroundColor = "#515940";
+                document.getElementById("buttonAddLine").style.color = "white";
             } else {
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = true;
@@ -672,6 +704,9 @@
                 });
                 line.unbindEvents();
                 lineStatus = false;
+                document.getElementById("buttonAddLine").innerHTML = "Add Line";
+                document.getElementById("buttonAddLine").style.backgroundColor = "";
+                document.getElementById("buttonAddLine").style.color = "";
             }
         }
 
@@ -720,7 +755,7 @@
                     'test': "test",
                 },
                 success: function(data) {
-                    if (param != "delete") {
+                    if (param == "save") {
                         alert(data.msg)
                     }
                 },
@@ -750,6 +785,13 @@
                         <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
                     </li> --}}
                         @foreach ($inventory_alat as $item)
+                            {{-- <script>
+                                totalWidth += 6;
+                                if (totalWidth > 64) {
+                                    document.getElementsByClassName("sidebar-nav").width = totalWidth + "vw";
+                                    console.log(document.getElementsByClassName("sidebar-nav").width);
+                                }
+                            </script> --}}
                             <li class="picture"
                                 style="background-color: white; color: black; display: flex; flex-direction: column"
                                 draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
@@ -769,13 +811,20 @@
                             {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
                             draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
                             <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}"> --}}
+                            {{-- <script>
+                                totalWidth += 6;
+                                if (totalWidth > 64) {
+                                    document.getElementsByClassName("sidebar-nav").width = totalWidth + "vw";
+                                    console.log(document.getElementsByClassName("sidebar-nav").width);
+                                }
+                            </script> --}}
                             <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
                                 draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
                                 <img id="{{ $item->nama_barang }}"
                                     src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
                                 <div class='overlay'>
                                     <div class='text'>{{ $item->nama_barang }}
-                                </div>
+                                    </div>
                             </li>
                             @for ($count = 1; $count <= $item->stock_barang; $count++)
                                 <script>
@@ -789,7 +838,6 @@
                 <div id="buttonList">
                     <button id="buttonExport" onclick="exportPNG()">Export</button>
                     <button id="buttonSave" onclick="saveJSON('save')">Save</button>
-                    <button id="buttonLoad" onclick="loadJSON()">Load</button>
                     <button id="buttonAddTextBox" onclick="addTextBox()">Add Text Box</button>
                     <button id="buttonAddArrow" onclick="addArrow()">Add Arrow</button>
                     <button id="buttonAddLine" onclick="addLine()">Add Line</button>
