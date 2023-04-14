@@ -14,6 +14,7 @@
     <style>
         :root {
             --listHeight: 20vh;
+            --height: 5vw
         }
 
         body {
@@ -111,7 +112,7 @@
         .sidebar-nav {
             padding: 0;
             margin: 0;
-            height: 5vw;
+            height: var(--height);
             width: 1000vw;
             max-width: 250vw;
         }
@@ -543,6 +544,7 @@
         var line;
 
         $(document).ready(function() {
+            console.log(itemMap)
 
             var parent = document.getElementById('parent');
             var width = parent.clientWidth;
@@ -585,6 +587,7 @@
                     fabricImg.scaleToHeight(50);
                     fabricImg.id = data;
                     canvas.add(fabricImg);
+                    console.log(itemMap)
                     itemMap.set(data, itemMap.get(data) - 1);
                     displayItems();
                     saveJSON("add");
@@ -734,12 +737,12 @@
         function saveJSON(param) {
             var JSONstr = JSON.stringify(canvas);
             localStorage.setItem("JSON", JSONstr);
-            console.log(JSONstr);
+            // console.log(JSONstr);
 
             let arrItemNow = []
 
             for (const [key, value] of itemMap.entries()) {
-                if (value > 0) {
+                if (value >= 0) {
                     arrItemNow.push([key, value])
                 }
             }
@@ -792,20 +795,20 @@
                                     console.log(document.getElementsByClassName("sidebar-nav").width);
                                 }
                             </script> --}}
-                            <li class="picture"
-                                style="background-color: white; color: black; display: flex; flex-direction: column"
-                                draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
-                                <img id="{{ $item->nama_barang }}"
-                                    src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
-                                <div class='overlay'>
-                                    <div class='text'>{{ $item->nama_barang }}
-                                    </div>
-                            </li>
-                            @for ($count = 1; $count <= $item->stock_barang; $count++)
-                                <script>
-                                    itemMap.set("{{ $item->nama_barang }}", {{ $count }});
-                                </script>
-                            @endfor
+                            @if ($item->stock_barang > 0)
+                                <li class="picture"
+                                    style="background-color: white; color: black; display: flex; flex-direction: column"
+                                    draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                                    <img id="{{ $item->nama_barang }}"
+                                        src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
+                                    <div class='overlay'>
+                                        <div class='text'>{{ $item->nama_barang }}
+                                        </div>
+                                </li>
+                            @endif
+                            <script>
+                                itemMap.set("{{ $item->nama_barang }}", {{ (int) $item->stock_barang }});
+                            </script>
                         @endforeach
                         @foreach ($inventory_bahan as $item)
                             {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
@@ -818,19 +821,20 @@
                                     console.log(document.getElementsByClassName("sidebar-nav").width);
                                 }
                             </script> --}}
-                            <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
-                                draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
-                                <img id="{{ $item->nama_barang }}"
-                                    src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
-                                <div class='overlay'>
-                                    <div class='text'>{{ $item->nama_barang }}
-                                    </div>
-                            </li>
-                            @for ($count = 1; $count <= $item->stock_barang; $count++)
-                                <script>
-                                    itemMap.set("{{ $item->nama_barang }}", {{ $count }});
-                                </script>
-                            @endfor
+                            @if ($item->stock_barang > 0)
+                                <li class="picture"
+                                    style="background-color: white; color: black;"style="object-fit: contain;"
+                                    draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                                    <img id="{{ $item->nama_barang }}"
+                                        src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
+                                    <div class='overlay'>
+                                        <div class='text'>{{ $item->nama_barang }}
+                                        </div>
+                                </li>
+                            @endif
+                            <script>
+                                itemMap.set("{{ $item->nama_barang }}", {{ (int) $item->stock_barang }});
+                            </script>
                         @endforeach
                     </ul>
                 </div>
