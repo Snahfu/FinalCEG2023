@@ -50,10 +50,9 @@
                 80px 80px,
                 80px 80px;
             margin-top: 1.5vh;
-            margin-left: 5vw;
             margin-right: 0vw;
             height: 80vh;
-            width: 64vw;
+            width: 73vw;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow-x: hidden;
@@ -62,12 +61,13 @@
         #buttonExport {
             width: 5vw;
             position: relative;
-            left: 64vw;
+            left: 73vw;
 
         }
 
         #buttonList {
             position: relative;
+            left: -5vw;
             top: 5vh;
         }
 
@@ -75,11 +75,6 @@
             position: relative;
             display: flex;
             font-weight: bold;
-            left: 5vw;
-        }
-
-        .sourcePoint {
-            fill: red;
         }
 
         h1:after {
@@ -91,7 +86,7 @@
             height: 2px;
             position: relative;
             vertical-align: middle;
-            width: 50vw;
+            width: 59vw;
             left: 1rem;
         }
 
@@ -103,9 +98,9 @@
             background-color: #f2f2f2;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             margin: 0;
-            left: 5vw;
             border-radius: 20px;
-            width: 64vw;
+            padding-right: 1vw;
+            width: 73vw;
             height: 8vw;
         }
 
@@ -113,7 +108,7 @@
             padding: 0;
             margin: 0;
             height: var(--height);
-            width: 1000vw;
+            width: 73vw;
             max-width: 250vw;
         }
 
@@ -555,7 +550,7 @@
             canvas.setHeight(height);
             var upperCanvas = canvas.upperCanvasEl;
 
-            upperCanvas.style.left = "40px";
+            upperCanvas.style.top = "1.3vh";
             //Object Arrow
             arrow = new Arrow(canvas);
             arrow.unbindEvents();
@@ -593,6 +588,9 @@
                     saveJSON("add");
                 };
             });
+            canvas.on('object:modified', function() {
+                saveJSON("modify");
+            });
             loadJSON();
         });
 
@@ -623,6 +621,7 @@
 
         function displayItems() {
             const sidebar = document.getElementById("sidebar");
+            var totalWidth = 0;
             sidebar.innerHTML = "";
             for (const [key, value] of itemMap.entries()) {
                 if (value > 0) {
@@ -632,13 +631,47 @@
                     const overlay = "<div class='overlay'><div class='text'>" + key + "</div></div>";
                     $(item).append("<img src='/assets/items/" + key.replace(/ /g, "_") + ".png'>", overlay).appendTo(
                         sidebar);
+                    totalWidth += 6;
+                    $(".sidebar-nav").css("width", totalWidth + "vw");
                 }
             }
         }
 
-        function addTextBox() {
-            line.unbindEvents();
+        function disableArrow() {
             arrow.unbindEvents();
+            arrowStatus = false;
+            document.getElementById("buttonAddArrow").innerHTML = "Add Arrow";
+            document.getElementById("buttonAddArrow").style.backgroundColor = "";
+            document.getElementById("buttonAddArrow").style.color = "";
+        }
+
+        function enableArrow() {
+            arrow.bindEvents();
+            arrowStatus = true;
+            document.getElementById("buttonAddArrow").innerHTML = "Stop Arrow";
+            document.getElementById("buttonAddArrow").style.backgroundColor = "#515940";
+            document.getElementById("buttonAddArrow").style.color = "white";
+        }
+
+        function disableLine() {
+            line.unbindEvents();
+            lineStatus = false;
+            document.getElementById("buttonAddLine").innerHTML = "Add Line";
+            document.getElementById("buttonAddLine").style.backgroundColor = "";
+            document.getElementById("buttonAddLine").style.color = "";
+        }
+
+        function enableLine() {
+            line.bindEvents();
+            lineStatus = true;
+            document.getElementById("buttonAddLine").innerHTML = "Stop Line";
+            document.getElementById("buttonAddLine").style.backgroundColor = "#515940";
+            document.getElementById("buttonAddLine").style.color = "white";
+        }
+
+        function addTextBox() {
+            disableArrow();
+            disableLine();
             var text = new fabric.IText('Enter text here', {
                 left: 100,
                 top: 100,
@@ -649,67 +682,44 @@
                 hasRotatingPoint: true
             });
             canvas.add(text);
+            saveJSON("add");
         }
 
         function addArrow() {
             if (arrowStatus == false) {
                 line.unbindEvents();
-                lineStatus = false;
-
-                document.getElementById("buttonAddLine").innerHTML = "Add Line";
-                document.getElementById("buttonAddLine").style.backgroundColor = "";
-                document.getElementById("buttonAddLine").style.color = "";
+                disableLine();
 
                 canvas.discardActiveObject();
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = false;
                     o.evented = false;
                 });
-                arrow.bindEvents();
-                arrowStatus = true;
-                document.getElementById("buttonAddArrow").innerHTML = "Stop Arrow";
-                document.getElementById("buttonAddArrow").style.backgroundColor = "#515940";
-                document.getElementById("buttonAddArrow").style.color = "white";
+                enableArrow();
             } else {
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = true;
                     o.evented = true;
                 });
-                arrow.unbindEvents();
-                arrowStatus = false;
-                document.getElementById("buttonAddArrow").innerHTML = "Add Arrow";
-                document.getElementById("buttonAddArrow").style.backgroundColor = "";
-                document.getElementById("buttonAddArrow").style.color = "";
+                disableArrow();
             }
         }
 
         function addLine() {
             if (lineStatus == false) {
-                arrow.unbindEvents();
-                arrowStatus = false;
-                document.getElementById("buttonAddArrow").innerHTML = "Add Arrow";
-                document.getElementById("buttonAddArrow").style.backgroundColor = "";
-                document.getElementById("buttonAddArrow").style.color = "";
-                canvas.discardActiveObject();
+                disableArrow();
+
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = false;
                     o.evented = false;
                 });
-                line.bindEvents();
-                lineStatus = true;
-                document.getElementById("buttonAddLine").innerHTML = "Stop Line";
-                document.getElementById("buttonAddLine").style.backgroundColor = "#515940";
-                document.getElementById("buttonAddLine").style.color = "white";
+                enableLine();
             } else {
                 canvas.getObjects().forEach(function(o) {
                     o.selectable = true;
                     o.evented = true;
                 });
-                line.unbindEvents();
-                lineStatus = false;
-                document.getElementById("buttonAddLine").innerHTML = "Add Line";
-                document.getElementById("buttonAddLine").style.backgroundColor = "";
-                document.getElementById("buttonAddLine").style.color = "";
+                disableLine();
             }
         }
 
@@ -788,13 +798,12 @@
                         <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
                     </li> --}}
                         @foreach ($inventory_alat as $item)
-                            {{-- <script>
+                            <script>
                                 totalWidth += 6;
-                                if (totalWidth > 64) {
-                                    document.getElementsByClassName("sidebar-nav").width = totalWidth + "vw";
-                                    console.log(document.getElementsByClassName("sidebar-nav").width);
+                                if (totalWidth > 73) {
+                                    $(".sidebar-nav").css("width", totalWidth + "vw");
                                 }
-                            </script> --}}
+                            </script>
                             @if ($item->stock_barang > 0)
                                 <li class="picture"
                                     style="background-color: white; color: black; display: flex; flex-direction: column"
@@ -814,13 +823,12 @@
                             {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
                             draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
                             <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}"> --}}
-                            {{-- <script>
+                            <script>
                                 totalWidth += 6;
-                                if (totalWidth > 64) {
-                                    document.getElementsByClassName("sidebar-nav").width = totalWidth + "vw";
-                                    console.log(document.getElementsByClassName("sidebar-nav").width);
+                                if (totalWidth > 73) {
+                                    $(".sidebar-nav").css("width", totalWidth + "vw");
                                 }
-                            </script> --}}
+                            </script>
                             @if ($item->stock_barang > 0)
                                 <li class="picture"
                                     style="background-color: white; color: black;"style="object-fit: contain;"
