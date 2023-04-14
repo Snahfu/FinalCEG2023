@@ -26,7 +26,7 @@
 
         #wrapper {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             margin-top: 1vh;
             height: 70vh;
         }
@@ -52,10 +52,11 @@
                 80px 80px,
                 80px 80px,
                 80px 80px;
+            margin-top: 1.5vh;
             margin-left: 5vw;
             margin-right: 0vw;
-            height: 69.5vh;
-            width: 50vw;
+            height: 80vh;
+            width: 64vw;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow-x: hidden;
@@ -64,8 +65,13 @@
         #buttonExport {
             width: 5vw;
             position: relative;
-            left: 75vw;
+            left: 64vw;
 
+        }
+
+        #buttonList {
+            position: relative;
+            top: 5vh;
         }
 
         #pageName {
@@ -92,16 +98,26 @@
             left: 1rem;
         }
 
-        .sidebar-nav {
-            z-index: 1000;
+        #sidebarWrapper {
+            z-index: 1;
             position: relative;
-            overflow-y: scroll;
+            overflow-x: auto;
+            overflow-y: hidden;
             background-color: #f2f2f2;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
-            padding-left: 0;
+            margin: 0;
+            left: 5vw;
             border-radius: 20px;
-            width: 9vw;
-            height: 70vh;
+            width: 64vw;
+            height: 8vw;
+        }
+
+        .sidebar-nav {
+            padding: 0;
+            margin: 0;
+            height: 5vw;
+            width: 1000vw;
+            max-width: 1000vw;
         }
 
         .draggable {
@@ -123,13 +139,13 @@
         }
 
         .picture {
-            position: relative;
+            float: left;
+            display: inline-block;
             object-fit: contain;
-            margin: 6%;
-            margin-left: auto;
-            margin-right: auto;
-            width: 7vw;
-            height: 7vw;
+            width: 5vw;
+            margin-left: 1vw;
+            margin-top: 1.3vw;
+            height: 5vw;
             border-radius: 20px;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
             overflow: hidden;
@@ -162,10 +178,12 @@
 
         .text {
             position: absolute;
+            margin: auto;
+            width: 90%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 20px;
+            font-size: 1.4vh;
             font-weight: bold;
         }
 
@@ -541,7 +559,7 @@
                 const parent = document.getElementById("parent");
                 img.setAttribute("id", data);
                 img.setAttribute("src", "/assets/items/" + data.replace(/ /g, "_") + ".png");
-                
+
                 fabric.Image.prototype.toObject = (function(toObject) {
                     return function() {
                         return fabric.util.object.extend(toObject.call(this), {
@@ -609,6 +627,7 @@
                 fill: '#000000',
                 scaleX: 0.4,
                 scaleY: 0.4,
+                fontFamily: 'Arial',
                 hasRotatingPoint: true
             });
             canvas.add(text);
@@ -701,7 +720,7 @@
                     'test': "test",
                 },
                 success: function(data) {
-                    if (param != "delete"){
+                    if (param != "delete") {
                         alert(data.msg)
                     }
                 },
@@ -725,52 +744,58 @@
                 </div>
             </div>
             <div class="container" id="wrapper">
-                <ul class="sidebar-nav" id="sidebar">
-                    {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
+                <div id="sidebarWrapper">
+                    <ul class="sidebar-nav" id="sidebar">
+                        {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;" draggable="true" ondragstart="drag(event, '{{$item->nama_barang}}')">
                         <img id="{{$item->nama_barang}}" src="{{ asset('assets/items/'.str_replace(" ", "_",$item->nama_barang).'.png') }}">
                     </li> --}}
-                    @foreach ($inventory_alat as $item)
-                        <li class="picture"
-                            style="background-color: white; color: black; display: flex; flex-direction: column"
-                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
-                            <img id="{{ $item->nama_barang }}"
-                                src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
-                            <div class='overlay'>
-                                <div class='text'>{{ $item->nama_barang }}
-                                </div>
-                        </li>
-                        @for ($count = 1; $count <= $item->stock_barang; $count++)
-                            <script>
-                                itemMap.set("{{ $item->nama_barang }}", {{ $count }});
-                            </script>
-                        @endfor
-                    @endforeach
-                    @foreach ($inventory_bahan as $item)
-                        {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
+                        @foreach ($inventory_alat as $item)
+                            <li class="picture"
+                                style="background-color: white; color: black; display: flex; flex-direction: column"
+                                draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                                <img id="{{ $item->nama_barang }}"
+                                    src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
+                                <div class='overlay'>
+                                    <div class='text'>{{ $item->nama_barang }}
+                                    </div>
+                            </li>
+                            @for ($count = 1; $count <= $item->stock_barang; $count++)
+                                <script>
+                                    itemMap.set("{{ $item->nama_barang }}", {{ $count }});
+                                </script>
+                            @endfor
+                        @endforeach
+                        @foreach ($inventory_bahan as $item)
+                            {{-- <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
                             draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
                             <img src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}"> --}}
-                        <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
-                            draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
-                            <img id="{{ $item->nama_barang }}"
-                                src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
-                        </li>
-                        @for ($count = 1; $count <= $item->stock_barang; $count++)
-                            <script>
-                                itemMap.set("{{ $item->nama_barang }}", {{ $count }});
-                            </script>
-                        @endfor
-                    @endforeach
-                </ul>
+                            <li class="picture" style="background-color: white; color: black;"style="object-fit: contain;"
+                                draggable="true" ondragstart="drag(event, '{{ $item->nama_barang }}')">
+                                <img id="{{ $item->nama_barang }}"
+                                    src="{{ asset('assets/items/' . str_replace(' ', '_', $item->nama_barang) . '.png') }}">
+                                <div class='overlay'>
+                                    <div class='text'>{{ $item->nama_barang }}
+                                </div>
+                            </li>
+                            @for ($count = 1; $count <= $item->stock_barang; $count++)
+                                <script>
+                                    itemMap.set("{{ $item->nama_barang }}", {{ $count }});
+                                </script>
+                            @endfor
+                        @endforeach
+                    </ul>
+                </div>
                 <canvas class="canvas-container" id="parent" ondrop="drop(event)" ondragover="allowDrop(event)"></canvas>
+                <div id="buttonList">
+                    <button id="buttonExport" onclick="exportPNG()">Export</button>
+                    <button id="buttonSave" onclick="saveJSON('save')">Save</button>
+                    <button id="buttonLoad" onclick="loadJSON()">Load</button>
+                    <button id="buttonAddTextBox" onclick="addTextBox()">Add Text Box</button>
+                    <button id="buttonAddArrow" onclick="addArrow()">Add Arrow</button>
+                    <button id="buttonAddLine" onclick="addLine()">Add Line</button>
+                    <button id="buttonDelImg" onclick="delImg()">Delete</button>
+                </div>
             </div>
         </div>
-        <button id="buttonExport" onclick="exportPNG()">Export</button>
-        <button id="buttonSave" onclick="saveJSON('save')">Save</button>
-        <button id="buttonLoad" onclick="loadJSON()">Load</button>
-        <button id="buttonAddTextBox" onclick="addTextBox()">Add Text Box</button>
-        <button id="buttonAddArrow" onclick="addArrow()">Add Arrow</button>
-        <button id="buttonAddLine" onclick="addLine()">Add Line</button>
-        <button id="buttonDelImg" onclick="delImg()">Delete</button>
-
     </main>
 @endsection
