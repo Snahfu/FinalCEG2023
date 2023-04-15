@@ -78,6 +78,9 @@
         .card-container .card-body {
             padding: 16px 12px 16px 12px;
         }
+        .card-img-top{
+            aspect-ratio: 4/3;
+        }
 
         .nomortb {
             text-align: center;
