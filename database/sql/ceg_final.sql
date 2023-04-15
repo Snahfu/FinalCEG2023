@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2023 at 10:08 AM
+-- Generation Time: Apr 15, 2023 at 04:59 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -127,13 +127,13 @@ CREATE TABLE `hints` (
 --
 
 INSERT INTO `hints` (`idhints`, `name`, `url_hint`) VALUES
-(1, 'Clue 1', 'https://i.ibb.co/47LVs1c/Clue-1.jpg'),
-(2, 'Clue 2', 'https://i.ibb.co/vYpp7Nj/Clue-2.jpg'),
-(3, 'Clue 3', 'https://i.ibb.co/gWFqTB5/Clue-3.jpg'),
-(4, 'Clue 4', 'https://i.ibb.co/xgjzYgK/Clue-4.jpg'),
-(5, 'Clue 5', 'https://i.ibb.co/f98pcjp/Clue-5.jpg'),
-(6, 'Clue 6', 'https://i.ibb.co/68DvGLz/Clue-6.jpg'),
-(7, 'Clue 7', 'https://i.ibb.co/PjMsSr2/Clue-7.jpg');
+(1, 'Pengecil Ukuran', 'https://i.ibb.co/Nn1cj9b/1-Pengecil-Ukuran.jpg'),
+(2, 'Pengangkut', 'https://i.ibb.co/hLtY4dj/2-Pengangkut.jpg'),
+(3, 'Pengepresan', 'https://i.ibb.co/QMXGM6k/3-Pengepressan.jpg'),
+(4, 'Pengeringan', 'https://i.ibb.co/Kjbd7j8/4-Pengeringan.jpg'),
+(5, 'Pencampuran 2', 'https://i.ibb.co/BrGwXd2/5-Pencampuran-2.jpg'),
+(6, 'Penyimpanan', 'https://i.ibb.co/1GbfZmj/6-Penyimpanan.jpg'),
+(7, 'Pencampuran 1', 'https://i.ibb.co/8YKP64X/7-Pencampuran-1.jpg');
 
 -- --------------------------------------------------------
 
@@ -560,9 +560,11 @@ INSERT INTO `teams` (`idteams`, `namaTeam`, `koin`) VALUES
 (8, 'User 8', '1500'),
 (9, 'User 9', '1500'),
 (10, 'User 10', '1500'),
-(11, 'User 23', '1000000'),
-(12, 'User 42', '1000000'),
-(13, 'User 52', '1000000');
+(11, 'User 37', '1000000'),
+(12, 'User 39', '1000000'),
+(13, 'User 45', '1000000'),
+(14, 'User 50', '1000000'),
+(15, 'User 94', '1000000');
 
 -- --------------------------------------------------------
 
@@ -607,19 +609,19 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (17, 'bonus1', 'bonus1@gmail.com', NULL, '$2y$10$eDuPK7f.SnZ9lRiAfnjueO9E7o3EiM9WKSslcM4GWa3mjfJbgDr7y', NULL, '2023-04-15 07:13:38', '2023-04-15 00:09:29', NULL, 'Bonus'),
 (18, 'bonus2', 'bonus2@gmail.com', NULL, '$2y$10$i5NSAydv1o4QNePyD50l7.uvZwKsE8Rqb7KsrBZG2T.8zN6X4.uYS', NULL, '2023-04-15 07:13:41', '2023-04-15 00:09:50', NULL, 'Bonus'),
 (19, 'consultant', 'consultant@gmail.com', NULL, '$2y$10$es0RHGcx/6MXLmk3uNjs8OTHSpFx8G5Mk4PfmSbnfUUDpQ8ksWViu', NULL, '2023-04-15 07:13:48', '2023-04-15 00:10:13', NULL, 'Consultant'),
-(20, 'dummytools', 'dummytools@gmail.com', NULL, '$2y$10$rQ5d80riRjHzOnlzgctB8eCrpaDRyMSeKNBbNlj2YnpyXU5e7iLve', NULL, '2023-04-15 07:59:34', '2023-04-15 00:47:26', NULL, NULL),
-(21, 'dummyingredient', 'dummyingredient@gmail.com', NULL, '$2y$10$8/NpH7c8qRDyjX6xEd.uqO.QnMehrJxOwkOwSWIjYvH1IfKIQHLd2', NULL, '2023-04-15 07:59:42', '2023-04-15 00:52:28', NULL, NULL),
-(22, 'dummybahan', 'dummystorebahan@gmail.com', NULL, '$2y$10$8DcJwGmRFcESDWt.uD16L.1AuKNELK6fUK8WXLFzuoZE1anVcwT..', NULL, '2023-04-15 07:59:47', '2023-04-15 00:54:30', NULL, NULL),
-(30, 'dummydowngrade', 'dummystoredowngrade@gmail.com', NULL, '$2y$10$QpuxjYckR0cleb6iOvbFseCVlidXD8dkd0gcXVWhVLatFezmYRoEO', NULL, '2023-04-15 07:59:52', '2023-04-15 00:56:51', NULL, NULL),
-(31, 'dummydnc', 'dummydnc@gmail.com', NULL, '$2y$10$6dbNVDPHjxl7LqCWuStWHu68bXFGEHu2PyU4nSc1gEdx8BjrmaeGy', NULL, '2023-04-15 07:59:55', '2023-04-15 00:58:37', NULL, NULL),
-(32, 'dummyhint', 'dummyhint@gmail.com', NULL, '$2y$10$P9VpgfLKKZQGpPVUq.BxPeqIDkXq3fnS5KyPAfc0tV8hJMS1XbxiO', NULL, '2023-04-15 07:59:59', '2023-04-15 00:58:57', NULL, NULL),
-(33, 'dummybonus', 'dummybonus@gmail.com', NULL, '$2y$10$x7vMgmebe5FnjPgArGfRk.ygUkS4oiFlp1CR/Mhn33vc2Ur63b6Zq', NULL, '2023-04-15 01:00:29', '2023-04-15 01:00:29', NULL, NULL),
-(34, 'dummyconsultant', 'dummyconsultant@gmail.com', NULL, '$2y$10$tDVGWyMhEcKQJXS8Qeju8eDIoe1zQsTHUyeiPaViWUmoKvMUaOGqK', NULL, '2023-04-15 01:01:49', '2023-04-15 01:01:49', NULL, NULL),
-(45, 'user37', 'user37@gmail.com', NULL, '$2y$10$1T56y.nwPog52kUjEHS0MezPbNbw5aQIdPnQM7LPP2g.Ajib60sQe', NULL, '2023-04-15 08:07:15', '2023-04-15 01:03:09', NULL, NULL),
-(46, 'user39', 'user39@gmail.com', NULL, '$2y$10$1z7LFg175AnZxYSw8hvT1.jr5oU6nVUG38z3eSrGyGn.vCj5imU62', NULL, '2023-04-15 08:07:15', '2023-04-15 01:03:55', NULL, NULL),
-(47, 'user45', 'user45@gmail.com', NULL, '$2y$10$7qX8R9QVtzK8tVmZ/Z4c3.35oUqPVfaAXn3XvrbRZmXZvi9JYqSmS', NULL, '2023-04-15 08:07:15', '2023-04-15 01:05:47', NULL, NULL),
-(48, 'user50', 'user50@gmail.com', NULL, '$2y$10$//kLQTAPnc2cAFI3co09X.wL9.hiobBiSBt.yAf3UUUs35wj22Ifu', NULL, '2023-04-15 08:07:15', '2023-04-15 01:06:06', NULL, NULL),
-(49, 'user94', 'user94@gmail.com', NULL, '$2y$10$IFIkacSwgy39gmR1lcHioejlCssWZos2NLNqdGB5kkQWnAejRYubC', NULL, '2023-04-15 08:07:15', '2023-04-15 01:06:25', NULL, NULL);
+(20, 'dummytools', 'dummytools@gmail.com', NULL, '$2y$10$rQ5d80riRjHzOnlzgctB8eCrpaDRyMSeKNBbNlj2YnpyXU5e7iLve', NULL, '2023-04-15 08:46:03', '2023-04-15 00:47:26', NULL, 'Tool'),
+(21, 'dummyingredient', 'dummyingredient@gmail.com', NULL, '$2y$10$8/NpH7c8qRDyjX6xEd.uqO.QnMehrJxOwkOwSWIjYvH1IfKIQHLd2', NULL, '2023-04-15 08:46:09', '2023-04-15 00:52:28', NULL, 'Ingredient'),
+(22, 'dummybahan', 'dummystorebahan@gmail.com', NULL, '$2y$10$8DcJwGmRFcESDWt.uD16L.1AuKNELK6fUK8WXLFzuoZE1anVcwT..', NULL, '2023-04-15 08:46:16', '2023-04-15 00:54:30', NULL, 'AdminBahan'),
+(30, 'dummydowngrade', 'dummystoredowngrade@gmail.com', NULL, '$2y$10$QpuxjYckR0cleb6iOvbFseCVlidXD8dkd0gcXVWhVLatFezmYRoEO', NULL, '2023-04-15 08:46:21', '2023-04-15 00:56:51', NULL, 'AdminDowngrade'),
+(31, 'dummydnc', 'dummydnc@gmail.com', NULL, '$2y$10$6dbNVDPHjxl7LqCWuStWHu68bXFGEHu2PyU4nSc1gEdx8BjrmaeGy', NULL, '2023-04-15 08:46:24', '2023-04-15 00:58:37', NULL, 'DnC'),
+(32, 'dummyhint', 'dummyhint@gmail.com', NULL, '$2y$10$P9VpgfLKKZQGpPVUq.BxPeqIDkXq3fnS5KyPAfc0tV8hJMS1XbxiO', NULL, '2023-04-15 08:46:28', '2023-04-15 00:58:57', NULL, 'AdminHint'),
+(33, 'dummybonus', 'dummybonus@gmail.com', NULL, '$2y$10$x7vMgmebe5FnjPgArGfRk.ygUkS4oiFlp1CR/Mhn33vc2Ur63b6Zq', NULL, '2023-04-15 08:46:33', '2023-04-15 01:00:29', NULL, 'Bonus'),
+(34, 'dummyconsultant', 'dummyconsultant@gmail.com', NULL, '$2y$10$tDVGWyMhEcKQJXS8Qeju8eDIoe1zQsTHUyeiPaViWUmoKvMUaOGqK', NULL, '2023-04-15 08:46:39', '2023-04-15 01:01:49', NULL, 'Consultant'),
+(45, 'user37', 'user37@gmail.com', NULL, '$2y$10$1T56y.nwPog52kUjEHS0MezPbNbw5aQIdPnQM7LPP2g.Ajib60sQe', NULL, '2023-04-15 08:48:10', '2023-04-15 01:03:09', 11, 'Player'),
+(46, 'user39', 'user39@gmail.com', NULL, '$2y$10$1z7LFg175AnZxYSw8hvT1.jr5oU6nVUG38z3eSrGyGn.vCj5imU62', NULL, '2023-04-15 08:48:12', '2023-04-15 01:03:55', 12, 'Player'),
+(47, 'user45', 'user45@gmail.com', NULL, '$2y$10$7qX8R9QVtzK8tVmZ/Z4c3.35oUqPVfaAXn3XvrbRZmXZvi9JYqSmS', NULL, '2023-04-15 08:48:15', '2023-04-15 01:05:47', 13, 'Player'),
+(48, 'user50', 'user50@gmail.com', NULL, '$2y$10$//kLQTAPnc2cAFI3co09X.wL9.hiobBiSBt.yAf3UUUs35wj22Ifu', NULL, '2023-04-15 14:59:04', '2023-04-15 01:06:06', 14, 'Player'),
+(49, 'user94', 'user94@gmail.com', NULL, '$2y$10$IFIkacSwgy39gmR1lcHioejlCssWZos2NLNqdGB5kkQWnAejRYubC', NULL, '2023-04-15 14:59:09', '2023-04-15 01:06:25', 15, 'Player');
 
 --
 -- Indexes for dumped tables
@@ -820,7 +822,7 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idteams` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
