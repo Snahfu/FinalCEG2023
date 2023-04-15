@@ -279,11 +279,11 @@
                 inst.canvas.off('mouse:up');
                 inst.canvas.off('object:moving');
 
-                console.log('unbind');
+                // console.log('unbind');
             };
 
             Arrow.prototype.bindEvents = function() {
-                console.log('bind');
+                // console.log('bind');
                 var inst = this;
 
                 inst.canvas.on('mouse:down', function(o) {
@@ -302,7 +302,7 @@
             };
 
             Arrow.prototype.onMouseUp = function(o) {
-                console.log("Mouse up");
+                // console.log("Mouse up");
                 var inst = this;
                 this.line.set({
                     dirty: true,
@@ -332,7 +332,7 @@
             Arrow.prototype.onMouseDown = function(o) {
                 var inst = this;
                 inst.enable();
-                console.log("Mouse down");
+                // console.log("Mouse down");
                 var pointer = inst.canvas.getPointer(o.e);
 
                 var points = [pointer.x, pointer.y, pointer.x, pointer.y];
@@ -349,7 +349,7 @@
                     // call 1 head arrow [1,0] || 2 head arrow [1,1]
                     heads: [1, 0]
                 });
-                console.log(this.line);
+                // console.log(this.line);
 
                 inst.canvas.add(this.line).setActiveObject(this.line);
             };
@@ -363,7 +363,7 @@
             }
 
             Arrow.prototype.disable = function() {
-                console.log("Disabled");
+                // console.log("Disabled");
                 this.isDrawing = false;
             }
 
@@ -444,16 +444,16 @@
                 inst.canvas.off('mouse:up');
                 inst.canvas.off('object:moving');
 
-                console.log('unbind');
+                // console.log('unbind');
             };
 
             Line.prototype.bindEvents = function() {
-                console.log('bind');
+                // console.log('bind');
                 var inst = this;
 
                 inst.canvas.on('mouse:down', function(o) {
                     inst.onMouseDown(o);
-                    console.log(o);
+                    // console.log(o);
                 });
                 inst.canvas.on('mouse:move', function(o) {
                     inst.onMouseMove(o);
@@ -467,7 +467,7 @@
             };
 
             Line.prototype.onMouseUp = function(o) {
-                console.log("Mouse up");
+                // console.log("Mouse up");
                 var inst = this;
                 this.line.set({
                     dirty: true,
@@ -497,7 +497,7 @@
             Line.prototype.onMouseDown = function(o) {
                 var inst = this;
                 inst.enable();
-                console.log("Mouse down");
+                // console.log("Mouse down");
                 var pointer = inst.canvas.getPointer(o.e);
 
                 var points = [pointer.x, pointer.y, pointer.x, pointer.y];
@@ -514,7 +514,7 @@
                     // call 1 head arrow [1,0] || 2 head arrow [1,1]
                     // heads: [1, 0]
                 });
-                console.log(this.line);
+                // console.log(this.line);
 
                 inst.canvas.add(this.line).setActiveObject(this.line);
             };
@@ -528,7 +528,7 @@
             }
 
             Line.prototype.disable = function() {
-                console.log("Disabled");
+                // console.log("Disabled");
                 this.isDrawing = false;
             }
 
@@ -539,7 +539,7 @@
         var line;
 
         $(document).ready(function() {
-            console.log(itemMap)
+            // console.log(itemMap)
 
             var parent = document.getElementById('parent');
             var width = parent.clientWidth;
@@ -582,14 +582,70 @@
                     fabricImg.scaleToHeight(50);
                     fabricImg.id = data;
                     canvas.add(fabricImg);
-                    console.log(itemMap)
+                    // console.log(itemMap)
                     itemMap.set(data, itemMap.get(data) - 1);
                     displayItems();
                     saveJSON("add");
+                    disableArrow();
+                    disableLine();
+                    canvas.on('object:moving', function(o) {
+                        if (o.target.type != "line" && o.target.type != "lineArrow") {
+                            var objectLeft = o.target.left;
+                            var objectTop = o.target.top;
+                            var objectWidth = o.target.width * o.target.scaleX;
+                            var objectHeight = o.target.height * o.target.scaleY;
+                            // console.log(o);
+                            if (objectLeft < 0) {
+                                o.target.left = 0;
+                                o.target.lockMovementX = true;
+                            }
+                            if (objectTop < 0) {
+                                o.target.top = 0;
+                                o.target.lockMovementY = true;
+                            }
+                            if (objectLeft > parent.clientWidth - objectWidth) {
+                                o.target.left = parent.clientWidth - objectWidth;
+                                o.target.lockMovementX = true;
+                            }
+                            if (objectTop > parent.clientHeight - objectHeight) {
+                                // console.log("passed bottom");
+                                o.target.top = parent.clientHeight - objectHeight;
+                                o.target.lockMovementY = true;
+                            }
+                        }
+                    });
                 };
             });
-            canvas.on('object:modified', function() {
+            canvas.on('object:modified', function(o) {
                 saveJSON("modify");
+                o.target.lockMovementY = false;
+                o.target.lockMovementX = false;
+            });
+            canvas.on('object:moving', function(o) {
+                if (o.target.type != "line" && o.target.type != "lineArrow") {
+                    var objectLeft = o.target.left;
+                    var objectTop = o.target.top;
+                    var objectWidth = o.target.width * o.target.scaleX;
+                    var objectHeight = o.target.height * o.target.scaleY;
+                    // console.log(o);
+                    if (objectLeft < 0) {
+                        o.target.left = 0;
+                        o.target.lockMovementX = true;
+                    }
+                    if (objectTop < 0) {
+                        o.target.top = 0;
+                        o.target.lockMovementY = true;
+                    }
+                    if (objectLeft > parent.clientWidth - objectWidth) {
+                        o.target.left = parent.clientWidth - objectWidth;
+                        o.target.lockMovementX = true;
+                    }
+                    if (objectTop > parent.clientHeight - objectHeight) {
+                        // console.log("passed bottom");
+                        o.target.top = parent.clientHeight - objectHeight;
+                        o.target.lockMovementY = true;
+                    }
+                }
             });
             loadJSON();
         });
@@ -608,10 +664,10 @@
                 activeObject = activeObjects[i];
                 if (activeObject) {
                     canvas.remove(activeObject);
-                    console.log(itemMap)
+                    // console.log(itemMap)
                     itemMap.set(activeObject.id, itemMap.get(activeObject.id) + 1);
-                    console.log(activeObject.id);
-                    console.log(itemMap)
+                    // console.log(activeObject.id);
+                    // console.log(itemMap)
                     displayItems();
                     saveJSON("delete")
                 }
@@ -682,6 +738,32 @@
                 hasRotatingPoint: true
             });
             canvas.add(text);
+            canvas.on('object:moving', function(o) {
+                if (o.target.type != "line" && o.target.type != "lineArrow") {
+                    var objectLeft = o.target.left;
+                    var objectTop = o.target.top;
+                    var objectWidth = o.target.width * o.target.scaleX;
+                    var objectHeight = o.target.height * o.target.scaleY;
+                    console.log(o);
+                    if (objectLeft < 0) {
+                        o.target.left = 0;
+                        o.target.lockMovementX = true;
+                    }
+                    if (objectTop < 0) {
+                        o.target.top = 0;
+                        o.target.lockMovementY = true;
+                    }
+                    if (objectLeft > parent.clientWidth - objectWidth) {
+                        o.target.left = parent.clientWidth - objectWidth;
+                        o.target.lockMovementX = true;
+                    }
+                    if (objectTop > parent.clientHeight - objectHeight) {
+                        console.log("passed bottom");
+                        o.target.top = parent.clientHeight - objectHeight;
+                        o.target.lockMovementY = true;
+                    }
+                }
+            });
             saveJSON("add");
         }
 
@@ -757,7 +839,7 @@
                 }
             }
 
-            console.log(arrItemNow)
+            // console.log(arrItemNow)
 
             $.ajax({
                 type: "POST",
@@ -780,7 +862,7 @@
 
         function loadJSON() {
             var JSONStr = localStorage.getItem("JSON");
-            console.log(JSONStr);
+            // console.log(JSONStr);
             canvas.loadFromJSON(JSONStr);
         }
     </script>
