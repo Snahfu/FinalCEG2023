@@ -19,6 +19,8 @@ class IngredientsController extends Controller
 
     public function addIngredients(Request $request)
     {
+        $pos = Auth::user();
+        
         $idteams = $request['idteams'];
         $nama_bahan = $request['nama_bahan'];
         $jumlahAdd = $request["jumlahAdd"];
@@ -49,6 +51,13 @@ class IngredientsController extends Controller
             "tipe" => "addIngredient",
             "teams_idteams" => $idteams
         ]);
+
+        // tambah status sudah main di pos ini
+        DB::table("done_playing")
+            ->insert([
+                "pos" => $pos->name,
+                "teams_idteams" => $idteams,
+            ]);
 
         return response()->json(["status" => "success", "msg" => $details]);
     }
