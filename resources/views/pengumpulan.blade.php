@@ -608,7 +608,6 @@
                                 o.target.lockMovementX = true;
                             }
                             if (objectTop > parent.clientHeight - objectHeight) {
-                                // console.log("passed bottom");
                                 o.target.top = parent.clientHeight - objectHeight;
                                 o.target.lockMovementY = true;
                             }
