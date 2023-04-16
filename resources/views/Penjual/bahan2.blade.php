@@ -85,6 +85,19 @@
         .nomortb {
             text-align: center;
         }
+
+        @media screen and (max-width:992px){
+            .card-container{
+                grid-template-columns: auto auto auto auto;
+            }
+        }
+
+        @media screen and (max-width:576px){
+            .card-container{
+                grid-template-columns: auto auto;
+            }
+        }
+
     </style>
 @endsection
 
@@ -140,7 +153,7 @@
                     </div>
                 </div>
                 {{-- Sisi pembelian --}}
-                <div class="col-lg-4 col-12">
+                <div class="col-lg-4 col-12 my-2 my-lg-0">
                     <div class="card cardMain">
                         <div class="card-body">
                             <div class="row my-2">

@@ -88,6 +88,12 @@
             text-align: center;
         }
 
+        @media screen and (max-width:992px){
+            .card-container{
+                grid-template-columns: auto auto auto auto;
+            }
+        }
+
         @media screen and (max-width:576px){
             .card-container{
                 grid-template-columns: auto auto;
@@ -117,7 +123,7 @@
                             <div class="inline-spacing">
                                 <div id="itemsForSale" class="card-container">
                                     @foreach ($market_downgrade as $downgrade)
-                                        <div class="card col-2 p-0 cardItems">
+                                        <div class="card  p-0 cardItems">
                                             {{-- <img src="{{ asset('assets/tools/knife.png') }}" class="card-img-top"
                                                 alt="..."> --}}
                                             <img src="{{ asset('assets/tools/'.$downgrade->downgrade.'.png') }}" class="card-img-top"
@@ -150,7 +156,7 @@
                     </div>
                 </div>
                 {{-- Sisi pembelian --}}
-                <div class="col-lg-4 col-12">
+                <div class="col-lg-4 col-12 my-2 my-lg-0">
                     <div class="card cardMain">
                         <div class="card-body">
                             <div class="row my-2">
