@@ -40,7 +40,7 @@
                                             <?php $helper = false; ?>
                                             <tr>
                                                 <td style="text-align: center;" scope="row"><?php echo $no; ?></td>
-                                                <td scope="row" style="text-align: center;">{{ $team->namaTeam }}</td>
+                                                <td scope="row" style="text-align: center;">{{ $team }}</td>
                                                 <?php $helper = true; ?>
                                             </tr>
                                             <?php $no++; ?>
