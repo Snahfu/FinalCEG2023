@@ -66,7 +66,7 @@ class PengumpulanController extends Controller
         $data = [];
 
         $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:ppt,pptx'
+            'file' => 'required|mimes:ppt,pptx,png'
         ]);
 
         if ($validator->fails()) {

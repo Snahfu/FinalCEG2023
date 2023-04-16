@@ -4,13 +4,16 @@
     <!-- Styles -->
     <link href="{{ asset('css/pos/template.css') }}" rel="stylesheet">
     <style>
+        .gif{
+
+        }
         .gifCont {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 10px;
             transition: all 0.1s ease-in-out;
-            background-image: url({{ asset('assets/hiburan/wednesdaymorning.gif') }});
+            background-image: url({{ asset('assets/hiburan/pentol-roll.gif') }});
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
@@ -18,7 +21,7 @@
 
         .gifCont:hover {
             transition: all 0.1s ease-in-out;
-            background-image: url({{ asset('assets/hiburan/melastnight.gif') }});
+            background-image: url({{ asset('assets/hiburan/shark-type.gif') }});
         }
     </style>
 @endsection
@@ -47,8 +50,8 @@
                                     <input class="form-control" id="jumlahKoin" type="number" inputmode="numeric"
                                         name="koin" id="koin" min="0" placeholder="0">
                                 </div>
-                                <div class="d-flex align-items-center">
-                                    <button id="btnAddKoin" class="btn btn-primary" style="margin-left:10px">Add</button>
+                                <div class="d-flex align-items-center my-2">
+                                    <button id="btnAddKoin" class="btn btn-success" style="margin-left:10px">Add</button>
                                     <a href="{{ route('koinHistory', ['jenispos' => 'posbonus']) }}">
                                         <input type="button" id="btnHistory" class="btn btn-primary"
                                             style="margin-left:10px" value="History">

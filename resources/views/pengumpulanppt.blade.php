@@ -1,12 +1,30 @@
 @extends('layouts.app')
 
 @section('css')
+
+<style>
+.pengumpulan-ppt{
+    height: 90vh;
+}
+.card{
+    background-color:rgba(255,255,255,0.95);
+    border: 0px;
+}
+</style>
+
 @endsection
 
 @section('content')
     <main>
-        <div>
-            <form action="{{ route('uploadppt') }}" class="dropzone"></form>
+        <div class="container pengumpulan-ppt">
+            <div class="card">
+                <div class="card-body">
+                    <p>Silahkan melakukan pengumpulan file pada form berikut:</p>
+                    <form action="{{ route('uploadppt') }}" class="dropzone"></form>
+                    <sub>Format file yang diterima: .ppt, .pptx</sub>
+                </div>
+            </div>
+            
         </div>
     </main>
 
@@ -15,7 +33,7 @@
 
         Dropzone.autoDiscover = false;
         let myDropzone = new Dropzone(".dropzone", {
-            acceptedFiles: ".ppt,.pptx"
+            acceptedFiles: ".ppt,.pptx,.png"
         })
 
         myDropzone.on("sending", function(file, xhr, formData) {

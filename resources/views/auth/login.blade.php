@@ -90,11 +90,11 @@
                                                 
                                                     <div class="d-flex justify-content-between">
                                                         <label for="password" class="form-label">{{ __('Password') }}</label>
-                                                        @if (Route::has('password.request'))
+                                                        <!-- @if (Route::has('password.request'))
                                                             <a href="{{ route('password.request') }}"  style="font-size:12px;">
                                                                 {{ __('Forgot Password?') }}
                                                             </a>
-                                                        @endif
+                                                        @endif -->
                                                     </div>
                                                     <input id="password" type="password"
                                                         class="form-control @error('password') is-invalid @enderror" name="password"

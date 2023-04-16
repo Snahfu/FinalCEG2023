@@ -93,13 +93,18 @@ class DashboardController extends Controller
 
     public function done_playing()
     {
-        $teams = DB::table("teams")
-            ->whereIn(
-                "idteams",
-                function ($query) {
-                    $query->select("teams_idteams")->from("done_playing");
-                }
-            )->distinct()->get();
+        $teams = [];
+        $user = Auth::user();
+
+        $done_playing = DB::table('done_playing')
+            ->select('teams_idteams')
+            ->distinct()
+            ->where('pos', $user->name)
+            ->get();
+        foreach ($done_playing as $dp) {
+            $tempteams = DB::table('teams')->where('idteams', $dp->teams_idteams)->distinct()->get();
+            array_push($teams, $tempteams[0]->namaTeam);
+        }
 
         return view("done_playing", compact("teams"));
     }

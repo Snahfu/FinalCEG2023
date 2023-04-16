@@ -11,7 +11,7 @@
             justify-content: center;
             margin: 10px;
             transition: all 0.1s ease-in-out;
-            background-image: url({{ asset('assets/hiburan/sabtu.gif') }});
+            background-image: url({{ asset('assets/hiburan/pentol-roll.gif') }});
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
@@ -21,7 +21,7 @@
 
         .gifCont:hover {
             transition: all 0.1s ease-in-out;
-            background-image: url({{ asset('assets/hiburan/melastnight.gif') }});
+            background-image: url({{ asset('assets/hiburan/shark-type.gif') }});
         }
     </style>
 @endsection
