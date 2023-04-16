@@ -64,15 +64,14 @@ class HintController extends Controller
 
     public function playerHint()
     {
-        $team = Auth::user();
-
-        $idTeam = DB::table('teams')->where("namaTeam", $team->name)->value("idteams");
+        $user = Auth::user();
 
         //Hint yang dimiliki oleh tim tersebut
         $hints = DB::table("hints as h")
-            ->join('history_hints as hh', 'h.idhints', '=', 'hh.hints_idhints')
-            ->join('teams as t', 't.idteams', '=', 'hh.teams_idteams')
-            ->where('t.idteams', '=', $idTeam)->get();
+            ->join('history_hints as hh', 'h.idhints', 'hh.hints_idhints')
+            ->join('teams as t', 't.idteams', 'hh.teams_idteams')
+            ->where('t.idteams', $user->teams_idteams)
+            ->get();
 
         return view("HintsDashboard.playerHint", compact("hints"));
     }
