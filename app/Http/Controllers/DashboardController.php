@@ -82,10 +82,11 @@ class DashboardController extends Controller
     public function listHargaDashboard()
     {
         $user = Auth::user();
-        $bahan = DB::table("market_bahan")->get();
-        $team = DB::table("teams")->where("idteams", "=", $user->teams_idteams)->get();
+        $sesi = DB::table('sesi')->get();
+        $bahan = DB::table("market_bahan")->where("tipe", $sesi[0]->tipe)->get();
+        $team = DB::table("teams")->where("idteams", $user->teams_idteams)->get();
         $downgrade = DB::table("market_downgrade")->get();
-        $inventory = DB::table("inventory")->where("teams_idteams", "=", $user->teams_idteams)->get();
+        $inventory = DB::table("inventory")->where("teams_idteams", $user->teams_idteams)->get();
 
 
         return view("ListHarga.listHarga", compact("bahan", "downgrade", "team", "inventory"));
