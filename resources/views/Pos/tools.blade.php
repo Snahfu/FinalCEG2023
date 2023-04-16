@@ -31,7 +31,7 @@
         <div class="container tool">
 
             <div>
-                <h2>{{ $pos->name }}</h2>
+                <h2 style="font-weight: bold">{{ $pos->name }}</h2>
             </div>
 
             <div class="card">
