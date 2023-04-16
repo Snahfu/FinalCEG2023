@@ -15,7 +15,7 @@ class TinkererController extends Controller
 
         $downgrade = [
             "Motor", "Pipe", "Tube", "Blade", "Gear", "Gauge", "Piston", "Cylinder", "Frame", "Screw",
-            "Glass", "Katup", "Column", "Condensor", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
+            "Glass", "Katup", "Column", "Condenser", "Reboiler", "Klem", "Selang", "Drum", "Cover", "Nozzle",
             "Stirrer", "Bowl", "Beater", "Handle", "Tray Plate", "Fan Heater", "Roller", "Chamber", "Exhaust System",
             "Tower Cap", "Blower", "Cyclone", "Impeller", "Skirtboard", "Bucket", "Inlet", "Board", "Hinge",
             "Cooler", "Termometer", "Vent"
