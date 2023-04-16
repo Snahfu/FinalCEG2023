@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <p>Silahkan melakukan pengumpulan file pada form berikut:</p>
                     <form action="{{ route('uploadppt') }}" class="dropzone"></form>
-                    <sub>Format file yang diterima: .ppt, .pptx</sub>
+                    <sub>Format file yang diterima: .ppt, .pptx, .png</sub>
                 </div>
             </div>
             
